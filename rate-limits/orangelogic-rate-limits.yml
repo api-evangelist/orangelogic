@@ -1,0 +1,69 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Orange Logic
+providerId: orangelogic
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Digital Asset Management
+- DAM
+- Enterprise
+- Rate Limiting
+- Quotas
+description: >-
+  Orange Logic does not publish fixed numeric per-minute or per-account rate
+  limits for the OrangeDAM API. Because the API runs against each customer's own
+  per-instance deployment, throughput is governed by that instance's provisioned
+  capacity and by documented token lifetimes rather than by a shared public
+  gateway quota. OAuth access tokens are valid for 24 hours and refresh tokens for
+  30 days; a token is valid only for the single server it was issued against.
+  Large uploads have a documented handling threshold (files over ~1.5GB use a
+  dedicated large-file path), and the Search API paginates results (default 100 per
+  page).
+notes: >-
+  Numeric per-account or per-endpoint request-rate limits are not documented as of
+  the review date. Verify any instance-specific throttling and quota terms with
+  Orange Logic. Field values in requests have a documented maximum length of 2048
+  characters.
+sources:
+- https://developer.orangelogic.com/reference/about
+- https://developer.orangelogic.com/reference/oauth-2-token
+- https://developer.orangelogic.com/reference/search-api
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: instance
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented; governed by per-instance capacity.
+- name: OAuth Access Token Lifetime
+  scope: token
+  metric: seconds
+  limit: 86400
+  notes: Access tokens are valid for 24 hours and are scoped to a single server.
+- name: OAuth Refresh Token Lifetime
+  scope: token
+  metric: seconds
+  limit: 2592000
+  notes: Refresh tokens are valid for 30 days; inactivity beyond this requires re-authorization.
+- name: Search Results Per Page
+  scope: request
+  metric: records
+  limit: 100
+  notes: Default countperpage is 100; use pagenumber to paginate.
+- name: Large File Upload Threshold
+  scope: request
+  metric: bytes
+  limit: 1610612736
+  notes: Files over roughly 1.5GB use a dedicated large-file upload path.
+policies:
+- name: Per-Server Token Validity
+  description: An authentication token is valid only for the single Orange Logic server it was issued against.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

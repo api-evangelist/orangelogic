@@ -1,0 +1,104 @@
+aid: orangelogic
+name: Orange Logic
+review:
+  question: Does Orange Logic expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. Orange Logic's documented API surface
+    (OrangeDAM, formerly Cortex) is request/response REST over HTTPS - both the
+    newer /webapi/ endpoint family and the legacy /api/ family. Its event
+    mechanism is outbound webhooks (server-to-endpoint HTTP callbacks fired when
+    assets are created, edited, or deleted), which is not a server-push socket
+    transport modeled by AsyncAPI in this catalog's current scope. There is no
+    documented WebSocket or SSE stream on Orange Logic's own API to model.
+findings:
+  summary: |
+    Orange Logic does not publish a documented public WebSocket API. OrangeDAM
+    (formerly branded Cortex) exposes a REST API documented publicly at
+    developer.orangelogic.com. The API is per-instance and customer-gated: every
+    call targets your own organization's Orange Logic host, so base URLs are
+    written as the placeholder https://{OrangeLogicURL}/webapi (newer family) or
+    https://{OrangeLogicURL}/API (legacy family). Authentication supports OAuth
+    2.0 (client id/secret), non-expiring bearer tokens, and basic username/password;
+    OAuth access tokens are valid 24 hours and refresh tokens 30 days. Responses
+    are JSON or XML. Real-time change notification is delivered by outbound
+    webhooks, not by a WebSocket. No ws:// or wss:// endpoint is documented
+    anywhere in the Orange Logic developer portal as of the review date.
+  accessModel: |
+    The reference documentation is public, but the API itself is gated behind an
+    OrangeDAM instance. You cannot call it without a provisioned Orange Logic
+    tenant and credentials. Pricing is enterprise contact-sales only (no free
+    tier, no public self-serve signup); third-party estimates start around
+    $5,000/month or $60,000+/year but are unverified. Because endpoints are
+    per-instance, most endpoint identifiers vary by deployment and version.
+  endpointsModeled: true
+  endpointsModeledNote: |
+    Where the public reference publishes concrete paths, they are reproduced
+    (Authentication token, client-credentials auth, Search, DataTable pattern).
+    All other logical APIs (Assets/Media upload, Metadata, Users/Contacts,
+    Webhooks) are honestly modeled from the public documentation - the surface is
+    real and documented, but exact per-instance endpoint identifiers are not
+    fabricated here.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{OrangeLogicURL}/webapi
+      documented: true
+      note: Newer /webapi/ endpoint family; each endpoint ends in a unique identifier and version (e.g. token_48I_v1). Recommended by Orange Logic.
+    - protocol: REST
+      scheme: https
+      baseURL: https://{OrangeLogicURL}/API
+      documented: true
+      note: Legacy /api/ endpoint family with a version number in the path (e.g. /API/search/v4.0/search, /API/DataTable/V2.2). Still supported.
+    - protocol: Webhook
+      scheme: https
+      documented: true
+      note: Outbound HTTP callbacks fired on asset create/edit/delete to a configured third-party endpoint. Server-to-endpoint HTTP, not WebSocket.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Orange Logic developer portal as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://{OrangeLogicURL}/webapi/security/oauth2/token_48I_v1
+    - POST   https://{OrangeLogicURL}/webapi/security/clientcredentialsauthentication/authenticate_46H_v1
+    - GET    https://{OrangeLogicURL}/API/search/v4.0/search
+    - POST   https://{OrangeLogicURL}/API/search/v4.0/search
+    - POST   https://{OrangeLogicURL}/API/DataTable/V2.2/Documents.{asset-type}.{asset-subtype}:Read
+sources:
+  - url: https://developer.orangelogic.com/reference/about
+    type: Documentation
+    note: Overview of the API, /webapi vs /api endpoint families, JSON/XML responses, logical domains (assets, metadata, search, users, folders, webhooks). No WebSocket mentioned.
+  - url: https://developer.orangelogic.com/reference/authentication
+    type: Documentation
+    note: OAuth 2.0, bearer token, and basic auth methods; instance-scoped tokens.
+  - url: https://developer.orangelogic.com/reference/authentication-endpoints
+    type: APIReference
+    note: Authenticate, get bearer token, set activation, user login endpoints.
+  - url: https://developer.orangelogic.com/reference/oauth-2-token
+    type: APIReference
+    note: POST /webapi/security/oauth2/token_48I_v1; 24h access token, 30d refresh token; authorization_code and refresh_token grants.
+  - url: https://developer.orangelogic.com/reference/search-api
+    type: APIReference
+    note: GET/POST /API/search/v4.0/search with query, fields, format, pagination, sort, semanticquery parameters.
+  - url: https://developer.orangelogic.com/reference/datatable-apis
+    type: APIReference
+    note: Generic CREATE/READ/UPDATE/DELETE over database objects; /API/DataTable/V2.2 path pattern.
+  - url: https://www.orangelogic.com/rest-api-in-digital-asset-management
+    type: Documentation
+    note: Marketing/overview of REST API in the DAM; CRUD over standard auth, JSON or XML.
+  - url: https://www.g2.com/products/orange-logic-orange-dam/pricing
+    type: Pricing
+    note: Enterprise contact-sales pricing; no public self-serve tier. Third-party estimates only.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. Orange Logic's own public API is
+    request/response REST (two endpoint families) plus outbound webhooks for
+    events. No AsyncAPI document was created because there is no server-push
+    socket transport on Orange Logic's API to model. The apis.yml documents the
+    logical REST APIs with per-instance base URLs and marks non-confirmed
+    endpoints as modeled rather than fabricating exact per-instance paths.

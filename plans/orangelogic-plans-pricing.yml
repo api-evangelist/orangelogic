@@ -1,0 +1,59 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Orange Logic
+providerId: orangelogic
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Digital Asset Management
+- DAM
+- Enterprise
+- Plans
+description: >-
+  Orange Logic (OrangeDAM) is sold as an enterprise platform with custom,
+  contact-sales pricing. There is no free tier and no public self-serve signup;
+  the API is included with a provisioned OrangeDAM instance rather than sold as a
+  standalone metered API product. Deployments are quoted per organization based on
+  users, storage, asset volume, modules, and support level. Third-party listings
+  estimate starting costs around $5,000/month or $60,000+/year, but Orange Logic
+  publishes no public rates and these figures are unverified.
+notes: >-
+  The API itself carries no separate published per-call fee - it is a capability of
+  the licensed OrangeDAM instance. Verify current terms directly with Orange Logic
+  sales. An AWS Marketplace private-offer path exists (aws.marketplace@orangelogic.com).
+sources:
+- https://www.orangelogic.com/
+- https://www.g2.com/products/orange-logic-orange-dam/pricing
+- https://www.getapp.com/marketing-software/a/orangelogic-cortex/pricing/
+- https://aws.amazon.com/marketplace/pp/prodview-a3fpuor4lyhas
+plans:
+- id: orangelogic-enterprise
+  name: Enterprise (Custom)
+  type: enterprise
+  description: >-
+    Custom enterprise DAM/MAM license covering the OrangeDAM platform and its REST
+    API, quoted per organization based on users, storage, asset volume, AI and
+    module selection, and support/SLA level. Contact Orange Logic sales for a quote.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Full OrangeDAM Platform
+  - name: REST API Access
+  - name: Webhooks
+  - name: Custom Volume and User Pricing
+  - name: SLAs and Support
+  - name: Dedicated Per-Instance Deployment
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

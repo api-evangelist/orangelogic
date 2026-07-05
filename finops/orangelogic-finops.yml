@@ -1,0 +1,96 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Orange Logic
+providerId: orangelogic
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Digital Asset Management
+- DAM
+- Enterprise
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Orange Logic (OrangeDAM) spend. Orange Logic is an enterprise
+  platform licensed under a custom, contact-sales agreement rather than a metered
+  pay-per-call API. The dominant cost is the annual platform license, typically
+  scoped by users, storage, asset volume, modules (AI, transcription, integrations),
+  and support/SLA level. The REST API is a capability of the licensed instance and
+  carries no separate published per-call charge. Because the deployment is
+  per-instance, associated infrastructure (storage, CDN/egress for content delivery)
+  can also factor into total cost of ownership.
+notes: >-
+  Per-organization rates are not public and are not reconciled here; obtain a quote
+  from Orange Logic sales. An AWS Marketplace private-offer path exists, which can
+  route spend through an existing AWS billing relationship.
+sources:
+- https://www.orangelogic.com/
+- https://www.g2.com/products/orange-logic-orange-dam/pricing
+- https://aws.amazon.com/marketplace/pp/prodview-a3fpuor4lyhas
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Orange Logic
+serviceCategory: Digital Asset Management
+billingModel:
+  pricingCategory: Committed
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: OrangeDAM
+  ServiceCategory: Digital Asset Management
+  ProviderName: Orange Logic
+  PublisherName: Orange Logic
+  InvoiceIssuerName: Orange Logic
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Committed
+meters:
+- name: platform_license
+  description: Annual OrangeDAM platform license, the primary committed cost. Scoped per organization.
+  unit: contract
+  aggregation: sum
+  dimensions:
+  - organization
+  - term
+- name: storage
+  description: Managed asset storage consumed by the DAM, where metered by the deployment.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - organization
+- name: content_delivery
+  description: CDN / egress for public links and presigned content delivery, where applicable.
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - organization
+- name: users
+  description: Licensed user seats, a common enterprise pricing dimension.
+  unit: seats
+  aggregation: max
+  dimensions:
+  - organization
+principles:
+- name: Visibility
+  description: Track the annual license alongside instance storage and content-delivery/egress; the API adds no separate metered line.
+- name: Allocation
+  description: Attribute the OrangeDAM license and storage to the business units and archives that use the DAM.
+- name: Optimization
+  description: Right-size storage tiers, prune stale assets, and manage CDN/egress on content delivery; align module and seat counts to actual use at renewal.
+- name: Accountability
+  description: Assign a DAM owner to review the annual agreement, seat counts, and storage against budget before each renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
