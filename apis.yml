@@ -156,6 +156,10 @@ apis:
     HTTP callback surface, not a persistent socket connection. Webhook management
     endpoint identifiers are per-instance and modeled from the public documentation.
 common:
+- type: TrustCenter
+  url: security/orangelogic-trust-center.yml
+- type: DomainSecurity
+  url: security/orangelogic-domain-security.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/orange-logic
 - type: Website

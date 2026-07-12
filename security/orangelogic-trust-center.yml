@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: searched
+probe: true
+source: https://www.orangelogic.com/security
+url: https://www.orangelogic.com/security
+certifications:
+- HIPAA
+- GDPR
+evidence:
+- source: https://www.orangelogic.com/security
+  keywords:
+  - hipaa
+  - gdpr
