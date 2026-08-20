@@ -43,6 +43,9 @@ apis:
   name: Orange Logic Authentication API
   tags:
   - Authentication
+  - Security
+  tags_raw:
+  - Authentication
   - OAuth
   - Security
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
@@ -138,6 +141,10 @@ apis:
 - aid: orangelogic:orangelogic-users-contacts-api
   name: Orange Logic Users and Contacts API
   tags:
+  - User
+  - Contacts
+  - Permissions
+  tags_raw:
   - Users
   - Contacts
   - Permissions
@@ -154,6 +161,10 @@ apis:
 - aid: orangelogic:orangelogic-webhooks-api
   name: Orange Logic Webhooks API
   tags:
+  - Webhook
+  - Event
+  - Integration
+  tags_raw:
   - Webhooks
   - Events
   - Integration
