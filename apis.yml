@@ -14,6 +14,17 @@ description: Orange Logic builds OrangeDAM (formerly branded Cortex), an enterpr
   token_48I_v1) and the legacy /api/ endpoints (with a version number in the path);
   Orange Logic recommends the /webapi/ family. Responses are JSON or XML. Pricing is
   enterprise contact-sales only.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: enterprise
   onboarding: unknown
