@@ -40,6 +40,13 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/orangelogic.png
 tags:
 - Digital Asset Management
+- Media Asset Management
+- MAM
+- Enterprise
+- Metadata
+- Archive
+tags_raw:
+- Digital Asset Management
 - DAM
 - Media Asset Management
 - MAM
