@@ -1,0 +1,29 @@
+# Front Door AI Index — orangelogic — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: orangelogic
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: www.orangelogic.com
+  final_host: www.orangelogic.com
+  ownership: own
+  owner: orangelogic
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 20
+  host_score: 20
+  density: 18.69
+  words: 1070
+  tiers:
+    agentic: 9
+    core: 11
+    model: 0
+  ambiguous: 4
+  top_terms:
+    AI: 11
+    agentic: 7
+    agent: 3
+    AI agent: 2
+    intelligence: 1
