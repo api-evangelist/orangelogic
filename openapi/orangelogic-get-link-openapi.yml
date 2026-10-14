@@ -1,0 +1,486 @@
+openapi: 3.1.0
+info:
+  title: get-link
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/share
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /batchupsertassetlinkswithcustomroute_41FD_v2:
+    get:
+      summary: Batch create or update public embed links
+      description: Create or update up to 10,000 custom public embed links at once
+      operationId: batch-create-or-update-public-embed-links
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                records:
+                  type: array
+                  description: Include one object for each custom embed link URL you want to create. The maximum number you can create simultaneously is 10,000.
+                  items:
+                    properties:
+                      title:
+                        type: string
+                        description: The name of the link in the “Embed links” extension. If empty, the link will not appear in the extension.
+                      customRoute:
+                        type: string
+                        description: '<strong>To create a new link</strong>: Include the relative path of the URL you want to create.  </br> <strong>To update a link’s path</strong>: Include the existing relative path. This path will be updated based on the parameters included in your request.  </br> <strong>Notes</strong>:  <ul> <li>If the URL contains a query string, the query string will be ignored.</li> <li>The link to each asset format must be unique.</li> </ul>'
+                      assetID:
+                        type: string
+                        description: The asset this link goes to. This can be the asset’s unique ID, unencrypted record ID, or encrypted record ID.
+                      format:
+                        type: string
+                        description: The ID of the format you are creating the link to. For example, this could be a standard proxy such as TR1 or TR4. Alternatively, it could be a custom format your organization uses, such as “Instagram.”
+                      fileExtension:
+                        type: string
+                        description: The filename extension.
+                      transformations:
+                        type: array
+                        description: The transformations applied to the format, using transformation URL syntax with a comma separator between each transformation.
+                        default: []
+                        items:
+                          type: string
+                      stickToCurrentVersion:
+                        type: boolean
+                        description: '<strong>True</strong>: This link always goes to the current version of the asset. </br><strong>False</strong>: This link always goes to the latest version of the asset.'
+                      trackingParameters:
+                        type: object
+                        description: Optional UTM tracking parameters that provide metrics about the link, but do not change its behavior.
+                        properties:
+                          name:
+                            type: string
+                            description: The UTM name, such as utm_source or utm_campaign.
+                          value:
+                            type: string
+                            description: The UTM value, such as Instagram.
+                      expirationDate:
+                        type: string
+                        description: The <a href="https://developer.orangelogic.com/reference/date-and-time" target="_blank">date and time</a>. If no date is specified, the link is permanent.
+                        format: date
+                      ? ''
+                      : type: string
+                    type: object
+                executionOptions:
+                  type: object
+                  description: The manner in which the links are created.
+                  properties:
+                    executeAsynchronously:
+                      type: boolean
+                      description: '<strong>True</strong>: This job is queued and the response returns the jobRecordID. Use the jobRecordID with the Custom Route Job Status API to check the job status or obtain the custom routes.  </br> <strong>False</strong>: This job is executed immediately and the custom URLs are included in the response.  </br> When you’re updating many links simultaneously, we recommend asynchronous execution.'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Asynchronous (200):
+                  value: "{}{\n  \"isRunning\": true,\n  \"jobRecordID\": \"2Z9XPH3T3T3\",\n  \"results\": null,\n  \"errors\": null\n}\n"
+                Synchronous:
+                  value: "{\n  \"isRunning\": false,\n  \"jobRecordID\": null,\n  \"results\": [\n    {\n      \"assetID\": \"2Z9XC5NGEFS\",\n      \"format\": \"TR1\",\n      \"expirationDate\": \"2026-07-25T12:55:05.943Z\",\n      \"link\": \"https://mango-cdn.orangelogic.com/public/nice-coastline-tr1.auto\"\n    }\n  ],\n  \"errors\": []\n}\n"
+              schema:
+                type: object
+                properties:
+                  isRunning:
+                    type: boolean
+                    example: false
+                    default: true
+                  jobRecordID: {}
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assetID:
+                          type: string
+                          example: 2Z9XC5NGEFS
+                        format:
+                          type: string
+                          example: TR1
+                        expirationDate:
+                          type: string
+                          example: '2026-07-25T12:55:05.943Z'
+                        link:
+                          type: string
+                          example: https://mango-cdn.orangelogic.com/public/nice-coastline-tr1.auto
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+      deprecated: false
+  /createsharelink_41M9_V1:
+    post:
+      summary: Generate a public Share link
+      description: Generate a link to share one or more assets
+      operationId: generate-a-public-share-link
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - assetIDs
+              - expirationDate
+              properties:
+                title:
+                  type: string
+                  description: The name of the share. For example, “Spring collection photoshoot.”
+                description:
+                  type: string
+                  description: A description of the share. For example, “Photos and video for review.”
+                assetIDs:
+                  type: array
+                  description: The unique <a href="https://developer.orangelogic.com/reference/assets#record-id">IDs</a> of the assets included in the share.
+                  items:
+                    type: string
+                expirationDate:
+                  type: string
+                  description: The expiration date of the share, entered as a <a href="https://developer.orangelogic.com/reference/date-and-time">yyyy-mm-ddThh:mm:ss string</a>.
+                imageFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#formats">format</a> used for all image assets included in the share. You can specify only one image format for a share.
+                audioFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#formats">format</a> used for all audio assets included in the share. You can specify only one audio format for a share.
+                videoFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#formats">format</a> used for all video assets included in the share. You can specify only one video format for a share.
+                containerFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/generate-public-share-links">view permissions</a> granted to the link recipient for all containers included in the share. Recipients must have at least View Small permission to see assets. When you choose a format other than small, recipients can access all proxy formats at the level you select and smaller.
+                  enum:
+                  - Small
+                  - Medium
+                  - Large
+                  - Original
+                watermarkPreset:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link">watermark</a> applied to all assets included in the share. When this parameter is blank, no watermark is applied.
+                includeNonWatermarkableAssets:
+                  type: boolean
+                  description: When <code>true</code>, assets that cannot be watermarked (such as folders) are included in the share.
+                  default: true
+                allowDownload:
+                  type: boolean
+                  description: When <code>true</code>, recipients can download the shared assets.  This permission is granted even if the recipient wouldn’t otherwise be able to download the asset.
+                  default: true
+                allowFind:
+                  type: boolean
+                  description: When <code>true</code>, recipients with Orange Logic accounts can see the shared assets in the search results. This permission is granted even if the recipient wouldn’t otherwise be able to find the asset.
+                  default: true
+                allowEdit:
+                  type: boolean
+                  description: When <code>true</code>, recipients can edit the shared assets’ metadata.  This permission is granted even if the recipient wouldn’t otherwise be able to edit the asset.
+                  default: true
+                disableMetadataLink:
+                  type: boolean
+                  description: <ul><li>When <code>true</code>, no links are included in asset metadata.</li><li>When <code>false</code>, asset metadata that is configured to be displayed as clickable links is included with active links. For example, if asset tags are shown as links, users with Orange Logic accounts can click a tag to see all the assets that share that tag.</li></ul>
+                  default: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"status\": \"Processing\",\n  \"shareLink\": null,\n  \"accessKey\": \"8u0bh6i670eict5wu8iw6jt60nlyfj7a\",\n  \"message\": \"Link is being generated. Please check back later.\\nUnsupported options: AllowFind,AllowEdit. Please contact administrator to enable.\",\n  \"errors\": null\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Processing
+                  shareLink: {}
+                  accessKey:
+                    type: string
+                    example: 8u0bh6i670eict5wu8iw6jt60nlyfj7a
+                  message:
+                    type: string
+                    example: 'Link is being generated. Please check back later.
+
+                      Unsupported options: AllowFind,AllowEdit. Please contact administrator to enable.'
+                  errors: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X 'POST' \\\n  'https://mangovationsorangelogic.com/webapi/objectmanagement/share/createsharelink_41M9_V1' \\\n  -H 'accept: text/plain' \\\n  -H 'Content-Type: application/json-patch+json' \\\n  -d '{\n  \"title\": \"Spring collection photoshoot\",\n  \"description\": \"Photos and video for review\",\n  \"assetIDs\": [\n    \"Q0L96420\",\"Q0LXROLF5\",\"Q0LXHZWXE\"\n  ],\n  \"expirationDate\": \"2025-10-08\",\n  \"imageFormat\": \"TR1\",\n  \"audioFormat\": \"string\",\n  \"videoFormat\": \"WebLow\",\n  \"containerFormat\": \"Medium\",\n  \"watermarkPreset\": \"ShareOption_WM_Compact\",\n  \"includeNonWatermarkableAssets\": true,\n  \"allowDownload\": false,\n  \"allowFind\": false,\n  \"allowEdit\": false,\n  \"disableMetadataLink\": true\n}'"
+        samples-languages:
+        - curl
+  /getlink_4HZ_v1:
+    get:
+      summary: Get public link
+      description: Get an embed or download link to a single asset
+      operationId: get-link
+      parameters:
+      - name: RecordID
+        in: query
+        description: The record ID of an asset.<br>This parameter <b>or</b> the Identifier parameter is required.
+        schema:
+          type: string
+      - name: Identifier
+        in: query
+        description: The <a href="https://developer.orangelogic.com/reference/assets">Unique Identifier</a> of an asset.<br>This parameter <b>or</b> the RecordID parameter is required.
+        schema:
+          type: string
+      - name: Format
+        in: query
+        description: The code of the <a href="https://developer.orangelogic.com/reference/assets#formats">asset format</a> that you want to generate a link for (TRX, TR1, etc.).
+        schema:
+          type: string
+      - name: StickToCurrentVersion
+        in: query
+        description: '<code>True</code>: The link will point to the current version.</br><code>False</code>: The link will always point to the most recent version of the asset.'
+        schema:
+          type: boolean
+      - name: LogViews
+        in: query
+        description: Whether OrangeDAM logs each view or download. Administrators can view this information in the Full logs of views and downloads. Orange Logic users with a Link account can go to the <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHA7V1MI" target="_blank">Full logs of views and downloads</a> article to learn more.
+        schema:
+          type: boolean
+      - name: CreateDownloadLink
+        in: query
+        description: '<code>True</code>: The link downloads the assets.</br><code>False</code>: The link will be an embed link.'
+        schema:
+          type: boolean
+      - name: ExpirationDate
+        in: query
+        description: 'An expiration date in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> format: "YYYY-MM-DDTHH:MM:SS.SSSZ" The [<i>sss</i>] value is optional. It represents the <a href="https://en.wikipedia.org/wiki/UTC_offset" target="_blank">UTC offset</a>. Example: "2024-10-31T13:44:39.735Z"'
+        schema:
+          type: string
+      - name: MaxWidth
+        in: query
+        description: The maximum width of the asset.<br>If you are generating transformations, the transformation crop or resize takes precedence over MaxWidth.
+        schema:
+          type: integer
+          format: int32
+      - name: MaxHeight
+        in: query
+        description: The maximum height of the asset.<br>If you are generating transformations, the transformation crop or resize takes precedence over MaxHeight.
+        schema:
+          type: integer
+          format: int32
+      - name: FileExtension
+        in: query
+        description: The file extension of the asset (.jpeg, .png, etc.).
+        schema:
+          type: string
+      - name: ImageResizingMethod
+        in: query
+        description: Resizes the image's aspect ratio based on <code>Maxwidth</code> and <code>MaxHeight</code>.
+        schema:
+          type: string
+          enum:
+          - Fit
+          - Stretch
+          - NorthwestCrop
+          - NorthCrop
+          - NortheastCrop
+          - WestCrop
+          - CenterCrop
+          - EastCrop
+          - SouthwestCrop
+          - SouthCrop
+          - SoutheastCrop
+          - OpticalCrop
+          - AICrop
+      - name: Transformations
+        in: query
+        description: Enter a string for each transformation you want to apply to the asset. Transformations are applied in the order in which they appear in the string and take precedence over <code>Maxwidth</code> and <code>MaxHeight</code>. <br>See the <a href="https://developer.orangelogic.com/reference/transformation-example">transformation example</a> for more information.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Title
+        in: query
+        description: Title of the asset link
+        schema:
+          type: string
+      - name: TrackingParameters
+        in: query
+        description: '{   "name": "string",   "value": "string" }'
+        schema:
+          properties:
+            name:
+              type: string
+              description: The UTM name, such as utm_source or utm_campaign.
+            value:
+              type: string
+              description: The UTM value, such as Instagram.
+          type: object
+      - name: CustomAccessKey
+        in: query
+        description: Enter a <a href="https://developer.orangelogic.com/reference/assets">custom access key</a> to use for the generated link. If this is not specified, the link will have a random access key.
+        schema:
+          type: string
+      - name: IsVideo
+        in: query
+        description: Set to true if the asset is a video.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"recordID\": \"2RBKT7UG4BTS\",\n  \"identifier\": \"CTL531031\",\n  \"format\": \"TR1\",\n  \"link\": \"https://mangovations.com/AssetLink/pse8t3wh5q00rj33m441x5k561l817a7.png\",\n  \"maxWidth\": 1000,\n  \"maxHeight\": null,\n  \"expirationDate\": \"2028-12-31T11:59:59\",\n  \"fileExtension\": \".png\",\n  \"imageResizingMethod\": null\n}"
+              schema:
+                type: object
+                properties:
+                  recordID:
+                    type: string
+                    example: 2RBKT7UG4BTS
+                  identifier:
+                    type: string
+                    example: CTL531031
+                  format:
+                    type: string
+                    example: TR1
+                  link:
+                    type: string
+                    example: https://mangovations.com/AssetLink/pse8t3wh5q00rj33m441x5k561l817a7.png
+                  maxWidth:
+                    type: integer
+                    example: 1000
+                    default: 0
+                  maxHeight: {}
+                  expirationDate:
+                    type: string
+                    example: '2028-12-31T11:59:59'
+                  fileExtension:
+                    type: string
+                    example: .png
+                  imageResizingMethod: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: '''https://mangovations.com/webapi/objectmanagement/share/getlink_4HZ_v1?Identifier=CTL531031&Format=TR1&StickToCurrentVersion=true&LogViews=true&CreateDownloadLink=true&ExpirationDate=2028-12-31T11%3A59%3A59&MaxWidth=1000&FileExtension=.png'' \
+
+            '
+        samples-languages:
+        - text
+  /getsharelinkstatus_41MA_V1:
+    get:
+      summary: Retrieve a public Share link
+      description: Retrieve a previously generated link or check the link generation status
+      operationId: retrieve-a-public-share-link
+      parameters:
+      - name: AccessKey
+        in: query
+        description: Enter an access key returned by a call to <a href="https://developer.orangelogic.com/reference/generate-a-public-share-link">generate a public Share link</a>.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"status\": \"Ready\",\n  \"link\": \"https://mangovations.orangelogic.com/Share/8u0bh6i670eict5wu8iw6jt60nlyfj7a?UseSession=2RBKE4E1DGA\"\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Ready
+                  link:
+                    type: string
+                    example: https://mangovations.orangelogic.com/Share/8u0bh6i670eict5wu8iw6jt60nlyfj7a?UseSession=2RBKE4E1DGA
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X 'GET' \\\n  'https://mangovations.orangelogic.com/webapi/objectmanagement/share/getsharelinkstatus_41MA_V1?AccessKey=8u0bh6i670eict5wu8iw6jt60nlyfj7a' \\\n  -H 'accept: text/plain'"
+        samples-languages:
+        - curl
+  /getwatermarkpresets_41MB_V1:
+    get:
+      summary: Retrieve watermark presets to use in a public Share link
+      description: Retrieve the existing watermark preset identifiers
+      operationId: retrieve-watermark-presets-to-use-in-a-public-share-link
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"watermarkPresets\": [\n    {\n      \"presetID\": \"Q0LND000000308744\",\n      \"presetName\": \"Mangovations logo\"\n    },\n    {\n      \"presetID\": \"ShareOption_WM_Compact\",\n      \"presetName\": \"Compact share information\"\n    },\n    {\n      \"presetID\": \"ShareOption_WM_Detailed\",\n      \"presetName\": \"Detailed share information\"\n    }"
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X 'GET' \\\n  'https://mangovations.orangelogic.com/webapi/objectmanagement/share/getwatermarkpresets_41MB_V1' \\\n  -H 'accept: text/plain'"
+        samples-languages:
+        - curl
+  /querybatchupsertassetlinkswithcustomroutejobstatus_41FE_v1:
+    get:
+      summary: Custom route job status
+      description: Query the job status for custom route creation or obtain custom route links
+      operationId: custom-route-job-status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobRecordID:
+                  type: string
+                  description: The <code>jobRecordID</code> of the custom route job you want to check the status of.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{}{\n  \"jobStatus\": \"Succeeded\",\n  \"result\": {\n    \"isRunning\": false,\n    \"jobRecordID\": \"2Z9XPH3T3T3\",\n    \"results\": [\n      {\n        \"assetID\": \"2Z9XC5NG0N6\",\n        \"format\": \"TR1\",\n        \"expirationDate\": \"2026-07-25T12:55:05.943Z\",\n        \"link\": \"https://mango-cdn.orangelogic.com/public/Promenade-des-Anglais-Nice-TR1.auto\n\"\n      },\n      {\n        \"assetID\": \"2Z9XC5NNOOC\",\n        \"format\": \"TR1\",\n        \"expirationDate\": \"2026-07-25T12:55:05.943Z\",\n        \"link\": \"https://mango-cdn.orangelogic.com/public/historic-village-in-provence-tr1.auto\"\n      }\n    ]\n    \"errors\": []\n  }\n}\n"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-create-or-update-public-embed-links.md
+  - https://developer.orangelogic.com/reference/custom-route-job-status.md
+  - https://developer.orangelogic.com/reference/generate-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/get-link.md
+  - https://developer.orangelogic.com/reference/retrieve-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link.md
+  merge:
+    pages: 6
+    deduped: 5
+    conflicts_kept_first: 0

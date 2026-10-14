@@ -1,0 +1,171 @@
+openapi: 3.1.0
+info:
+  title: get-links
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/share
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /getlinks_45W_v1:
+    post:
+      summary: Get public links
+      description: Generate an embed or download link to multiple assets
+      operationId: get-links
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                RecordID:
+                  type: string
+                  description: The record ID of an asset.<br>This parameter <b>or</b> the Identifier parameter is required.
+                Identifier:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets">Unique Identifier</a> of an asset.<br>This parameter <b>or</b> the RecordID parameter is required.
+                Format:
+                  type: string
+                  description: The code of the <a href="https://developer.orangelogic.com/reference/assets#formats">asset format</a> that you want to generate a link for (TRX, TR1, etc.).
+                LogViews:
+                  type: boolean
+                  description: Whether OrangeDAM logs each view or download. Administrators can view this information in the Full logs of views and downloads. Orange Logic users with a Link account can go to the <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHA7V1MI" target="_blank">Full logs of views and downloads</a> article to learn more.
+                CreateDownloadLink:
+                  type: boolean
+                  description: '<code>True</code>: The link downloads the assets.</br><code>False</code>: The link will be an embed link.'
+                ExpirationDate:
+                  type: string
+                  description: 'An expiration date in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> format: "YYYY-MM-DDTHH:MM:SS.SSSZ" The [<i>sss</i>] value is optional. It represents the <a href="https://en.wikipedia.org/wiki/UTC_offset" target="_blank">UTC offset</a>. Example: "2024-10-31T13:44:39.735Z"'
+                MaxWidth:
+                  type: integer
+                  description: The maximum width of the assets.<br>If you are generating transformations, the transformation crop or resize takes precedence over <code>MaxWidth</code>.
+                  format: int32
+                MaxHeight:
+                  type: integer
+                  description: The maximum height of the assets.<br>If you are generating transformations, the transformation crop or resize takes precedence over <code>MaxHeight</code>.
+                  format: int32
+                FileExtension:
+                  type: string
+                  description: The file extension of the assets (.jpeg, .png, etc.).
+                ImageResizingMethod:
+                  type: string
+                  description: Resizes the image's aspect ratio based on <code>Maxwidth</code> and <code>MaxHeight</code>.
+                  enum:
+                  - Fit
+                  - Stretch
+                  - NorthwestCrop
+                  - NorthCrop
+                  - NortheastCrop
+                  - WestCrop
+                  - CenterCrop
+                  - EastCrop
+                  - SouthwestCrop
+                  - SouthCrop
+                  - SoutheastCrop
+                  - OpticalCrop
+                  - AICrop
+                Transformations:
+                  type: array
+                  description: Enter a string for each transformation you want to apply to the asset. Transformations are applied in the order in which they appear in the string and take precedence over <code>Maxwidth</code> and <code>MaxHeight</code>.<br>This parameter is available beginning in <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHY7FJDO" target="_blank">Orange Logic Kobe</a>.<br>See the <a href="https://developer.orangelogic.com/reference/transformation-example">transformation example</a> for more information.
+                  items:
+                    type: string
+                Title:
+                  type: string
+                  description: Title of the asset link
+                TrackingParameters:
+                  type: object
+                  description: '{   "name": "string",   "value": "string" }'
+                  properties:
+                    Name:
+                      type: string
+                      description: The UTM name, such as utm_source or utm_campaign.
+                    Value:
+                      type: string
+                      description: Enter the tracking parameter value, such as "Instagram."
+                CustomAccessKey:
+                  type: string
+                  description: Enter a <a href="https://developer.orangelogic.com/reference/assets">custom access key</a> to use for the generated link. If this is not specified, the link will have a random access key.
+                IsVideo:
+                  type: boolean
+                  description: Set to true if the asset is a video.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"assetLinks\": [\n    {\n      \"recordID\": \"2QDTWAGCCFF\",\n      \"identifier\": \"ZZ13GMR\",\n      \"format\": \"TR1\",\n      \"link\": \"https://mangovations.com/AssetLink/j387f16851706vwvox5rqkw75s4bn34e-2000x2000,.jpeg\",\n      \"maxWidth\": 2000,\n      \"maxHeight\": 2000,\n      \"expirationDate\": \"2028-12-31T23:59:59\",\n      \"fileExtension\": \".jpeg\",\n      \"imageResizingMethod\": null\n    },\n    {\n      \"recordID\": \"2QDTWAWBZ6\",\n      \"identifier\": \"ZZ13F\",\n      \"format\": \"TR4\",\n      \"link\": \"https://mangovations.com/AssetLink/8koh4fea733173jb07o3u606006erl7w-2000x2000,.jpeg\",\n      \"maxWidth\": 2000,\n      \"maxHeight\": 2000,\n      \"expirationDate\": \"2028-12-31T23:59:59\",\n      \"fileExtension\": \".jpeg\",\n      \"imageResizingMethod\": null\n    },\n    {\n      \"recordID\": \"2QDTWA4310\",\n      \"identifier\": \"ZZ11BK\",\n      \"format\": \"TR4\",\n      \"link\": \"https://mangovations.com/AssetLink/15upn36chgttt3cpiuhoke84qu3qtyav-2000x2000,.jpeg\"\
+                    ,\n      \"maxWidth\": 2000,\n      \"maxHeight\": 2000,\n      \"expirationDate\": \"2028-12-31T23:59:59\",\n      \"fileExtension\": \".jpeg\",\n      \"imageResizingMethod\": null\n    }\n  ],\n  \"exportedFileInfo\": {\n    \"fileName\": null,\n    \"fileStream\": null\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  assetLinks:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        recordID:
+                          type: string
+                          example: 2QDTWAGCCFF
+                        identifier:
+                          type: string
+                          example: ZZ13GMR
+                        format:
+                          type: string
+                          example: TR1
+                        link:
+                          type: string
+                          example: https://mangovations.com/AssetLink/j387f16851706vwvox5rqkw75s4bn34e-2000x2000,.jpeg
+                        maxWidth:
+                          type: integer
+                          example: 2000
+                          default: 0
+                        maxHeight:
+                          type: integer
+                          example: 2000
+                          default: 0
+                        expirationDate:
+                          type: string
+                          example: '2028-12-31T23:59:59'
+                        fileExtension:
+                          type: string
+                          example: .jpeg
+                        imageResizingMethod: {}
+                  exportedFileInfo:
+                    type: object
+                    properties:
+                      fileName: {}
+                      fileStream: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X 'POST' \\\n  'https://mangovations.com/webapi/objectmanagement/share/getlinks_45W_v1' \\\n  -H 'accept: text/plain' \\\n  -H 'Content-Type: application/json-patch+json' \\\n  -d '{\n    \"assets\": [\n        {\n            \"identifier\": \"ZZ13GMR\",\n            \"format\": \"TR1\",\n            \"createDownloadLink\": false,\n            \"Logviews\": true,\n            \"ExpirationDate\": \"2028-12-31T23:59:59\",\n            \"maxWidth\": 2000,\n            \"maxHeight\": 2000,\n            \"Fileextension\": \".jpeg\"\n        },\n        {\n            \"identifier\": \"ZZ13F\",\n            \"format\": \"TR4\",\n            \"createDownloadLink\": false,\n            \"Logviews\": true,\n            \"ExpirationDate\": \"2028-12-31T23:59:59\",\n            \"maxWidth\": 2000,\n            \"maxHeight\": 2000,\n            \"Fileextension\": \".jpeg\"\n        },\n        {\n            \"identifier\": \"ZZ11BK\",\n            \"format\": \"TR4\",\n     \
+            \       \"createDownloadLink\": false,\n            \"Logviews\": true,\n            \"ExpirationDate\": \"2028-12-31T23:59:59\",\n            \"maxWidth\": 2000,\n            \"maxHeight\": 2000,\n            \"Fileextension\": \".jpeg\"\n        },\n    ]\n}'\n"
+        samples-languages:
+        - curl
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/get-links.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

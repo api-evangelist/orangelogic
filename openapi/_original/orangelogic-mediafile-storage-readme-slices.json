@@ -1,0 +1,147 @@
+[
+ {
+  "page": "https://developer.orangelogic.com/reference/cloudfront-cdn-cache-invalidation.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "mediafile-storage",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/webapi/mediafile/storage/",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/InvalidateCloudfrontCache_2cl_v1": {
+     "delete": {
+      "summary": "Cloudfront CDN cache invalidation",
+      "description": "Invalidate an asset’s CloudFront CDN cache to quickly update or remove the public embed links",
+      "operationId": "cloudfront-cdn-cache-invalidation",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "properties": {
+           "accessKeys": {
+            "type": "array",
+            "description": "Your CloudFront distribution’s access key.  Either <code>accessKeys</code> or <code>identifiers</code> are required.",
+            "items": {
+             "type": "string"
+            }
+           },
+           "identifiers": {
+            "type": "array",
+            "description": "The unique ID of one or more assets you’re invalidating the cache for.  Either <code>accessKeys</code> or <code>identifiers</code> are required.",
+            "items": {
+             "type": "string"
+            }
+           },
+           "cdnApiId": {
+            "type": "string",
+            "description": "The <a href=\"https://developer.orangelogic.com/reference/cloudfront-cdn-cache-invalidation#get-cloudfront-distribution-information\" target=\"_blank\">API ID of the Cloudfront distribution</a> used to distribute this asset’s formats."
+           },
+           "distributionDomainName": {
+            "type": "string",
+            "description": "The distribution domain name of the CloudFront distribution used to distribute this asset’s formats."
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"success\": true,\n  \"successAccessKeys\": [],\n  \"failedAccessKeys\": [],\n  \"errorMessage\": \"\"\n}\n"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "success": {
+             "type": "boolean",
+             "example": true,
+             "default": true
+            },
+            "successAccessKeys": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            },
+            "failedAccessKeys": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {}
+             }
+            },
+            "errorMessage": {
+             "type": "string",
+             "example": ""
+            }
+           }
+          }
+         }
+        }
+       },
+       "400": {
+        "description": "400",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {}
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ }
+]

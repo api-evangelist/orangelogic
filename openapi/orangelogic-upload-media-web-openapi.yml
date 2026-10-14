@@ -1,0 +1,336 @@
+openapi: 3.1.0
+info:
+  title: upload-media-web
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /uploadFileFromCloudStorage_4OY_v1:
+    post:
+      summary: Upload a file from Google Cloud Storage
+      description: Upload a single file from Google Cloud Storage to Orange Logic by providing a source bucket and object key
+      operationId: upload-from-cloud
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceBucket
+              - objectKey
+              properties:
+                recordID:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets">record ID, unique identifier, or encrypted record ID</a> of an existing asset. The file you provide will be uploaded as a new version of this asset.<br>This parameter <b>or</b> the folderRecordID parameter is <span style="color:#dd1e2e">required</span>.
+                folderRecordID:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets">record ID, unique identifier, or encrypted record ID</a> of a folder to upload the asset to. The file you provide will be uploaded as a new asset.<br>This parameter <b>or</b> the recordID parameter is <span style="color:#dd1e2e">required</span>.
+                sourceBucket:
+                  type: string
+                  description: The name of the bucket where the file to upload is stored
+                objectKey:
+                  type: string
+                  description: The path of the file within the source bucket to upload
+                FileName:
+                  type: string
+                  description: 'A name for the file being uploaded, including the file extension. Example: London Eye.jpg'
+                logInfo:
+                  type: boolean
+                  description: Include logs in response. Set to true only for debugging.
+                  default: false
+                metadata:
+                  type: object
+                  description: <a href="https://developer.orangelogic.com/reference/metadata-field-identifiers">Metadata</a> applied to the uploaded asset.
+                  properties:
+                    '[custom_Metadata]':
+                      type: string
+                      description: 'Enter a comma-separated list of field name and value pairs, enclosed in curly brackets: <code>{}</code><br>Example: <code>{"CoreField.Title":"New asset title", "MyNameSpace.MyField":"Custom field value"}</code>'
+                indexInBackground:
+                  type: boolean
+                  description: Set to `true` to delay indexing and speed up the API call processing time. </br> </br> This parameter is available beginning in [Orange Logic Ottawa](https://developer.orangelogic.com/reference/about#orange-logic-api-versioning).
+                  default: true
+                indexingPriority:
+                  type: string
+                  description: Forces the records to be indexed in a lower-priority queue to avoid impacting the primary indexing queue. For example, if you are calling large batches of records, the calls might fire faster than the database can index them. You can append &IndexingPriority=Low to avoid overloading the queue. Leave this parameter blank to keep the call in a high priority indexing queue. </br> </b> This parameter is available beginning in [Orange Logic Ottawa](https://developer.orangelogic.com/reference/about#orange-logic-api-versioning).
+                  enum:
+                  - Medium
+                  - Low
+                  - VeryLow
+            examples:
+              Request Example:
+                value:
+                  folderRecordID: 2Z0ZIFG1P7I5
+                  sourceBucket: input-source-for-dam
+                  objectKey: /File extension/Image/E-45 _col.jpg
+                  fileName: London.jpg
+                  logInfo: false
+                  metadata:
+                    CoreField.CaptionLong: London skyline with view of the Big Ben clocktower and the Houses of Parliament building
+                    CoreField.Purpose: Internal Use Only
+                    CoreField.CT_RecordidSource: Anna Morado
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"Identifier\": \"Q0LXRLS9S\",\n  \"RecordID\": \"2Z0ZIFLXK8W41\",\n  \"IsDuplicated\": false\n}"
+              schema:
+                type: object
+                properties:
+                  Identifier:
+                    type: string
+                    example: Q0LXRLS9S
+                  RecordID:
+                    type: string
+                    example: 2Z0ZIFLXK8W41
+                  IsDuplicated:
+                    type: boolean
+                    example: false
+                    default: true
+  /uploadimageandgetlargestdownloadlink_4CM_v1:
+    post:
+      summary: Upload image and get largest download link
+      description: Upload an image from your computer to Orange Logic and receive a download link to the largest available asset format.
+      operationId: upload-and-get-link
+      parameters:
+      - name: Content-Type
+        in: header
+        description: The <code>multipart/form-data</code> header parameter is required for this call.
+        required: true
+        schema:
+          type: string
+          default: multipart-formdata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderRecordID
+              - files
+              - clientFileName
+              properties:
+                folderRecordID:
+                  type: string
+                  description: <a href="https://developer.orangelogic.com/reference/assets#record-id">RecordID</a> or <a href="https://developer.orangelogic.com/reference/assets#unique-identifiers">Unique ID</a> of the folder to upload the asset to
+                files:
+                  type: string
+                  description: The file to upload.
+                clientFileName:
+                  type: string
+                  description: 'The filename, including the file extension. For example: London Eye.jpg'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"downloadLink\": \"https://university1.orangelogic.com/AssetLink/k7a04i007p163o85jhqte2no1lmlejal.png\",\n    \"message\": null\n}"
+              schema:
+                type: object
+                properties:
+                  downloadLink:
+                    type: string
+                    example: https://university1.orangelogic.com/AssetLink/k7a04i007p163o85jhqte2no1lmlejal.png
+                  message: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: 'curl --location ''https://university1.orangelogic.com/webapi/mediafile/import/upload/uploadimageandgetlargestdownloadlink_4CM_v1'' \
+
+            --header ''Authorization: ••••••'' \
+
+            --header ''Cookie: AWSALB=PW5zV98TCoE9YBiXU8DtnQLW4zQ++KzMQrX0ACl91RjZImwTvdvafqRIo9SHDZiHerE5IqkxrTb/UtdQ9lEWGM2XVrVisp8GZdVAmTarx/QwO58TXHeYeIaDHRCY; AWSALBCORS=PW5zV98TCoE9YBiXU8DtnQLW4zQ++KzMQrX0ACl91RjZImwTvdvafqRIo9SHDZiHerE5IqkxrTb/UtdQ9lEWGM2XVrVisp8GZdVAmTarx/QwO58TXHeYeIaDHRCY; AWSALBTG=8abB8FC+xj7J8nLxFumeV7+diyvU2VbsOmNDXJKIM2BkfjU/Hku6/17/85AI6nc/F2nJ0uqIprdlh+k7+18tAay4R1FWnUZu2Bw8C8kAphNsi37wij39dd+sgidCEjxyFH8pnf+4ToJHX/ilRwsRyqzZskIG7lhhuM7/8EaVI1Mn; AWSALBTGCORS=8abB8FC+xj7J8nLxFumeV7+diyvU2VbsOmNDXJKIM2BkfjU/Hku6/17/85AI6nc/F2nJ0uqIprdlh+k7+18tAay4R1FWnUZu2Bw8C8kAphNsi37wij39dd+sgidCEjxyFH8pnf+4ToJHX/ilRwsRyqzZskIG7lhhuM7/8EaVI1Mn; CortexCID_ZZ1=P8I7Dn4N7lrYI7j4; ZZ1-Session__1505=CfDJ8CM%2BgwYDmcRIlTKBrsau2HwxLnhqRBw%2B%2BSBDgjP95SuDF4OYHYyyzSLMSBxfjwvB%2B5ZPrCt4vrpcK1yTNgCxdfyPnyXr9zMvRfjIxeKYHKEWlh0zsT%2BeulInd7RXTKmlcdwlUcRhBy%2B5t81wuOcAINYmkS1C3yXfTMd8mHExxZCu; ZZ1-Session__1505-Alt=CfDJ8CM%2BgwYDmcRIlTKBrsau2HwxLnhqRBw%2B%2BSBDgjP95SuDF4OYHYyyzSLMSBxfjwvB%2B5ZPrCt4vrpcK1yTNgCxdfyPnyXr9zMvRfjIxeKYHKEWlh0zsT%2BeulInd7RXTKmlcdwlUcRhBy%2B5t81wuOcAINYmkS1C3yXfTMd8mHExxZCu''
+            \
+
+            --form ''folderRecordID="ZZ1282Z"'' \
+
+            --form ''files=@"STvFNS4U4/Zoe head of product.jpeg"'' \
+
+            --form ''clientFileName="Zoe head of product.jpeg"'''
+        samples-languages:
+        - text
+  /uploadmedia_4az_v1:
+    post:
+      summary: Upload media
+      description: Simultaneously upload multiple files from your computer to Orange Logic
+      operationId: upload-media-endpoint
+      parameters:
+      - name: Content-Type
+        in: header
+        description: The <code>multipart/form-data</code> header parameter is required for this call.
+        required: true
+        schema:
+          type: string
+          default: multipart-formdata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderRecordID
+              - files
+              properties:
+                folderRecordID:
+                  type: string
+                  description: <a href="https://orangedam.readme.io/docs/assets#record-id">RecordID</a> of the folder to upload the asset to
+                processAssetInBackground:
+                  type: boolean
+                  description: '<ul><li><code>True</code>: The API call is completed when the asset record has been created and can receive updates with subsequent API calls. The metadata import and proxy file generation occur in the background. This option takes a shorter amount of time.</li><li><code>False</code>: The API call is completed when the asset is fully ingested, meaning all proxy formats have been generated. This option takes a longer amount of time.</li><ul>'
+                files:
+                  type: string
+                  description: The files to upload.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"uploadResults\": [\n        {\n            \"fileName\": \"orange chair.jpeg\",\n            \"isSuccess\": true,\n            \"fileIdentifier\": \"ZZ22I3H\",\n            \"warningMessage\": \"\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  uploadResults:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fileName:
+                          type: string
+                          example: orange chair.jpeg
+                        isSuccess:
+                          type: boolean
+                          example: true
+                          default: true
+                        fileIdentifier:
+                          type: string
+                          example: ZZ22I3H
+                        warningMessage:
+                          type: string
+                          example: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: 'curl --location ''https://mangovations.com/webapi/mediafile/import/upload/uploadmedia_4az_v1'' \
+
+            --header ''Authorization: ••••••'' \
+
+            --header ''Cookie: AWSALB=kOGJlQakvelCOyin++7yG1lQ4ewSEpvH90S11n16CZlEjp4k87zqwReIgeXhW76KJjzOnT1fqUq7z/Xqk3/eguiqUnzCWr+NbZ8iP6XGCROe/uARKNYKfWduKCew; AWSALBCORS=kOGJlQakvelCOyin++7yG1lQ4ewSEpvH90S11n16CZlEjp4k87zqwReIgeXhW76KJjzOnT1fqUq7z/Xqk3/eguiqUnzCWr+NbZ8iP6XGCROe/uARKNYKfWduKCew; AWSALBTG=UAmLV2p/Ok6eJ8xbebeTx0CF7dwXuvYYA28QDpuEcjpqE5y6NLFUGvuvwgqhNh49maaz42KeqKtQ5u5AHUf20X4ZfHqsipHxfrDgujoX5K/zl07JhKFYQSbLLsaNBALsSsCK2QTXulLLGEsSyukTPJJFuRFcuQ5Sae3bgOeyqDwy; AWSALBTGCORS=UAmLV2p/Ok6eJ8xbebeTx0CF7dwXuvYYA28QDpuEcjpqE5y6NLFUGvuvwgqhNh49maaz42KeqKtQ5u5AHUf20X4ZfHqsipHxfrDgujoX5K/zl07JhKFYQSbLLsaNBALsSsCK2QTXulLLGEsSyukTPJJFuRFcuQ5Sae3bgOeyqDwy; CortexCID_ZZ2=DM4H2eOHGo3GiL30; ZZ2-Session__1505=CfDJ8IqEPZUVNYxPrat%2Bf0uWCOZ2F6kZlE8QKCJTwUCTxKenCyvYhj7%2B2hbwCPjr0sDGAGVDtOZO94fcfdBuBoE7o3mcLxcTmJtiFBUlVYzswNWBG6BCoHtHSOWpo6UJFoiXdvh%2FI39X9Tqj0kGKBL5zFAIx8Ian%2FzjCzcjaXc3K3GkW; ZZ2-Session__1505-Alt=CfDJ8IqEPZUVNYxPrat%2Bf0uWCOZ2F6kZlE8QKCJTwUCTxKenCyvYhj7%2B2hbwCPjr0sDGAGVDtOZO94fcfdBuBoE7o3mcLxcTmJtiFBUlVYzswNWBG6BCoHtHSOWpo6UJFoiXdvh%2FI39X9Tqj0kGKBL5zFAIx8Ian%2FzjCzcjaXc3K3GkW''
+            \
+
+            --form ''folderRecordID="2QDZIFL0NEF"'' \
+
+            --form ''processAssetInBackground="False"'' \
+
+            --form ''files=@"r3j-XKeWh/orange chair.jpeg"
+
+            '
+        samples-languages:
+        - text
+  /uploadmediawithurl_45L_v1:
+    post:
+      summary: Upload media with URL
+      description: Upload a single file from an online storage system to Orange Logic by providing a file URL
+      operationId: upload-media-with-url
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderRecordID
+              - fileURL
+              properties:
+                folderRecordID:
+                  type: string
+                  description: <a href="https://developer.orangelogic.com/reference/assets#record-id">RecordID</a> of the folder to upload the asset to
+                fileURL:
+                  type: string
+                  description: The URL of the file being uploaded
+                fileName:
+                  type: string
+                  description: 'A name for the file being uploaded, including the file extension. For example: London Eye.jpg<br></br>If you don’t specify a filename, Orange Logic creates one from the response''s Content-Disposition header or from the file URL.'
+                importMode:
+                  type: string
+                  description: Determines how the upload is processed in the background. Go to <a href="https://developer.orangelogic.com/reference/upload#upload-processing-options">Upload processing options</a> for more information.
+                  default: ProcessInLine
+                  enum:
+                  - processInLine
+                  - ProcessProxiesInBackground
+                  - ProcessFullyInBackground
+                  - ProcessFullyInBackgroundLite
+                metadata:
+                  type: object
+                  description: Use this to set field values on a new asset in the same call as the upload. Send a JSON object where each key is a field's API name and each value is a string. Use API names, not the labels shown in the interface (CoreField.Title, shown below, is only an example). You can use any field's API name as a key, and you can include as many fields as you need. When you first add a field, upload one test file and check that the asset shows the value you expect.
+                  properties:
+                    name:
+                      type: string
+                      description: CoreField.Title
+            examples:
+              Request body:
+                value:
+                  folderRecordID: 2QDZIFL0NEF
+                  fileURL: https://images.pexels.com/photos/...
+                  fileName: coffee mug.jpeg
+                  importMode: ProcessInLine
+                  metadata:
+                    CoreField.Title: Coffee mug on a desk
+                    MyNamespace.MyField: Custom field value
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"isSuccess\": true,\n    \"fileIdentifier\": \"ZZ22I3M\",\n    \"fileRecordID\": \"2QDZIFL0I7S\",\n    \"warningMessage\": null\n}"
+              schema:
+                type: object
+                properties:
+                  isSuccess:
+                    type: boolean
+                    example: true
+                    default: true
+                  fileIdentifier:
+                    type: string
+                    example: ZZ22I3M
+                  fileRecordID:
+                    type: string
+                    example: 2QDZIFL0I7S
+                  warningMessage: {}
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/upload-and-get-link.md
+  - https://developer.orangelogic.com/reference/upload-from-cloud.md
+  - https://developer.orangelogic.com/reference/upload-media-endpoint.md
+  - https://developer.orangelogic.com/reference/upload-media-with-url.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

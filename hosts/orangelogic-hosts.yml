@@ -1,0 +1,45 @@
+generated: '2026-10-14'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 3
+  own: 2
+  other_domain: 0
+  platform: 1
+  roles:
+  - docs
+  - other
+  - website
+hosts:
+- host: developer.orangelogic.com
+  found_by:
+  - pointer
+  - apis[]
+  types:
+  - Documentation
+  serves:
+  - docs
+  registrable_domain: orangelogic.com
+  role: docs
+  relation: own
+- host: www.linkedin.com
+  found_by:
+  - pointer
+  types:
+  - LinkedIn
+  serves: []
+  registrable_domain: linkedin.com
+  role: other
+  relation: platform
+- host: www.orangelogic.com
+  found_by:
+  - pointer
+  types:
+  - Blog
+  - BlogRSS
+  - Website
+  serves: []
+  registrable_domain: orangelogic.com
+  role: website
+  relation: own

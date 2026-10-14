@@ -1,0 +1,202 @@
+[
+ {
+  "page": "https://developer.orangelogic.com/reference/create-crop-link.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "create-crop-link",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/api/AssetLink",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/v1.0/CreateCropLink": {
+     "get": {
+      "summary": "Create crop link",
+      "description": "Create a link to a cropped version of an asset",
+      "operationId": "create-crop-link",
+      "parameters": [
+       {
+        "name": "Identifier",
+        "in": "query",
+        "description": "The asset's <a href=\"https://orangedam.readme.io/docs/assets#record-id\">unique identifier</a>.",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "name": "LogAccess",
+        "in": "query",
+        "description": "Whether OrangeDAM logs each view or download. Administrators can view this information in the Full logs of views and downloads. Orange Logic users with a Link account can go to the <a href=\"https://link.orangelogic.com/CMS4/Permalinks/2P7YOHA7V1MI\" target=\"_blank\">Full logs of views and downloads</a> article to learn more.",
+        "required": true,
+        "schema": {
+         "type": "boolean"
+        }
+       },
+       {
+        "name": "CreateDownloadLink",
+        "in": "query",
+        "description": "<code>True</code>: The link downloads the assets. </br> <code>False</code>: The link will be an embed link.",
+        "required": true,
+        "schema": {
+         "type": "boolean"
+        }
+       },
+       {
+        "name": "TopY",
+        "in": "query",
+        "description": "Enter a value between 0 and 1 to reflect the ratio of the top Y coordinate of the crop to the height of the original image. Include a “0” before the decimal. </br>Example: 0.8",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "name": "LeftX",
+        "in": "query",
+        "description": "Enter a value between 0 and 1 to reflect the ratio of the left X coordinate of the crop to the width of the original image. Include a “0” before the decimal. </br>Example: 0.8",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "name": "BottomY",
+        "in": "query",
+        "description": "Enter a value between 0 and 1 to reflect the ratio of the bottom Y coordinate of the crop to the height of the original image. Include a “0” before the decimal. </br>Example: 0.8",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "name": "RightX",
+        "in": "query",
+        "description": "Enter a value between 0 and 1 to reflect the ratio of the right X coordinate of the crop to the width of the original image. Include a “0” before the decimal. </br> Example: 0.8",
+        "required": true,
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "name": "Height",
+        "in": "query",
+        "description": "The height in pixels of the cropped image.",
+        "required": true,
+        "schema": {
+         "type": "integer",
+         "format": "int32"
+        }
+       },
+       {
+        "name": "Width",
+        "in": "query",
+        "description": "The width in pixels of the cropped image.",
+        "required": true,
+        "schema": {
+         "type": "integer",
+         "format": "int32"
+        }
+       },
+       {
+        "name": "ApplyWatermark",
+        "in": "query",
+        "description": "Whether a watermark is applied to the bottom-right corner of the cropped image.",
+        "required": true,
+        "schema": {
+         "type": "boolean"
+        }
+       },
+       {
+        "name": "ExpirationDate",
+        "in": "query",
+        "description": "An expiration <a href=\"https://developer.orangelogic.com/reference/date-and-time\">date</a> in the format yyyy-MM-ddTHH:mm:ss",
+        "schema": {
+         "type": "string"
+        }
+       },
+       {
+        "name": "format",
+        "in": "query",
+        "description": "The response format (XML or JSON)",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "default": "XML"
+        }
+       },
+       {
+        "name": "dateformat",
+        "in": "query",
+        "description": "Specify the output <a href=\"https://developer.orangelogic.com/reference/date-and-time\">date format</a>.",
+        "schema": {
+         "type": "string",
+         "default": "yyyy-MM-ddTHH:mm:ss"
+        }
+       }
+      ],
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "<Result>\n    <APIRequestInfo>\n        <ProviderVersion>LONDON.R2.2131E.216729</ProviderVersion>\n        <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n        <ProviderID>44ddde3ac27a33c394335f249d4007d4</ProviderID>\n        <Module>AssetLink</Module>\n        <APIVersion>v1.0</APIVersion>\n        <Resource>CreateCropLink</Resource>\n        <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n        <Parameters>\n            <Identifier>ZZ13OCT</Identifier>\n            <LogAccess>true</LogAccess>\n            <CreateDownloadLink>true</CreateDownloadLink>\n            <TopY>0.8</TopY>\n            <LeftX>0.8</LeftX>\n            <BottomY>0.8</BottomY>\n            <RightX>0.8</RightX>\n            <Height>600</Height>\n            <Width>800</Width>\n            <ApplyWatermark>false</ApplyWatermark>\n        </Parameters>\n        <Status>LoggedIn</Status>\n        <UserLogin></UserLogin>\n        <Session>No session (production configuration)</Session>\n        <TimeoutPeriodMinutes type=\"Numeric\">20</TimeoutPeriodMinutes>\n    </APIRequestInfo>\n    <APIResponse>\n        <RequestInterpretation>\n            <ParametersInformation>\n                <Identifier>\n                    <Value>ZZ13OCT</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Identifier>\n                <LogAccess>\n                    <Value>true</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </LogAccess>\n                <CreateDownloadLink>\n                    <Value>true</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </CreateDownloadLink>\n                <TopY>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </TopY>\n                <LeftX>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </LeftX>\n                <BottomY>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </BottomY>\n                <RightX>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </RightX>\n                <Height>\n                    <Value>600</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Height>\n                <Width>\n                    <Value>800</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Width>\n                <ApplyWatermark>\n                    <Value>false</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </ApplyWatermark>\n                <ExpirationDate>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </ExpirationDate>\n            </ParametersInformation>\n        </RequestInterpretation>\n        <Response>\n            <Link>https://mangovations.com/AssetLink/ujmehwcy74phmd3g3mtg4k3574mvvr8x.jpg</Link>\n        </Response>\n        <ExecutionStatus>Executed</ExecutionStatus>\n        <HTTPCode type=\"Numeric\">201</HTTPCode>\n        <Code>SUCCESS</Code>\n    </APIResponse>\n</Result>"
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false,
+      "x-readme": {
+       "code-samples": [
+        {
+         "language": "text",
+         "code": "'https://mangovations.com/api/AssetLink/v1.0/CreateCropLink?Identifier=ZZ13OCT&LogAccess=true&CreateDownloadLink=true&TopY=0.8&LeftX=0.8&BottomY=0.8&RightX=0.8&Height=600&Width=800&ApplyWatermark=false&format=XML' \\"
+        }
+       ],
+       "samples-languages": [
+        "text"
+       ]
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ }
+]

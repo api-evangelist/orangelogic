@@ -1,0 +1,97 @@
+generated: '2026-10-14'
+method: derived
+source: openapi/orangelogic-authentication-openapi.yml, openapi/orangelogic-create-crop-link-openapi.yml,
+  openapi/orangelogic-get-link-openapi.yml, openapi/orangelogic-get-links-openapi.yml, openapi/orangelogic-get-presigned-link-openapi.yml,
+  openapi/orangelogic-list-all-database-objects-openapi.yml, openapi/orangelogic-media-openapi.yml,
+  openapi/orangelogic-mediafile-storage-openapi.yml, openapi/orangelogic-multi-part-upload-api-openapi.yml,
+  openapi/orangelogic-object-management-batch-edit-openapi.yml, openapi/orangelogic-object-management-batch-upsert-openapi.yml,
+  openapi/orangelogic-report-openapi.yml, openapi/orangelogic-search-openapi.yml, openapi/orangelogic-security-openapi.yml,
+  openapi/orangelogic-upload-media-openapi.yml, openapi/orangelogic-upload-media-web-openapi.yml,
+  openapi/orangelogic-webhooks-openapi.yml
+schemes:
+- name: sec0
+  source: openapi/orangelogic-authentication-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-create-crop-link-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-get-link-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-get-links-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-get-presigned-link-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-list-all-database-objects-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-media-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-mediafile-storage-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-multi-part-upload-api-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-object-management-batch-edit-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-object-management-batch-upsert-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-report-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-search-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-security-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-upload-media-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-upload-media-web-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+- name: sec0
+  source: openapi/orangelogic-webhooks-openapi.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://example.com/oauth2/token
+scopes: []

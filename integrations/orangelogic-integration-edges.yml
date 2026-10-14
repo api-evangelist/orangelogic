@@ -1,7 +1,19 @@
-generated: '2026-10-13'
+generated: '2026-10-14'
 method: searched
+source:
+- https://zapier.com/apps/orangelogic/integrations
+- https://zapier.com/apps/orange-logic/integrations
+- https://n8n.io/integrations/orangelogic/
+- https://composio.dev/toolkits/orangelogic
+- https://monid.ai/tools/orangelogic
 checked:
 - https://aws.amazon.com/marketplace/
+- https://composio.dev/toolkits/orangelogic
+- https://monid.ai/tools/orangelogic
+- https://n8n.io/integrations/orangelogic/
+- https://zapier.com/apps/orange-logic/integrations
+- https://zapier.com/apps/orangelogic/integrations
+summary: null
 marketplace_apps: []
 edges:
 - partner_name: AWS Marketplace
@@ -20,3 +32,4 @@ edges:
   seller_name: Orange Logic
   detected_by: sweep-cloud-marketplaces.py
   detected: '2026-10-13'
+templates: []

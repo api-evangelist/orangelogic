@@ -1,0 +1,223 @@
+[
+ {
+  "page": "https://developer.orangelogic.com/reference/list-all-database-objects.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "list-all-database-objects",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/API/DataTable/v2.2",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/": {
+     "post": {
+      "summary": "List all database objects",
+      "description": "List all objects in your database, including contact types and asset subtypes",
+      "operationId": "list-all-database-objects",
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"APIRequestInfo\": {\n    \"ProviderVersion\": \"KOBE.R1.2065D.215691\",\n    \"ProviderIdentity\": \"OLU-T-USW2-APP\",\n    \"ProviderID\": \"44ddde3ac27a33c394335f249d4007d4\",\n    \"Module\": \"DataTable\",\n    \"APIVersion\": \"v2.2\",\n    \"Resource\": null,\n    \"IsLoggedIn\": true,\n    \"Status\": \"LoggedIn\",\n    \"UserLogin\": \"jennifer.fance@orangelogic.com\",\n    \"Session\": \"Jen Demo\",\n    \"TimeoutPeriodMinutes\": 20\n  },\n  \"Temporary\": \"This help tool is being developed\",\n  \"ResourceList\": [\n    {\n      \"ResourceName\": \"Asset-archive-collection.Archive.Default\",\n      \"ResourceDisplayName\": \"ArchiveCollection_Default\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Asset-archive-collection.Archive.Default:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts-groups\",\n      \"ResourceDisplayName\": \"Group\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Contacts-groups:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts-links\",\n      \"ResourceDisplayName\": \"Contacts links\",\n      \"SampleCall\": {\n        \"href\": \"https://university1.orangelogic.com/API/v2.2/DataTable/Contacts-links:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts.Agent.Default\",\n      \"ResourceDisplayName\": \"Agent_Default\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Contacts.Agent.Default:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts.All\",\n      \"ResourceDisplayName\": null,\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Contacts.All:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n\n    ...\n\n    {\n      \"ResourceName\": \"Session\",\n      \"ResourceDisplayName\": \"Session\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Session:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    }\n  ]\n}"
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/list-all-metadata-fields.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "list-all-database-objects",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/API/DataTable/v2.2",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/Documents.All:ListFields": {
+     "post": {
+      "summary": "List all metadata fields",
+      "description": "List all available metadata fields in your instance of Orange Logic, including core and custom fields",
+      "operationId": "list-all-metadata-fields",
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/create-or-add-an-asset-to-a-stack.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "list-all-database-objects",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/API/DataTable/v2.2",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/Documents.{Asset-type}.{Asset-subtype}:AssignLeadDocument?": {
+     "post": {
+      "summary": "Create a new Stack or add assets to an existing Stack",
+      "description": "",
+      "operationId": "create-or-add-an-asset-to-a-stack",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "properties": {
+           "leadIdentifier": {
+            "type": "string",
+            "description": "The <a href= \"https://developer.orangelogic.com/reference/assets#unique-identifiers\">Unique ID</a> of the lead asset."
+           },
+           "trailIdentifiers": {
+            "type": "string",
+            "description": "The <a href= \"https://developer.orangelogic.com/reference/assets#unique-identifiers\">Unique IDs</a> of new alternative versions to relate to the lead asset, separated by commas."
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/xml": {
+          "examples": {
+           "Result": {
+            "value": "<Result>\n  <APIRequestInfo>\n    <ProviderVersion>KOBE.R2.2065G.216363</ProviderVersion>\n    <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n    <ProviderID>44ddde3ac27a33c394007d4</ProviderID>\n    <Module>DataTable</Module>\n    <APIVersion>v2.2</APIVersion>\n    <Resource>Documents.Image.Default:AssignLeadDocument</Resource>\n    <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n    <Status>LoggedIn</Status>\n    <UserLogin>ZZ1CT117</UserLogin>\n    <Session>No session (production configuration)</Session>\n    <TimeoutPeriodMinutes type=\"Numeric\">20</TimeoutPeriodMinutes>\n  </APIRequestInfo>\n  <RequestInterpretation>\n    <ParametersInformation>\n      <TrailIdentifiers>\n        <Value>ZZ15YT,ZZ15YS,ZZ15YR</Value>\n        <IsOptional type=\"Boolean\">False</IsOptional>\n        <ValueCount type=\"Numeric\">1</ValueCount>\n      </TrailIdentifiers>\n      <LeadIdentifier>\n        <Value>ZZ15YU</Value>\n        <IsOptional type=\"Boolean\">False</IsOptional>\n        <ValueCount type=\"Numeric\">1</ValueCount>\n      </LeadIdentifier>\n    </ParametersInformation>\n  </RequestInterpretation>\n  <Response type=\"List\">\n    <Result>\n      <Parameters>\n        <TrailIdentifiers>ZZ15YT,ZZ15YS,ZZ15YR</TrailIdentifiers>\n        <LeadIdentifier>ZZ15YU</LeadIdentifier>\n      </Parameters>\n      <ExecutionStatus>Executed</ExecutionStatus>\n      <Code>SUCCESS</Code>\n      <AffectedRecords type=\"Numeric\">3</AffectedRecords>\n    </Result>\n  </Response>\n</Result>"
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false,
+      "security": [],
+      "x-readme": {
+       "code-samples": [
+        {
+         "language": "text",
+         "code": "https://mangovations.com/API/DataTable/v2.2/Documents.Image.Default:AssignLeadDocument?LeadIdentifier=ZZ15YU&TrailIdentifiers=ZZ15YT,ZZ15YS,ZZ15YR"
+        }
+       ],
+       "samples-languages": [
+        "text"
+       ]
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ }
+]

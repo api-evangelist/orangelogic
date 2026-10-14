@@ -1,0 +1,474 @@
+[
+ {
+  "page": "https://developer.orangelogic.com/reference/search-api.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "search",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/API/search",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/v4.0/search": {
+     "post": {
+      "summary": "Search API",
+      "description": "Find the assets you need",
+      "operationId": "search-api",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "properties": {
+           "query": {
+            "type": "string",
+            "description": "Criteria and search terms that describe the attributes assets must have to be returned, in the format <code>criterion:search_term</code>. To include multiple criteria, separate each search term with the query operators <code>NOT</code>, <code>AND</code>, and <code>OR</code>. Use parentheses to perform advanced searches by applying one criterion to multiple other search terms.  </br></br> For example, let’s say you want to find assets that:  <ul>   <li>Are tagged with the term <strong>Flower</strong> or <strong>Flowers</strong>.</li>   <li>Are tagged with the term <strong>Autumn</strong>.</li>    <li>Have the word “<strong>sunlit</strong>” in their description field.</li>   <li>Do not include the word “<strong>cold</strong>” in their description field.</li>   <li>Are <strong>images</strong> or <strong>videos</strong>.</li> </ul> You’d use the following query parameter:  </br> <code>keyword:(Flower OR Flowers) Autumn AND (CoreField.Description:sunlit NOT cold) AND (DocType:Image OR Video)</code> </br> </br><strong>Notes</strong>:  <ul> <li>You can use a space (<code> </code>) instead of <code>AND</code>.</li>  <li>For query construction details and a list of standard Orange Logic criteria, go to <a href=\"https://developer.orangelogic.com/reference/query-options#query-construction\">query construction</a>. </li>  <li>To find the specific criteria available for your organization’s Orange Logic environment, use the <a href=\"https://developer.orangelogic.com/reference/list-criteria\">List Criteria</a> API call. </li>  <li>You can only include one query parameter in your call. Use operators to include multiple criteria or search terms.</li>  </ul>"
+           },
+           "semanticquery": {
+            "type": "string",
+            "description": "The search words or phrase. This option uses Orange Logic’s AI search feature to perform the search. Orange Logic users with Link accounts can go to the <a href=\"https://link.orangelogic.com/CMS4/Permalinks/2P7YOH9QCKY5\">AI search</a> article to learn more.  <br/> When you use the <code>semanticquery</code> and <code>query</code> parameters at the same time, Orange Logic prioritizes search terms in this order:  <ol> <li>The <code>text</code> and <code>title</code> criteria in the <code>query</code> parameter (if applicable).</li> <li>The text in the <code>semanticquery</code> parameter.</li> <li>Other criteria in the <code>query</code> parameter (if applicable).</li> </ol>  <strong>Notes</strong>:  <ul> <li>When you use this parameter, only 100 results are returned.</li> <li>This parameter is available for beginning in <a href=\"https://developer.orangelogic.com/reference/about#orange-logic-api-versioning\">Orange Logic Ottawa</a>. It is deactivated by default. To learn how to activate it, go to the <a href=\"https://link.orangelogic.com/CMS4/Permalinks/2P7YOH9QCKY5\">AI search</a> article. </li> </ul>"
+           },
+           "sort": {
+            "type": "string",
+            "description": "The algorithm that determines the order in which search results are returned. You can choose from these options:  <ul>   <li><strong><code>relevancy</code></strong>: Assets are sorted from most relevant to least relevant based on Orange Logic’s relevancy algorithm. This algorithm is based on a number of factors, such as tags in the context of the total number of tags applied to the asset, the title and description of the asset, keywords of the parent folder(s), tags extrapolated from the tag tree, and more. Each of these elements has different weightings applied to them.</li>   <li><strong><code>newest first</code></strong>: Assets are sorted from newest to oldest, based on their Create Date.</li>  <li><strong><code>oldest first</code></strong>: Assets are sorted from oldest to newest, based on their Create Date.</li> <li><strong><code>editor choice</code></strong>: Assets are sorted from highest rating to lowest rating, based on the Editor Choice field.</li> <li><strong><code>file name</code></strong>: Assets are sorted from A to Z, based on their filename.</li> <li><strong><code>file name DESC</code></strong>: Assets are sorted from Z to A, based on their filename.</li> <li><strong><code>file size</code></strong>: Assets are sorted from smallest to largest, based on their size.</li> <li><strong><code>file size DESC</code></strong>: Assets are sorted from largest to smallest, based on their size.</li> <li><strong><code>last changed</code></strong>: Assets are sorted from newest to oldest, based on their Date Last Edited.</li> <li><strong><code>last changed ASC</code></strong>: Assets are sorted from oldest to newest, based on their Date Last Edited.</li> <li><strong><code>indexed date DESC</code></strong>: Assets are sorted from newest to oldest, based on the date they were most recently indexed.</li> <li><strong><code>indexed date</code></strong>: Assets are sorted from oldest to newest, based on the date they were most recently indexed.</li> <li><strong><code>start date DESC</code></strong>: Assets are sorted from newest to oldest, based on the asset’s start date. </li> <li><strong><code>start date</code></strong>: Assets are sorted from oldest to newest, based on the asset’s start date.</li> <li><strong><code>manual order</code></strong>: Assets are displayed based on how you reordered them in the container. </li> <li><strong><code>most popular</code></strong>: Assets are sorted from most downloaded to least downloaded. </li> </ul>  <strong>Notes</strong>:  <ul> <li>When you use the <code>sematicquery</code> parameter, the returned values are ordered by the AI search’s relevancy score. If multiple assets have the same relevancy score, they are sorted based on the sort option selected here.</li> <li>Your organization might use legacy values for the <OrderBy> tag. Those values continue to work, but only currently supported values are listed here.</li> </ul>"
+           },
+           "fields": {
+            "type": "string",
+            "description": "The fields to retrieve from each asset, separated by commas.  </br> For example, let’s say you want to return an asset’s system identifier, title, and description. You’d use the following code as your field parameter: <code>SystemIdentifier, Title, CaptionLong</code>. </br> <strong>Notes</strong>:  <ul> <li>The maximum length for a field value in the Search API is 2048 characters. If your fields have longer values, enter them into the body of the request.</li> <li>To learn about asset paths in Orange Logic environments, go <a href=\"https://developer.orangelogic.com/reference/fields-parameter#standard-fields\">here</a>.</li>  <li>To find the specific fields available for your organization’s Orange Logic environment, use the <a href=\"https://developer.orangelogic.com/reference/list-fields\">List Fields</a> API call. </li> </ul>"
+           },
+           "countperpage": {
+            "type": "integer",
+            "description": "Number of results returned per page.",
+            "default": 100,
+            "format": "int32"
+           },
+           "pagenumber": {
+            "type": "integer",
+            "description": "The page of results you want to retrieve, based on <code>countperpage</code>.  </br> For example, to retrieve page 2 of the search results, you’d enter 2. If <code>countperpage</code> is 100, your search would return result number 100 through result number 199.",
+            "default": 1,
+            "format": "int32"
+           },
+           "verbose": {
+            "type": "boolean",
+            "description": "Whether to return your query’s response details. </br> When <code>true</code>, the response includes detailed information on how your query was parsed. You can use this parameter to help you troubleshoot your query if you run a search and the results don’t match your expectations.",
+            "default": false
+           },
+           "impersonateanotheruser": {
+            "type": "string",
+            "description": "The email address that matches the Orange Logic account of the user to impersonate. This search returns the results the impersonated user would see if they ran the search.  </br></br> However, when you impersonate another user, you can only view assets you have the Security Functions and Permissions to access. Therefore, if the user you’re impersonating has access to results that you do not have access to, those results are not returned."
+           },
+           "generateformatifnotexists": {
+            "type": "boolean",
+            "description": "<code>True</code>: If an asset appears in your search and you’ve requested the path to a format of that asset that hasn’t been generated yet, Orange Logic generates and returns that format. Orange Logic does this for formats generated on demand, such as TRX, CSM1, CMS2, CMS3.  <br/> <code>False</code>: If an asset appears in your search and you’ve requested the path to a format of that asset that hasn’t been generated yet, the format is not generated.  <br/>  For more information, go to the <a href=\"https://developer.orangelogic.com/reference/fields-parameter#generate-formats-on-demand\">Generate formats on demand</a> article.",
+            "default": false
+           },
+           "getpermanentassetspaths": {
+            "type": "boolean",
+            "description": "<code>True</code>: <code>Path</code> requests are returned as permanent asset link URLs. <br/> <code>False</code>: Any <code>Path</code> requests in the <code>fields</code> parameter are returned as expirable URLs to the requested asset proxies. Learn more about the field parameter and <a href=\"https://developer.orangelogic.com/reference/fields-parameter#asset-formats-generated-on-upload\" target=\"_blank\">asset formats generated on upload</a>  <br> Both types of links are public and distributed through a <a href=\"https://en.wikipedia.org/wiki/Content_delivery_network\" target=\"_blank\">CDN</a>.",
+            "default": false
+           },
+           "disableURIencoding": {
+            "type": "boolean",
+            "description": "<code>True</code>: Returned URIs are <a href=\"https://developer.orangelogic.com/reference/encoding-special-characters\">unencoded</a>. <strong>Note</strong>: If the response format is XML (rather than JSON), unencoded URIs are returned within a CData section. <br> <code>False</code>: Returned URIs are encoded. Use this option to create URIs that are rendered correctly in a web browser.",
+            "default": false
+           },
+           "includebinned": {
+            "type": "boolean",
+            "description": "<code>True</code>: Assets that have been soft-deleted are included in the search results.  <br/> <code>False</code>: Assets that have been soft-deleted are not included in the search results.  <br/> <strong>Note</strong>: Only users with the <a href=\"https://developer.orangelogic.com/reference/search#search-for-deleted-assets\"><strong>Search for Deleted Assets</strong></a> Security Function can retrieve soft-deleted assets.",
+            "default": false
+           },
+           "includestorageinfo": {
+            "type": "boolean",
+            "description": "<code>True</code>: Storage information is returned for existing asset formats specified in the `fields` parameter.  <br/> <code>False</code>: Storage information is not returned.  <br/> <strong>Notes</strong>:  <ul> <li>Only users with the <a href=\"https://developer.orangelogic.com/reference/search#can-expose-bucket-search-api\"><strong>Can Expose Bucket Search API</strong></a> Security Function can retrieve storage information.</li>  <li>Go to <a href= \"https://developer.orangelogic.com/reference/fields-parameter#asset-formats\">Asset Formats</a> in the Fields parameter article to learn how to return asset formats.</li> </ul>"
+           },
+           "includeassetswithvirtualpaths": {
+            "type": "boolean",
+            "description": "When you include a virtual folder in the <code>path</code> criterion: <br/> <code>True</code>: Returns information about all assets within the folder structure, including assets referenced by virtual folders.  <br/> <code>False</code>: Returns information about assets whose primary parent is within the folder structure. <br/> <strong>Notes</strong>:  <ul> <li> This parameter is available beginning in Orange Logic Milan. In earlier releases, the Search API does not return information about asset references in virtual folders.",
+            "default": false
+           },
+           "format": {
+            "type": "string",
+            "description": "Response format; can be XML or JSON.",
+            "default": "XML",
+            "enum": [
+             "XML",
+             "JSON"
+            ]
+           },
+           "dateformat": {
+            "type": "string",
+            "description": "The <a href=\"https://developer.orangelogic.com/reference/specify-the-returned-date-format\">returned date format</a>."
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n    \"APIRequestInfo\": {\n        \"ProviderVersion\": \"LONDON.R2.2131E.216729\",\n        \"ProviderIdentity\": \"OLU-T-USW2-APP\",\n        \"ProviderID\": \"44ddde3ac27a33c39d4007d4\",\n        \"Module\": \"Search\",\n        \"APIVersion\": \"v4.0\",\n        \"Resource\": \"Search\",\n        \"IsLoggedIn\": true,\n        \"Status\": \"LoggedIn\",\n        \"UserLogin\": \"ZZ1C2217\",\n        \"Session\": \"No session (production configuration)\",\n        \"TimeoutPeriodMinutes\": 120\n    },\n    \"APIResponse\": {\n        \"GlobalInfo\": {\n            \"TotalCount\": 1,\n            \"QueryDurationMilliseconds\": 104,\n            \"Sort\": \"Relevancy\"\n        },\n        \"Items\": [\n            {\n                \"path_TR1\": {\n                    \"URI\": \"https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC2@LqCEAydcP1_rrpz3iF_ycRPYmqMgYEcXPECkqS6E6vbs2J8nQstFP4y0p9RbPa4phT6ja397ym7@Xy1ypXwlVS0f7qcodRIUzLxXYzswl/fK_aIBtRIxLGAP_3/9kwp3C2TkN3uDSEJ/ZZ13UJ5.jpg\",\n                    \"Width\": 1200,\n                    \"Height\": 800\n                },\n                \"SystemIdentifier\": \"ZZ13UJ5\"\n            }\n        ]\n    }\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "APIRequestInfo": {
+             "type": "object",
+             "properties": {
+              "ProviderVersion": {
+               "type": "string",
+               "example": "LONDON.R2.2131E.216729"
+              },
+              "ProviderIdentity": {
+               "type": "string",
+               "example": "OLU-T-USW2-APP"
+              },
+              "ProviderID": {
+               "type": "string",
+               "example": "44ddde3ac27a33c39d4007d4"
+              },
+              "Module": {
+               "type": "string",
+               "example": "Search"
+              },
+              "APIVersion": {
+               "type": "string",
+               "example": "v4.0"
+              },
+              "Resource": {
+               "type": "string",
+               "example": "Search"
+              },
+              "IsLoggedIn": {
+               "type": "boolean",
+               "example": true,
+               "default": true
+              },
+              "Status": {
+               "type": "string",
+               "example": "LoggedIn"
+              },
+              "UserLogin": {
+               "type": "string",
+               "example": "ZZ1C2217"
+              },
+              "Session": {
+               "type": "string",
+               "example": "No session (production configuration)"
+              },
+              "TimeoutPeriodMinutes": {
+               "type": "integer",
+               "example": 120,
+               "default": 0
+              }
+             }
+            },
+            "APIResponse": {
+             "type": "object",
+             "properties": {
+              "GlobalInfo": {
+               "type": "object",
+               "properties": {
+                "TotalCount": {
+                 "type": "integer",
+                 "example": 1,
+                 "default": 0
+                },
+                "QueryDurationMilliseconds": {
+                 "type": "integer",
+                 "example": 104,
+                 "default": 0
+                },
+                "Sort": {
+                 "type": "string",
+                 "example": "Relevancy"
+                }
+               }
+              },
+              "Items": {
+               "type": "array",
+               "items": {
+                "type": "object",
+                "properties": {
+                 "path_TR1": {
+                  "type": "object",
+                  "properties": {
+                   "URI": {
+                    "type": "string",
+                    "example": "https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC2@LqCEAydcP1_rrpz3iF_ycRPYmqMgYEcXPECkqS6E6vbs2J8nQstFP4y0p9RbPa4phT6ja397ym7@Xy1ypXwlVS0f7qcodRIUzLxXYzswl/fK_aIBtRIxLGAP_3/9kwp3C2TkN3uDSEJ/ZZ13UJ5.jpg"
+                   },
+                   "Width": {
+                    "type": "integer",
+                    "example": 1200,
+                    "default": 0
+                   },
+                   "Height": {
+                    "type": "integer",
+                    "example": 800,
+                    "default": 0
+                   }
+                  }
+                 },
+                 "SystemIdentifier": {
+                  "type": "string",
+                  "example": "ZZ13UJ5"
+                 }
+                }
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false,
+      "x-readme": {
+       "code-samples": [
+        {
+         "language": "curl",
+         "code": "curl --location 'https://mangovations.com/API/Search/v4.0/Search' \\\n--header 'Content-Type: application/x-www-form-urlencoded' \\\n--header 'Authorization: Bearer QbhFBUjxXsVH0dr7Pq8rq7wREXqWsjLSSbcAe3mH' \\\n--header 'Cookie: AWSALB=rV3jffN7SYxpJGLYf3ZNCvkkXMa4GkS0WEM5MqmmhrFAn587ec/VER5+i1QpRYMOe30rgBuoV4FipU2bALhEke6NNiRENePc; ihHv2w8Fke0BSF1tD1UmphrowbI40XrVzqxouiD0mtdrQPt0bH9OhExyMkawZNDgobNcs8P54a7ilXxyk7m2P0CMLY7knfoRVhVSnTRSxBPHPLorXHYlwHGQ49X0ondMi; AWSALBTGCORS=5lFyxxGrTKMZThStbFyI1KaWIihHv2w8Fke0BSF1tD1UmphrowbI40XrVzqxouiD0mtdrQPt0bH9OhExyMkawZNDgobNcs8P54a7ilXxyk7m2P0CMLY7knfoRVhVSnTRSxBPHPLorXHYlwHGQ49X0ondMi; CortexCID_ZZ1=iu5G2rhGXAbc8sj5; ZZ1-Session__1505=CfDJ8KSkO661hSREsDx7PGb48%2B3a1q%2B04GYgU6pkDfqAQISLERdyNrc9MscmWNBnnPwrarT%2FZn1g93uO86HmJjcYHSJec3a7FlFCnq377%2BJcSJYdNFEaEYZxQrHwMiEPckjIkiFYNdPkRLhRf3J7vcr4NucW%2Fmq%2Bvv9mnZyEG9c%2B5p2f; ZZ1-Session__1505-Alt=CfDJ8KSkO661hSREsDx7PGb48%2B3a1q%2B04GYgU6pkDfqAQISLERdyNrc9MscmWNBnnPwrarT%2FZn1lFCnq377%2BJcSJYdNFEaEYZxQrHwMiEPckjIkiFYNdPkRLhRf3J7vcr4NucW%2Fmq%2Bvv9mnZyEG9c%2B5p2f' \\\n--data-urlencode 'query=keyword:London AND Bridge OR uk AND title:Bridge' \\\n--data-urlencode 'fields=path_TR1' \\\n--data-urlencode 'fields=SystemIdentifier' \\\n--data-urlencode 'sort=1' \\\n--data-urlencode 'pagenumber=1' \\\n--data-urlencode 'debug=false' \\\n--data-urlencode 'verbose=false' \\\n--data-urlencode 'reversesearch=false' \\\n--data-urlencode 'generateformatifnotexists=false' \\\n--data-urlencode 'getpermanentassetspaths=false' \\\n--data-urlencode 'includebinned=false' \\\n--data-urlencode 'includestorageinfo=false' \\\n--data-urlencode 'format=JSON'"
+        }
+       ],
+       "samples-languages": [
+        "curl"
+       ]
+      }
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/list-criteria.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "search",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/API/search",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/v3.0/ListCriteria": {
+     "post": {
+      "summary": "List Criteria",
+      "description": "Get a list of the searchable criteria available in your DAM",
+      "operationId": "list-criteria",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "properties": {
+           "format": {
+            "type": "string",
+            "description": "The response format.",
+            "default": "XML",
+            "enum": [
+             "JSON",
+             "XML"
+            ]
+           },
+           "dateformat": {
+            "type": "string",
+            "description": "The date format used in the query and response.",
+            "default": "yyyy-MM-ddTHH:mm:ss",
+            "format": "date"
+           },
+           "Token": {
+            "type": "string",
+            "description": "An authentication token. If empty, the token included in the current cookie is used."
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n    \"APIRequestInfo\": {\n        \"ProviderVersion\": \"LONDON.R2.21E.216729\",\n        \"ProviderIdentity\": \"OLU-T-US-AP\",\n        \"ProviderID\": \"44ddde3ac27a335f249d4007d4\",\n        \"Module\": \"search\",\n        \"APIVersion\": \"v3.0\",\n        \"Resource\": \"ListCriteria\",\n        \"IsLoggedIn\": true,\n        \"Status\": \"LoggedIn\",\n        \"UserLogin\": \"ZZ1C217\",\n        \"Session\": \"No session (production configuration)\",\n        \"TimeoutPeriodMinutes\": 20\n    },\n    \"APIResponse\": [\n        {\n            \"Name\": \"Doctype\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Mediatype\",\n            \"Description\": \"Media type such as Image, Audio, Video, Album, Story...\",\n            \"Examples\": \"query=MediaType:Image\\nquery=MediaType:Image OR Video\"\n        },\n        {\n            \"Name\": \"Docsubtype\",\n            \"Description\": \"Asset sub type such as Upload folder, Standard image, Video segment, etc.\",\n            \"Examples\": \"query=DocSubType:Standard Image\"\n        },\n        {\n            \"Name\": \"Mediasubtype\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Filename\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Purpose\",\n            \"Description\": \"Asset visibility class label.\"\n        },\n        {\n            \"Name\": \"Purposename\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Purposeidentifier\",\n            \"Description\": \"Asset visibility class unique identifier.\"\n        },\n        {\n            \"Name\": \"Text\",\n            \"Description\": \"Freetext search.\",\n            \"Examples\": \"query=Text:Sport\\nquery=Text:Red flower\\nquery=Text:\\\"Red carpet\\\" AND Cannes\\nquery=Text:(\\\"Red carpet\\\" AND Cannes) OR Celebrity\"\n        },\n        {\n            \"Name\": \"Keyword\",\n            \"Description\": \"Searches images by a specific keyword.\\n\\nIt is also possible to specify keyword type (e.g. searching on Orange as a color (Common keyword) not Orange as a county (Geographical keyword).\\n\\nNote: When a keyword type is not specified, the API will search on the keyword in all keyword types. For example Keyword:orange will retrieve results when Keyword(Common) orange or Keyword(Geography) orange is assigned.\",\n            \"Examples\": \"query=Keyword:beach\\nquery=Keyword:beach AND sport \\nquery=Keyword:beach AND sport AND NOT Keyword:France \\nquery=Keyword:beach AND NOT blue\\nquery=Keyword:beach OR sea\\nquery=Keyword(Common):orange AND NOT Keyword(Geography):orange\"\n        },\n        {\n            \"Name\": \"Nativekeyword\",\n            \"Description\": \"These are keywords directly assigned to assets (as opposed to inherited by the thesaurus structure). \\n\\nThis functionality is not to be used for general searches but only for third party working on the keywording of the images. If we want to look at the images that have the keyword France specifically added to the image then you would use \\nquery=NativeKeyword:France\\n\\nEven if Paris is a narrow term of France, images with Paris as a keyword would not appear in the NativeKeyword search for France. They would appear in a normal Keyword search for France.\"\n        },\n         ...\n        },\n        {\n            \"Name\": \"Person.First-name\"\n        },\n        {\n            \"Name\": \"Person.FirstName\"\n        },\n        {\n            \"Name\": \"Person.Last-name\"\n        },\n        {\n            \"Name\": \"Person.LastName\"\n        },\n        {\n            \"Name\": \"PremierePro.Sequence-GUID\",\n            \"Description\": \"System ID of the sequence in its Adobe Premiere project\"\n        },\n        {\n            \"Name\": \"RelatedValue.TriggerSummary\"\n        },\n        {\n            \"Name\": \"Suggestion.Number-of-people\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Trigger.On-Types\"\n        },\n        {\n            \"Name\": \"Widget.Compatible-With\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Widget.Family\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Widget.Tags\",\n            \"Description\": \"\"\n        }\n    ]\n}\n"
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/list-fields.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "search",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/API/search",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/v3.0/ListFields": {
+     "post": {
+      "summary": "List Fields",
+      "description": "List all metadata fields",
+      "operationId": "list-fields",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "properties": {
+           "format": {
+            "type": "string",
+            "description": "The response format.",
+            "default": "XML",
+            "enum": [
+             "XML",
+             "JSON"
+            ]
+           },
+           "dateformat": {
+            "type": "string",
+            "description": "The date format used in the query and response.",
+            "default": "yyyy-MM-ddTHH:mm:ss",
+            "format": "date"
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n   \"APIRequestInfo\": {\n       \"ProviderVersion\": \"LONDON.R2.21.216729\",\n       \"ProviderIdentity\": \"OLU-T-USW2-APP\",\n       \"ProviderID\": \"44ddde3acd4007d4\",\n       \"Module\": \"search\",\n       \"APIVersion\": \"v3.0\",\n       \"Resource\": \"ListFields\",\n       \"IsLoggedIn\": true,\n       \"Status\": \"LoggedIn\",\n       \"UserLogin\": \"ZZ1C217\",\n       \"Session\": \"No session (production configuration)\",\n       \"TimeoutPeriodMinutes\": 20\n   },\n   \"APIResponse\": {\n       \"Metadata\": {\n           \"MediaEncryptedIdentifier\": \"Asset encrypted identifier\",\n           \"SystemIdentifier\": \"Asset unique identifier\",\n           \"MediaNumber\": \"Asset Legacy Identifier\",\n           \"Title\": \"Asset title\",\n           \"CaptionShort\": \"Asset headline\",\n           \"Caption\": \"Asset description\",\n           \"MediaDate\": \"Asset asset date\",\n           \"CreateDate\": \"Asset create date\",\n           \"CreatedBy\": \"Asset create user\",\n           \"GlobalEditDate\": \"Asset global edit date (Look into modifications at the asset level and all related entities such as Keywords, Restrictions, ...)\",\n           ...\n           \"Document.SubTypeAPIName\": \"Subtype API name\",\n           \"Document.SubTypeName\": \"The display name of subtype\",\n           \"Document.ToggleStatusName\": \"The simple text name of the toggle status\",\n           \"Document.TriggerSummary\": \"Automation Summary\",\n           \"Document.WorkflowProgress\": \"Percentage of completion based on the current status.\",\n           \"Document.WorkflowStatusHtml\": \"The Workflow status icon and its name (Read only)\",\n           \"Document.WorkflowStatusNameWithColor\": \"The simple text name of an workflow status with its color\",\n           \"Document.WorkflowStepsSummary\": \"FlowSteps Summary\"\n       }\n   }\n}"
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ }
+]

@@ -1,0 +1,31 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-problem-types.py
+source:
+- openapi/orangelogic-authentication-openapi.yml
+- openapi/orangelogic-create-crop-link-openapi.yml
+- openapi/orangelogic-get-link-openapi.yml
+- openapi/orangelogic-get-links-openapi.yml
+- openapi/orangelogic-get-presigned-link-openapi.yml
+- openapi/orangelogic-list-all-database-objects-openapi.yml
+- openapi/orangelogic-media-openapi.yml
+- openapi/orangelogic-mediafile-storage-openapi.yml
+- openapi/orangelogic-multi-part-upload-api-openapi.yml
+- openapi/orangelogic-object-management-batch-edit-openapi.yml
+- openapi/orangelogic-object-management-batch-upsert-openapi.yml
+- openapi/orangelogic-report-openapi.yml
+format: custom
+envelope:
+  media_type: application/json
+  schema: null
+coverage:
+  operations: 44
+  statuses_declared: 1
+problems:
+- status: 400
+  title: Bad Request
+  description: '400'
+  operations: 2
+  media_types:
+  - application/json
+  schema: null

@@ -1,0 +1,617 @@
+[
+ {
+  "page": "https://developer.orangelogic.com/reference/create-upload-transaction.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "multi-part-upload-api",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/webapi/mediafile/import/upload/",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/transaction/24_v1": {
+     "post": {
+      "summary": "Step 1: Create an upload transaction",
+      "description": "Create an upload transaction ID and begin an upload session",
+      "operationId": "create-upload-transaction",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "properties": {
+           "targetFolderID": {
+            "type": "string",
+            "description": "The <a href=\"https://developer.orangelogic.com/reference/assets#record-id\">Record ID</a> of the folder you want to upload to."
+           },
+           "keepFolderStructure": {
+            "type": "boolean",
+            "description": "Whether to retain your folder structure. When <code>true</code>, the assets are uploaded with their original local folder structure.",
+            "default": true
+           },
+           "mappingTemplateId": {
+            "type": "string",
+            "description": "The Orange Logic Import Mapping Template API ID. <br> <strong>Note</strong>:  <ul> <li>To find the API ID of an import mapping template, go to <strong>Admin</strong> > <strong>Archives</strong> > <strong>Manage Import Mapping Templates</strong> and open the template. The <strong>API ID</strong> is in the <strong>Edit import mapping template</strong> window. </li> </ul>"
+           },
+           "noMappingTemplate": {
+            "type": "boolean",
+            "description": "When <code>true</code>, you are using a mapping template. </br> When <code>false</code>, you are not using a mapping template.",
+            "default": true
+           },
+           "metadata": {
+            "type": "object",
+            "description": "Metadata to apply to all assets included in the upload transaction.",
+            "properties": {
+             "RecordID": {
+              "type": "string",
+              "description": "Include an asset’s <a href=\"https://developer.orangelogic.com/reference/assets#record-id\">Record ID</a> to upload a new version of an existing Orange Logic asset.  </br> <strong>Notes</strong>:  <ul> <li>This field is optional; if it is not included, Orange Logic will upload the asset as a new file.</li> <li>This field applies to all assets you upload in this transaction. Therefore, if you include a RecordID, limit your upload to a single asset.</li> </ul>"
+             },
+             "[CustomMetadata]": {
+              "type": "string",
+              "description": "You can add other metadata fields with the syntax <code>\"FieldAPIname\": \"value\"</code>. (Other fields are not required; use this as a placeholder for other metadata you might want to add to the asset.) </br> Go to the <a href=\"https://developer.orangelogic.com/reference/metadata-field-identifiers#api-name\">API name</a> section of the Metadata field identifiers page to learn more."
+             }
+            }
+           },
+           "uploadMethod": {
+            "type": "string",
+            "description": "Used to categorize the upload requests and pass them to the client uploader app you want to use. The options are: CortexTools, Web, Agent, DropBox, Ftp, and Getty. However, your organization may not have all of these upload options.",
+            "default": "CortexTools",
+            "enum": [
+             "CortexTools",
+             "Web",
+             "Agent",
+             "DropBox",
+             "Ftp",
+             "Getty"
+            ]
+           },
+           "useCache": {
+            "type": "boolean",
+            "description": "If available, use a cached transaction.",
+            "default": true
+           },
+           "clearanceLevel": {
+            "type": "integer",
+            "description": "The security clearance that will be added to the created asset’s Security Clearance field. Security clearances are an optional layer of asset protection in addition to permissions. Orange Logic users with a Link account can go to the <a href=\"https://link.orangelogic.com/CMS4/Permalinks/2P7YOHNZQ04H\" target=\"_blank\">security clearance</a> article to learn more.",
+            "format": "int32"
+           }
+          }
+         },
+         "examples": {
+          "Request Example": {
+           "value": {
+            "targetFolderId": "2RBKT7U0WKYH",
+            "keepFolderStructure": true,
+            "mappingTemplateId": "null",
+            "noMappingTemplate": true,
+            "clearanceLevel": 0,
+            "metadata": {
+             "CoreField.Caption": "Spring collection",
+             "CoreField.Purpose": "Pending Process"
+            },
+            "updateDBEntriesIfExist": true,
+            "uploadMethod": "CortexTools",
+            "useCache": true
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"transactionId\": \"2RBKMYFLD3UY\"\n}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "transactionId": {
+             "type": "string",
+             "example": "2RBKMYFLD3UY"
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/register-upload-assets.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "multi-part-upload-api",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/webapi/mediafile/import/upload/",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/register_25_v1": {
+     "post": {
+      "summary": "Step 2: Register upload assets",
+      "description": "Register each asset you’ll upload as part of the transaction created in the previous step",
+      "operationId": "register-upload-assets",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "transactionId",
+           "files"
+          ],
+          "properties": {
+           "transactionId": {
+            "type": "string",
+            "description": "The transaction ID created with the <a href=\"https://developer.orangelogic.com/reference/create-upload-transaction\">Create Upload Transaction API</a> in Step 1."
+           },
+           "folderRecordID": {
+            "type": "string",
+            "description": "The <a href=\"https://developer.orangelogic.com/reference/assets#record-id\">Record ID</a> of the folder you’ll upload the asset to."
+           },
+           "files": {
+            "type": "array",
+            "description": "A JSON-serialized array of objects representing the assets to upload.",
+            "items": {
+             "properties": {
+              "fileName": {
+               "type": "string",
+               "description": "Name of the local file with the extension. </br> Example: <strong>Architecture.zip, Living-Image.png</strong>."
+              },
+              "relativePath": {
+               "type": "string",
+               "description": "The relative folder path of the target folder in Orange Logic that you want to upload to. If you define a path that does not currently exist, Orange Logic will create those folders automatically.   <ul>         <li><strong>Example</strong>: You want to upload the image <strong>Autumn-Sky.jpeg</strong> to the <strong>Images for Review</strong> folder. The <strong>Images for Review</strong> folder is located in the <strong>Season 01</strong> folder in the <strong>Dream Vacation Destinations</strong> folder. If you want the image to be a direct child of the <strong>Images for Review</strong> folder, the relative path is: </br>  <code>\"relativePath\": \"Dream Vacation Destinations/Season 01/Images for Review\"</code></li>         <li>You must include the <strong>relativePath</strong> in the API call. If you do not want to define the <strong>relativePath</strong>, you can include an empty value. Using an empty value will upload the assets to the parent folder specified in the <a href=\"https://developer.orangelogic.com/reference/create-upload-transaction\">Create Upload Transaction API</a>.</li>             <ul>                 <li><strong>Example</strong>: <code>\"relativePath\":\"\"</code>. </li>             </ul>     </ul>"
+              },
+              "length": {
+               "type": "integer",
+               "description": "Expected size of the local file in bytes. For example, the length of a 1 KB asset is 1024 B.",
+               "format": "int32"
+              }
+             },
+             "required": [
+              "fileName",
+              "relativePath",
+              "length"
+             ],
+             "type": "object"
+            }
+           },
+           "uploaderName": {
+            "type": "string",
+            "description": "Name of the upload method you’re using.",
+            "default": "Cortex Uploader"
+           },
+           "skipValidity": {
+            "type": "boolean",
+            "description": "When <code>false</code>, OrangeDAM runs a validity check on files to prevent user errors and ensure they are safe to process. When <code>true</code>, OrangeDAM skips this check.",
+            "default": false
+           },
+           "updateIncompleteUI": {
+            "type": "boolean",
+            "description": "This parameter is currently unused.",
+            "default": false
+           },
+           "clientID": {
+            "type": "string",
+            "description": "The user RecordID for web upload. <br/> This parameter is set by the client uploader application. You do not need to enter anything in this parameter."
+           },
+           "cloudCompatible": {
+            "type": "boolean",
+            "description": "When <code>false</code>, upload files are sent to the local buffer (the server that hosts the web application) and cannot use a cloud bucket as a buffer. </br> When <code>true</code>, upload files can use a cloud bucket as a buffer. To use a cloud buffer, there are some constraints depending on the cloud service provider. For example, for Amazon S3 the chunk size must be: <ul> <li>Constant for all the chunks (except the last chunk).</li>  <li>Between 5MB and 5GB (no min size for the last chunk).</li>  <li>The asset can contain no more than 10,000 chunks.</li> </ul>",
+            "default": false
+           }
+          }
+         },
+         "examples": {
+          "Request Example": {
+           "value": {
+            "transactionId": "2RBKMYFLD3UY",
+            "uploaderName": "CortexTools",
+            "skipValidity": false,
+            "updateIncompleteUI": true,
+            "clientId": "string",
+            "files": [
+             {
+              "fileName": "Season 1 trailer.mp4",
+              "relativePath": "Dream Vacation Destinations/Season 01",
+              "length": 85997454
+             }
+            ],
+            "cloudCompatible": true
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n  \"files\": [\n    {\n      \"status\": \"ToUpload\",\n      \"startPosition\": 0,\n      \"uploadItemId\": \"2RBKM47GUS5M\",\n      \"identifier\": null,\n      \"dO_RecordID\": null,\n      \"requestedFileName\": \"Season 1 trailer.mp4\",\n      \"requestedFileSize\": 85997454\n    }\n  ]\n}\n"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "files": {
+             "type": "array",
+             "items": {
+              "type": "object",
+              "properties": {
+               "status": {
+                "type": "string",
+                "example": "ToUpload"
+               },
+               "startPosition": {
+                "type": "integer",
+                "example": 0,
+                "default": 0
+               },
+               "uploadItemId": {
+                "type": "string",
+                "example": "2RBKM47GUS5M"
+               },
+               "identifier": {},
+               "dO_RecordID": {},
+               "requestedFileName": {
+                "type": "string",
+                "example": "Season 1 trailer.mp4"
+               },
+               "requestedFileSize": {
+                "type": "integer",
+                "example": 85997454,
+                "default": 0
+               }
+              }
+             }
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/upload-chunks-to-orange-logic.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "multi-part-upload-api",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/webapi/mediafile/import/upload/",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/item/26_v1/{uploadItemId}": {
+     "post": {
+      "summary": "Step 4: Upload each asset chunk",
+      "description": "Use one API call per asset chunk to upload all chunks to Orange Logic",
+      "operationId": "upload-chunks-to-orange-logic",
+      "parameters": [
+       {
+        "name": "Content-Type",
+        "in": "header",
+        "description": "The <code>multipart/form-data</code> header parameter is required for this call.",
+        "required": true,
+        "schema": {
+         "type": "string",
+         "default": "multipart-formdata"
+        }
+       }
+      ],
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "uploadItemID"
+          ],
+          "properties": {
+           "uploadItemID": {
+            "type": "string",
+            "description": "<code>uploadItemId</code> or <code>UIRecordID</code> of the upload item created in the <a href= \"https://developer.orangelogic.com/reference/register-upload-assets\">Register upload assets</a> section. Use this ID to identify the file chunk uploaded with this call as part of its parent asset."
+           },
+           "start": {
+            "type": "integer",
+            "description": "Starting position (in bytes) of the chunk. Must be a <code>multiple of 131072</code> (for example, 131072, 262144, etc.).",
+            "format": "int32"
+           },
+           "end": {
+            "type": "integer",
+            "description": "Ending position (in bytes) of the chunk (inclusive). Must be: <code>(multiple of 131072) - 1</code> (for example, 131071, 262143...), except for the last chunk of the file. For the last chunk of the file, this value is the total asset length - 1.",
+            "format": "int32"
+           },
+           "totalLength": {
+            "type": "integer",
+            "description": "Size of the full asset in bytes.",
+            "format": "int32"
+           },
+           "md5": {
+            "type": "string",
+            "description": "Md5 hash of the chunk."
+           },
+           "partNumber": {
+            "type": "integer",
+            "description": "1-base part number for cloud upload, required if using cloud buffer bucket.",
+            "default": 1,
+            "format": "int32"
+           },
+           "data": {
+            "type": "string",
+            "description": "File chunk.",
+            "format": "binary"
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{}"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {}
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ },
+ {
+  "page": "https://developer.orangelogic.com/reference/complete-the-asset-upload.md",
+  "definition": {
+   "openapi": "3.1.0",
+   "info": {
+    "title": "multi-part-upload-api",
+    "version": "1.0"
+   },
+   "servers": [
+    {
+     "url": "https://{OrangeLogicURL}/webapi/mediafile/import/upload/",
+     "variables": {
+      "OrangeLogicURL": {
+       "default": "OrangeLogicURL"
+      }
+     }
+    }
+   ],
+   "components": {
+    "securitySchemes": {
+     "sec0": {
+      "type": "oauth2",
+      "flows": {
+       "clientCredentials": {
+        "tokenUrl": "https://example.com/oauth2/token",
+        "scopes": {}
+       }
+      }
+     }
+    }
+   },
+   "security": [
+    {
+     "sec0": []
+    }
+   ],
+   "paths": {
+    "/complete_27_v1": {
+     "post": {
+      "summary": "Step 5: Complete the upload session",
+      "description": "Notify Orange Logic that all of an asset’s chunks have been successfully uploaded",
+      "operationId": "complete-the-asset-upload",
+      "requestBody": {
+       "content": {
+        "application/json": {
+         "schema": {
+          "type": "object",
+          "required": [
+           "uploadItemId",
+           "fileDigitizedDate"
+          ],
+          "properties": {
+           "uploadItemId": {
+            "type": "string",
+            "description": "<code>uploadItemId</code> or <code>UIRecordID</code> of the upload item created in the <a href= \"https://developer.orangelogic.com/reference/register-upload-assets\">Register upload assets</a> section."
+           },
+           "fileDigitizedDate": {
+            "type": "string",
+            "description": "The current date in the format mm/dd/yyThh:mm:ss.",
+            "format": "date"
+           },
+           "fileDateCreated": {
+            "type": "string",
+            "description": "The date the asset was created locally in the format mm/dd/yyThh:mm:ss.",
+            "format": "date"
+           },
+           "fileDateModified": {
+            "type": "string",
+            "description": "The date the asset was last modified locally in the format mm/dd/yyThh:mm:ss.",
+            "format": "date"
+           },
+           "S3PartList": {
+            "type": "array",
+            "description": "ETags received from S3 multipart upload requests. For more information about ETags, refer to the <a href=\"https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#:~:text=Aws%20S3%20Etag\" target=\"_blank\">AWS S3 documentation</a>.",
+            "items": {
+             "type": "string"
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "responses": {
+       "200": {
+        "description": "200",
+        "content": {
+         "application/json": {
+          "examples": {
+           "Result": {
+            "value": "{\n \"assetVersion\": 0,\n  \"duplicatedRecordID\": null,\n  \"uploadStatus\": \"Success\"\n}\n"
+           }
+          },
+          "schema": {
+           "type": "object",
+           "properties": {
+            "assetVersion": {
+             "type": "integer",
+             "example": 0,
+             "default": 0
+            },
+            "duplicatedRecordID": {},
+            "uploadStatus": {
+             "type": "string",
+             "example": "Success"
+            }
+           }
+          }
+         }
+        }
+       }
+      },
+      "deprecated": false
+     }
+    }
+   },
+   "x-readme": {
+    "headers": [],
+    "explorer-enabled": false,
+    "proxy-enabled": true
+   },
+   "x-readme-fauxas": true
+  }
+ }
+]

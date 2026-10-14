@@ -1,0 +1,112 @@
+openapi: 3.1.0
+info:
+  title: object-management-batch-edit
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/multiobjectstools/batchedit
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /batcheditfields_4FQ_v1:
+    post:
+      summary: Batch edit
+      description: Edit multiple assets simultaneously
+      operationId: batch-edit-api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - documents
+              - fieldAssignments
+              properties:
+                documents:
+                  type: array
+                  description: The assets’ <a href="https://developer.orangelogic.com/reference/assets#unique-identifiers">Unique Identifier</a> or <a href="https://developer.orangelogic.com/reference/assets#record-id">Media Encrypted Identifier (RecordID)</a>, separated by commas.
+                  items:
+                    type: string
+                fieldAssignments:
+                  type: array
+                  description: The values to assign to each edited asset.
+                  items:
+                    properties:
+                      field:
+                        type: string
+                        description: The <a href="https://developer.orangelogic.com/reference/metadata-field-identifiers#api-name">API Name</a> of the metadata field to be edited, such as <code>CoreField.Title</code> or <code>CoreField.OriginalFileName</code>.
+                      value:
+                        type: string
+                        description: The field’s new value.
+                      batchsettings:
+                        type: object
+                        description: How to apply the value to the field. These options are similar to the <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHKMYWRT" target="_blank">Batch Edit methods</a> available in the Orange Logic interface.
+                        properties:
+                          batchOption:
+                            type: string
+                            description: 'You have the following options for single- and multi-valued fields:           <ul>                  <li><code>None</code>: Replace the whole value or list of values with the new value.</li>                  <li><code>Append</code>: Append the new value to the existing value or list of values.</li>                <li><code>Prepend</code>: Prepend the new value to the existing value or list of values.</li>                  <li><code>FindAndReplace</code>: Find a value in the existing value or list of values in the field and replace it with the new value.</li>            </ul> For multi-valued fields you can also choose:            <ul>               <li><code>RemoveFromValues</code>: Remove the value from the list of Tags in the authority list. </li>               <li><code>AugmentAuthorityListsOnTheFly</code>: Create a new value and add it to the field’s authority list.</li> </ul>'
+                            default: None
+                            enum:
+                            - None
+                            - Append
+                            - Prepend
+                            - FindAndReplace
+                            - RemoveFromValues
+                            - AugmentAuthorityListsOnTheFly
+                          valueToFindAndReplace:
+                            type: string
+                            description: 'If you selected <code>FindAndReplace</code> in <code>batchOptions</code>, include the value to find and replace. This value cannot be null or an empty string. <br></br> <strong>Note</strong>: The API cannot perform searches to replace values based on whether a field is either empty or filled. This functionality is available only in the Orange Logic interface.'
+                    type: object
+                ignoreNotEditableDocuments:
+                  type: boolean
+                  description: <ul><li>When <code>true</code>, the call edits all assets you have Permissions to edit and ignores any assets you don’t have Permissions to edit. The call returns an error for each asset you can’t edit.</li><li>When <code>false</code>, if you attempt to edit any assets you do not have Permissions to edit, the call returns a 400 error and does not perform any edits.</li></ul>
+                  default: true
+                ignoreInvalidDocuments:
+                  type: boolean
+                  description: <ul><li>When <code>true</code>, the call edits assets that have valid identifiers and ignores any assets with invalid identifiers. The call returns an error for each asset with an invalid identifier.</li><li>When <code>false</code>, if you attempt to edit any assets with invalid identifiers, the call returns a 400 error and does not perform any edits.</li></ul>
+                  default: true
+            examples:
+              Request Example:
+                value:
+                  documents:
+                  - Q0LXJAVSS
+                  - Q0LXJAVTC
+                  fieldAssignments:
+                  - field: Marketing.Campaign
+                    value: Giveaway
+                    batchSettings:
+                      batchOption: AugmentAuthorityListsOnTheFly
+                  ignoreNotEditableDocuments: true
+                  ignoreInvalidDocuments: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: OK
+      deprecated: false
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-edit-api.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

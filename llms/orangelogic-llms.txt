@@ -1,0 +1,209 @@
+# OrangeDAM Documentation
+
+> Documentation for OrangeDAM
+
+## Integrations: Integrations
+- [Content Browser SDK](https://developer.orangelogic.com/docs/content-browser-sdk.md): Browse and access Orange Logic assets in external applications
+  - [Security Functions and permissions for the Content Browser SDK](https://developer.orangelogic.com/docs/security-functions-for-the-content-browser-sdk.md)
+  - [Configure the content browser](https://developer.orangelogic.com/docs/configure-the-content-browser.md)
+  - [Add the Content Browser to your Orange Logic environment](https://developer.orangelogic.com/docs/content-browser-sdk-v1.md)
+  - [Impersonate users to test Content Browser SDK access](https://developer.orangelogic.com/docs/impersonate-users-to-test-content-browser-sdk-access.md)
+  - [Content Browser SDK change log](https://developer.orangelogic.com/docs/change-log.md)
+
+## Integrations: Call external API
+- [Call external API](https://developer.orangelogic.com/docs/call-external-api.md)
+  - [Example: Connect with an AI service](https://developer.orangelogic.com/docs/example-connect-with-an-ai-service.md)
+  - [Example: Automate steps in a workflow](https://developer.orangelogic.com/docs/example-automate-steps-in-a-workflow.md)
+  - [Example: Duplicate a container](https://developer.orangelogic.com/docs/example-duplicate-a-container.md)
+- [Set up the Call external API automation](https://developer.orangelogic.com/docs/set-up-the-call-external-api-automation.md)
+- [IDE tools](https://developer.orangelogic.com/docs/ide-tools.md)
+  - [Script timeout](https://developer.orangelogic.com/docs/script-timeout.md)
+  - [Credentials management in the Secret Vault](https://developer.orangelogic.com/docs/credentials-management-in-the-secret-vault.md)
+  - [Notifications](https://developer.orangelogic.com/docs/notifications.md)
+  - [Asynchronous processing](https://developer.orangelogic.com/docs/asynchronous-processing.md)
+  - [Conditions](https://developer.orangelogic.com/docs/conditions.md)
+  - [Related assets](https://developer.orangelogic.com/docs/related-assets.md)
+  - [Bypass user permissions](https://developer.orangelogic.com/docs/bypass-user-permissions.md)
+  - [Toast messages](https://developer.orangelogic.com/docs/toast-messages.md)
+  - [Placeholders](https://developer.orangelogic.com/docs/placeholders.md)
+- [Utilities](https://developer.orangelogic.com/docs/utilities.md)
+  - [Call internal API](https://developer.orangelogic.com/docs/call-internal-api.md)
+  - [Execute HTTP request](https://developer.orangelogic.com/docs/execute-http-request.md)
+  - [Execute asset upload](https://developer.orangelogic.com/docs/execute-asset-upload.md)
+  - [Import from a third party](https://developer.orangelogic.com/docs/import-from-a-third-party.md)
+    - [Batch import from a third party](https://developer.orangelogic.com/docs/batch-import-from-a-third-party.md)
+  - [Update from a third party](https://developer.orangelogic.com/docs/update-from-a-third-party.md)
+    - [Batch update from a third party](https://developer.orangelogic.com/docs/batch-update-from-a-third-party.md)
+  - [Sign JWT with RSA](https://developer.orangelogic.com/docs/sign-jwt-with-rsa.md)
+  - [Get or add cache](https://developer.orangelogic.com/docs/get-or-add-cache.md)
+  - [Has document imported](https://developer.orangelogic.com/docs/has-document-imported.md)
+  - [Import content file](https://developer.orangelogic.com/docs/import-content-file.md)
+  - [Publish message to AWS SNS](https://developer.orangelogic.com/docs/publish-message-to-aws-sns.md)
+  - [Export to S3](https://developer.orangelogic.com/docs/export-to-s3.md)
+    - [Schedule export to S3](https://developer.orangelogic.com/docs/schedule-export-to-s3.md)
+- [Tools](https://developer.orangelogic.com/docs/tools.md)
+  - [XMLTools.Stringify](https://developer.orangelogic.com/docs/xml-tools-stringify.md)
+  - [XMLTools.Parse](https://developer.orangelogic.com/docs/xml-tools-parse.md)
+  - [XMLTools.Update](https://developer.orangelogic.com/docs/xml-tools-update.md)
+  - [XMLTools.Delete](https://developer.orangelogic.com/docs/xml-tools-delete.md)
+- [Logs and troubleshooting](https://developer.orangelogic.com/docs/logs-and-troubleshooting.md)
+- [Importing and exporting Call external API scripts](https://developer.orangelogic.com/docs/importing-and-exporting-call-external-api-scripts.md)
+
+## API Reference: Getting Started
+- [About Orange Logic APIs](https://developer.orangelogic.com/reference/about.md)
+- [API testing](https://developer.orangelogic.com/reference/api-testing.md)
+- [Authentication](https://developer.orangelogic.com/reference/authentication.md)
+  - [Overview of authentication endpoints](https://developer.orangelogic.com/reference/authentication-endpoints.md): Authenticate an Orange Logic user
+    - [Authentication failure codes](https://developer.orangelogic.com/reference/authentication-failure-codes.md)
+  - [OAuth 2.0 authentication (recommended)](https://developer.orangelogic.com/reference/oauth-2.md)
+    - [Authenticate](https://developer.orangelogic.com/reference/authenticate.md): Authenticate a user by providing client credentials
+  - [Non-expiring bearer token](https://developer.orangelogic.com/reference/bearer-token.md)
+    - [Get bearer token](https://developer.orangelogic.com/reference/get-bearer-token.md): Retrieve the non-expiring bearer token of an Orange Logic user
+    - [Set activation](https://developer.orangelogic.com/reference/set-activation.md): Turn on or off an account’s authentication token
+    - [User login](https://developer.orangelogic.com/reference/user-login.md): Obtain a login token
+- [Common parameters](https://developer.orangelogic.com/reference/common-parameters.md)
+  - [Objects](https://developer.orangelogic.com/reference/assets.md)
+  - [Date and time](https://developer.orangelogic.com/reference/date-and-time.md)
+  - [Metadata field identifiers](https://developer.orangelogic.com/reference/metadata-field-identifiers.md)
+  - [Parameter sessions](https://developer.orangelogic.com/reference/parameter-sessions.md)
+  - [Users (Contacts)](https://developer.orangelogic.com/reference/users.md)
+- [Responses](https://developer.orangelogic.com/reference/responses-headers.md)
+- [Encoding special characters](https://developer.orangelogic.com/reference/encoding-special-characters.md)
+
+## API Reference: Authorize third-party applications
+- [Authorize third-party applications to make API calls](https://developer.orangelogic.com/reference/authorize-third-party-applications-to-make-api-calls.md)
+  - [Create an account for a third-party application](https://developer.orangelogic.com/reference/create-an-application-account.md)
+  - [OAuth 2.0 client registration](https://developer.orangelogic.com/reference/oauth-2-client-registration.md): Create an account for a third-party application
+  - [Authorize third-party application access](https://developer.orangelogic.com/reference/authorize-third-party-application-access-to-orange-logic.md)
+  - [OAuth 2.0 token](https://developer.orangelogic.com/reference/oauth-2-token.md): Create a token to allow a third-party application to authenticate API calls to Orange Logic
+  - [OAuth 2.0 user info](https://developer.orangelogic.com/reference/oauth-2-user-info.md): Retrieve information about the user who granted access to a third-party application
+
+## API Reference: AI SOLUTIONS
+- [Model Context Protocol](https://developer.orangelogic.com/reference/model-context-protocol.md): Connect your agents and AI tools to Orange Logic with MCP
+
+## API Reference: Core features
+- [Content delivery and public links](https://developer.orangelogic.com/reference/asset-links.md): Generate download or embed links for Orange Logic assets
+  - [Content Delivery Network (CDN) options](https://developer.orangelogic.com/reference/content-delivery-network-cdn-options.md)
+  - [Public embed link APIs](https://developer.orangelogic.com/reference/public-embed-link-apis.md)
+    - [Cloudfront CDN cache invalidation](https://developer.orangelogic.com/reference/cloudfront-cdn-cache-invalidation.md): Invalidate an asset’s CloudFront CDN cache to quickly update or remove the public embed links
+    - [Batch create or update public embed links](https://developer.orangelogic.com/reference/batch-create-or-update-public-embed-links.md): Create or update up to 10,000 custom public embed links at once
+    - [Custom route job status](https://developer.orangelogic.com/reference/custom-route-job-status.md): Query the job status for custom route creation or obtain custom route links
+  - [Get a public link](https://developer.orangelogic.com/reference/get-link-apis.md)
+    - [Get public link](https://developer.orangelogic.com/reference/get-link.md): Get an embed or download link to a single asset
+    - [Get public links](https://developer.orangelogic.com/reference/get-links.md): Generate an embed or download link to multiple assets
+    - [Add transformations to assets](https://developer.orangelogic.com/reference/transformation-example.md): Add transformations to embed and download links
+  - [Get an asset’s cloud storage link](https://developer.orangelogic.com/reference/get-an-assets-cloud-storage-link.md)
+    - [Get presigned link](https://developer.orangelogic.com/reference/get-presigned-link.md): Get an asset's cloud storage link
+    - [Get presigned links in batch](https://developer.orangelogic.com/reference/get-presigned-links-in-batch.md): Get multiple assets’ cloud storage links
+  - [Generate public Share links](https://developer.orangelogic.com/reference/generate-public-share-links.md): The Share feature allows you to create expirable, secure links to assets and folders.
+    - [Generate a public Share link](https://developer.orangelogic.com/reference/generate-a-public-share-link.md): Generate a link to share one or more assets
+    - [Retrieve a public Share link](https://developer.orangelogic.com/reference/retrieve-a-public-share-link.md): Retrieve a previously generated link or check the link generation status
+    - [Retrieve watermark presets to use in a public Share link](https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link.md): Retrieve the existing watermark preset identifiers
+  - [Create crop link](https://developer.orangelogic.com/reference/create-crop-link.md): Create a link to a cropped version of an asset
+- [Batch edit fields](https://developer.orangelogic.com/reference/batch-edit-fields.md): Simultaneously edit the metadata fields of multiple assets
+  - [Batch edit](https://developer.orangelogic.com/reference/batch-edit-api.md): Edit multiple assets simultaneously
+- [Batch upsert](https://developer.orangelogic.com/reference/batch-upsert.md): Edit multiple records with only one network roundtrip
+  - [Batch upsert a JSON array](https://developer.orangelogic.com/reference/batch-upsert-a-json-array.md): Perform batch upserts of JSON arrays
+  - [Batch upsert a CSV file](https://developer.orangelogic.com/reference/batch-upsert-a-csv-file.md): Perform batch upserts of CSV files
+  - [Query asynchronous batch upsert calls](https://developer.orangelogic.com/reference/query-asynchronous-batch-upsert-calls.md): Query the status and result of an asynchronous batch upsert request
+- [Proxies](https://developer.orangelogic.com/reference/generate-or-regenerate-proxies.md): Generate or regenerate one or more proxy formats of an asset
+  - [Generate or regenerate proxies](https://developer.orangelogic.com/reference/regenerate-proxies.md): Generate or regenerate specific asset proxies
+- [Reports](https://developer.orangelogic.com/reference/reports.md): Run reports via API to automate reporting or create custom integrations
+  - [Get report](https://developer.orangelogic.com/reference/get-reports.md): Run and send a report configured in the Orange Logic interface
+  - [Get report information](https://developer.orangelogic.com/reference/get-report-information.md): Retrieve the columns and filters of a specified report
+  - [Get filter information](https://developer.orangelogic.com/reference/get-filter-information.md): Retrieve the options for a specified filter in a report
+- [Search](https://developer.orangelogic.com/reference/search.md): Return assets based on specific search criteria
+  - [Search API](https://developer.orangelogic.com/reference/search-api.md): Find the assets you need
+    - [Query options](https://developer.orangelogic.com/reference/query-options.md): Learn how to construct queries and explore the search criteria you can use in the query parameter
+    - [Read paired-value fields](https://developer.orangelogic.com/reference/read-paired-value-fields.md): Learn how the Search API returns parsed values in paired-value fields
+    - [List Criteria](https://developer.orangelogic.com/reference/list-criteria.md): Get a list of the searchable criteria available in your DAM
+    - [Fields parameter](https://developer.orangelogic.com/reference/fields-parameter.md): The fields and asset formats you can return with the Search API
+    - [List Fields](https://developer.orangelogic.com/reference/list-fields.md): List all metadata fields
+    - [Specify the returned date format](https://developer.orangelogic.com/reference/specify-the-returned-date-format.md)
+- [Upload](https://developer.orangelogic.com/reference/upload.md): Upload assets to Orange Logic
+  - [Upload a file from Google Cloud Storage](https://developer.orangelogic.com/reference/upload-from-cloud.md): Upload a single file from Google Cloud Storage to Orange Logic by providing a source bucket and object key
+  - [Upload media with URL](https://developer.orangelogic.com/reference/upload-media-with-url.md): Upload a single file from an online storage system to Orange Logic by providing a file URL
+  - [Upload media](https://developer.orangelogic.com/reference/upload-media-endpoint.md): Simultaneously upload multiple files from your computer to Orange Logic
+  - [Upload new media](https://developer.orangelogic.com/reference/upload-new-media.md): Upload a single file from your computer to Orange Logic
+  - [Upload new version](https://developer.orangelogic.com/reference/upload-version.md): Upload a single file from your computer to Orange Logic as a new version of an existing asset
+  - [Upload image and get largest download link](https://developer.orangelogic.com/reference/upload-and-get-link.md): Upload an image from your computer to Orange Logic and receive a download link to the largest available asset format.
+  - [Upload large assets (>1.5 GB)](https://developer.orangelogic.com/reference/multi-part-upload-api.md): Use a series of API calls to upload files larger than 1.5 GB to the Orange Logic platform
+    - [Step 1: Create an upload transaction](https://developer.orangelogic.com/reference/create-upload-transaction.md): Create an upload transaction ID and begin an upload session
+    - [Step 2: Register upload assets](https://developer.orangelogic.com/reference/register-upload-assets.md): Register each asset you’ll upload as part of the transaction created in the previous step
+    - [Step 3: Chunk assets](https://developer.orangelogic.com/reference/chunk-assets.md): Split assets into chunks that will be uploaded into Orange Logic simultaneously
+    - [Step 4: Upload each asset chunk](https://developer.orangelogic.com/reference/upload-chunks-to-orange-logic.md): Use one API call per asset chunk to upload all chunks to Orange Logic
+    - [Step 5: Complete the upload session](https://developer.orangelogic.com/reference/complete-the-asset-upload.md): Notify Orange Logic that all of an asset’s chunks have been successfully uploaded
+    - [Legacy calls](https://developer.orangelogic.com/reference/multi-part-upload-legacy-calls.md): Legacy calls used to complete the multi-part asset upload
+
+## API Reference: DataTable APIs
+- [Introduction to the DataTable APIs](https://developer.orangelogic.com/reference/datatable-apis.md): Create, read, update, and delete Orange Logic database objects, including assets, users, and tags
+  - [List all database objects](https://developer.orangelogic.com/reference/list-all-database-objects.md): List all objects in your database, including contact types and asset subtypes
+  - [CRUD actions, base calls, and syntax](https://developer.orangelogic.com/reference/crud-operations-base-calls-and-syntax.md)
+    - [Base calls for managing assets](https://developer.orangelogic.com/reference/base-calls-for-managing-assets.md)
+    - [Base calls for managing contacts](https://developer.orangelogic.com/reference/base-calls-for-managing-contacts.md)
+    - [Base calls for managing keywords (tags)](https://developer.orangelogic.com/reference/base-calls-for-managing-keywords-tags.md)
+    - [Base call for managing asset relationships](https://developer.orangelogic.com/reference/base-call-for-managing-asset-relationships.md)
+  - [DataTable call structure](https://developer.orangelogic.com/reference/datatable-call-structure.md)
+    - [READ calls](https://developer.orangelogic.com/reference/read-calls.md)
+    - [UPDATE calls](https://developer.orangelogic.com/reference/update-calls.md)
+    - [CREATE calls](https://developer.orangelogic.com/reference/create-calls.md)
+    - [CREATEORUPDATE calls](https://developer.orangelogic.com/reference/create-or-update-calls.md)
+    - [DELETE calls](https://developer.orangelogic.com/reference/delete-calls.md)
+    - [Sub-calls](https://developer.orangelogic.com/reference/sub-calls.md)
+    - [Special parameters](https://developer.orangelogic.com/reference/special-parameters.md)
+  - [Metadata field syntax](https://developer.orangelogic.com/reference/field-structure-syntax.md)
+  - [Responses](https://developer.orangelogic.com/reference/responses.md)
+- [Sample DataTable calls](https://developer.orangelogic.com/reference/sample-datatable-calls.md)
+  - [Assets](https://developer.orangelogic.com/reference/datatable-assets.md): Sample DataTable calls for assets
+  - [Metadata](https://developer.orangelogic.com/reference/metadata-datatable-calls.md)
+    - [List all metadata fields](https://developer.orangelogic.com/reference/list-all-metadata-fields.md): List all available metadata fields in your instance of Orange Logic, including core and custom fields
+    - [Change asset metadata](https://developer.orangelogic.com/reference/change-metadata.md): Change basic asset metadata, such as the title, description, or Visibility Class
+    - [Update tags](https://developer.orangelogic.com/reference/update-tags.md): Add tags to or remove them from an asset’s “Tags” tab
+    - [Update linked fields](https://developer.orangelogic.com/reference/update-linked-fields.md): Set the value of a field that references a DataTable object, such as a contact or another asset
+    - [Update paired-value fields](https://developer.orangelogic.com/reference/update-paired-value-fields.md)
+    - [Change an asset subtype](https://developer.orangelogic.com/reference/change-an-asset-subtype.md): Update the subtype of an asset
+    - [Work with language-specific fields](https://developer.orangelogic.com/reference/work-with-language-specific-fields.md)
+  - [Asset Permissions](https://developer.orangelogic.com/reference/asset-permissions.md): Sample DataTable calls for asset Permissions
+  - [Asset Stacks](https://developer.orangelogic.com/reference/asset-stacks.md)
+    - [Create a new Stack or add assets to an existing Stack](https://developer.orangelogic.com/reference/create-or-add-an-asset-to-a-stack.md)
+  - [Asset representatives](https://developer.orangelogic.com/reference/asset-representatives.md)
+    - [Change or remove an asset's representatives](https://developer.orangelogic.com/reference/change-or-remove-an-assets-representatives.md)
+  - [Move assets](https://developer.orangelogic.com/reference/move-assets.md)
+    - [Move one asset into another](https://developer.orangelogic.com/reference/move-one-asset-into-another.md): Move assets within Orange Logic
+    - [Add assets into virtual folders](https://developer.orangelogic.com/reference/add-assets-into-virtual-folders.md): Create a reference in a virtual folder to an asset stored elsewhere in Orange Logic
+    - [Remove assets from virtual folders](https://developer.orangelogic.com/reference/remove-assets-from-virtual-folders.md): Remove a reference to an asset from a virtual folder
+  - [Contacts](https://developer.orangelogic.com/reference/contacts.md)
+    - [Retrieve account information](https://developer.orangelogic.com/reference/retrieve-account-information.md): List accounts
+    - [Create or update an account](https://developer.orangelogic.com/reference/create-or-update-an-account.md): Modify the information in an account
+    - [Manage assigned groups](https://developer.orangelogic.com/reference/manage-assigned-groups.md): Change a user’s assigned groups
+  - [Groups](https://developer.orangelogic.com/reference/groups.md)
+    - [Manage groups](https://developer.orangelogic.com/reference/manage-groups.md): Create or update groups
+    - [Manage group hierarchies](https://developer.orangelogic.com/reference/manage-group-hierarchies.md): Create parent-child relationships between groups
+
+## API Reference: Webhooks
+- [Webhooks](https://developer.orangelogic.com/reference/webhooks.md): Send webhooks to a third-party service when assets are created, edited, or deleted
+  - [Create a webhook subscription](https://developer.orangelogic.com/reference/create-a-webhook-subscription.md): Create a new webhook subscription
+  - [Use webhook signatures](https://developer.orangelogic.com/reference/use-webhook-signatures.md): Add encrypted signatures to webhook headers
+    - [Generate a secret key for a webhook signature](https://developer.orangelogic.com/reference/add-or-update-a-webhook-signature.md): Generate or update the secret key for a webhook signature
+  - [Skip webhook events](https://developer.orangelogic.com/reference/skip-webhook-events.md): Use headers to skip webhook events
+
+## API Reference: iAPI
+- [iAPI](https://developer.orangelogic.com/reference/iapi-1.md): Call APIs in bulk in Orange Logic’s desktop application
+  - [Set up and run calls](https://developer.orangelogic.com/reference/set-up-and-run-calls.md)
+    - [Additional configuration options and use cases](https://developer.orangelogic.com/reference/additional-configuration-options-and-use-cases.md)
+  - [Tips and troubleshooting](https://developer.orangelogic.com/reference/tips-and-troubleshooting.md)
+
+## API Reference: Check platform status
+- [Check status](https://developer.orangelogic.com/reference/check-status.md)
+
+## Changelog
+- [MCP Support](https://developer.orangelogic.com/changelog/mcp-support.md)
+- [Additional transformation parameters](https://developer.orangelogic.com/changelog/additional-transformation-parameters.md)
+- [Test Call External API scripts before they go live](https://developer.orangelogic.com/changelog/test-call-external-api-scripts-before-they-go-live.md)
+- [Create composite images with URL transformations (beta)](https://developer.orangelogic.com/changelog/create-composite-images-with-url-transformations-beta.md)
+- [Content Browser SDK in v2.2.1](https://developer.orangelogic.com/changelog/content-browser-sdk-in-v221.md)
+- [Script timeout field in the Call External API window](https://developer.orangelogic.com/changelog/script-timeout-field-in-the-call-external-api-window.md)
+- [New indexing options for the DataTable, batch upsert, and upload from cloud storage APIs](https://developer.orangelogic.com/changelog/new-indexing-options-for-the-datatable-batch-upsert-and-upload-from-cloud-storage-apis.md)
+- [Run report API: Send reports automatically](https://developer.orangelogic.com/changelog/run-report-api-send-reports-automatically.md)
+- [Bulk create or update custom embed links via API (Beta)](https://developer.orangelogic.com/changelog/bulk-create-or-update-custom-embed-links-via-api-beta.md)
+- [Use the Search API to perform text-based AI searches](https://developer.orangelogic.com/changelog/use-the-search-api-to-perform-text-based-ai-searches.md)

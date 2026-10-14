@@ -1,7 +1,11 @@
 aid: orangelogic
+
 url: https://raw.githubusercontent.com/api-evangelist/orangelogic/refs/heads/main/apis.yml
+
 name: Orange Logic
+
 kind: company
+
 description: Orange Logic builds OrangeDAM (formerly branded Cortex), an enterprise
   digital asset management (DAM) and media asset management (MAM) platform used by
   museums, media companies, financial institutions, healthcare, and government
@@ -14,6 +18,7 @@ description: Orange Logic builds OrangeDAM (formerly branded Cortex), an enterpr
   token_48I_v1) and the legacy /api/ endpoints (with a version number in the path);
   Orange Logic recommends the /webapi/ family. Responses are JSON or XML. Pricing is
   enterprise contact-sales only.
+
 deliveryModel:
   model: saas
   open_source: false
@@ -25,6 +30,7 @@ deliveryModel:
   - pricing
   generated: '2026-08-28'
   method: derived
+
 accessModel:
   pricing: enterprise
   onboarding: unknown
@@ -37,7 +43,9 @@ accessModel:
   - plans
   generated: '2026-07-22'
   method: derived
+
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/orangelogic.png
+
 tags:
 - Digital Asset Management
 - Media Asset Management
@@ -45,6 +53,7 @@ tags:
 - Enterprise
 - Metadata
 - Archives
+
 tags_raw:
 - Digital Asset Management
 - DAM
@@ -53,150 +62,48 @@ tags_raw:
 - Enterprise
 - Metadata
 - Archive
+
 created: '2026-07-05'
+
 modified: '2026-10-06'
+
 specificationVersion: '0.23'
-apis:
-- aid: orangelogic:orangelogic-authentication-api
-  name: Orange Logic Authentication API
-  tags:
-  - Authentication
-  - Security
-  tags_raw:
-  - Authentication
-  - OAuth
-  - Security
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
-  baseURL: https://{OrangeLogicURL}/webapi
-  properties:
-  - url: https://developer.orangelogic.com/reference/authentication
-    type: Documentation
-  - url: https://developer.orangelogic.com/reference/authentication-endpoints
-    type: APIReference
-  - url: https://developer.orangelogic.com/reference/oauth-2-token
-    type: APIReference
-  description: Authenticate against an Orange Logic instance and obtain tokens for
-    subsequent calls. Supports OAuth 2.0 (client ID and secret), non-expiring bearer
-    tokens, and basic username/password login. The OAuth token endpoint returns an
-    access token valid for 24 hours and a refresh token valid for 30 days. Confirmed
-    endpoint paths include POST /webapi/security/oauth2/token_48I_v1 and
-    /webapi/security/clientcredentialsauthentication/authenticate_46H_v1.
-- aid: orangelogic:orangelogic-search-api
-  name: Orange Logic Search API
-  tags:
-  - Search
-  - Discovery
-  - Assets
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/search-api
-  baseURL: https://{OrangeLogicURL}/API
-  properties:
-  - url: https://developer.orangelogic.com/reference/search-api
-    type: APIReference
-  - url: https://developer.orangelogic.com/reference/about
-    type: Documentation
-  description: Find assets across the DAM with query criteria, field selection,
-    pagination, sorting, and AI-powered semantic search. The confirmed endpoint is
-    GET or POST /API/search/v4.0/search, accepting query, fields, format (JSON or
-    XML), countperpage, pagenumber, sort, and semanticquery parameters.
-- aid: orangelogic:orangelogic-assets-media-api
-  name: Orange Logic Assets and Media API
-  tags:
-  - Assets
-  - Media
-  - Upload
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/about
-  baseURL: https://{OrangeLogicURL}/webapi
-  properties:
-  - url: https://developer.orangelogic.com/reference/about
-    type: Documentation
-  - url: https://www.orangelogic.com/rest-api-in-digital-asset-management
-    type: Documentation
-  description: Upload, import, retrieve, and manage digital assets and their
-    representations - single-file uploads, batch uploads, cloud-storage imports, and
-    large-file (>1.5GB) handling, plus content delivery via public links, CDN, and
-    presigned URLs. Upload endpoints are versioned (UploadNewMedia v1.0-v3.0 legacy;
-    the newer /webapi upload family is recommended). Exact per-instance endpoint
-    paths are modeled from the public reference; the precise identifiers vary by
-    instance and version.
-- aid: orangelogic:orangelogic-datatable-api
-  name: Orange Logic DataTable API
-  tags:
-  - DataTable
-  - CRUD
-  - Objects
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/datatable-apis
-  baseURL: https://{OrangeLogicURL}/API
-  properties:
-  - url: https://developer.orangelogic.com/reference/datatable-apis
-    type: APIReference
-  - url: https://developer.orangelogic.com/reference/datatable-assets
-    type: Documentation
-  description: Work directly with database objects - assets (images, video, audio),
-    folders, groups, users, tags, keywords, and relationships - through generic
-    CREATE, READ, UPDATE, and DELETE calls. Paths follow the pattern
-    /API/DataTable/V2.2/Documents.{asset-type}.{asset-subtype}:Read and similar
-    verbs. Object-type and subtype segments vary per instance.
-- aid: orangelogic:orangelogic-metadata-api
-  name: Orange Logic Metadata API
-  tags:
-  - Metadata
-  - Fields
-  - Tags
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/about
-  baseURL: https://{OrangeLogicURL}/webapi
-  properties:
-  - url: https://developer.orangelogic.com/reference/about
-    type: Documentation
-  description: List and modify asset metadata - retrieve all metadata fields, update
-    tags and linked fields, and manage language-specific field values. Includes
-    batch edit and batch upsert operations. Endpoint identifiers are per-instance
-    and are modeled here from the public documentation rather than reproduced verbatim.
-- aid: orangelogic:orangelogic-users-contacts-api
-  name: Orange Logic Users and Contacts API
-  tags:
-  - User
-  - Contacts
-  - Permissions
-  tags_raw:
-  - Users
-  - Contacts
-  - Permissions
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/datatable-apis
-  baseURL: https://{OrangeLogicURL}/API
-  properties:
-  - url: https://developer.orangelogic.com/reference/datatable-apis
-    type: Documentation
-  description: Manage user and contact accounts, group assignments, permissions, and
-    organizational hierarchies. Handled through the DataTable object model (Users,
-    Groups, Contacts). Exact endpoint identifiers vary by instance and are modeled
-    from the public reference.
-- aid: orangelogic:orangelogic-webhooks-api
-  name: Orange Logic Webhooks API
-  tags:
-  - Webhook
-  - Event
-  - Integration
-  tags_raw:
-  - Webhooks
-  - Events
-  - Integration
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://developer.orangelogic.com/reference/about
-  baseURL: https://{OrangeLogicURL}/webapi
-  properties:
-  - url: https://developer.orangelogic.com/reference/about
-    type: Documentation
-  description: Subscribe to asset lifecycle events and send webhooks to a third-party
-    service when assets are created, edited, or deleted. This is a server-to-endpoint
-    HTTP callback surface, not a persistent socket connection. Webhook management
-    endpoint identifiers are per-instance and modeled from the public documentation.
+
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+
 common:
+- type: AgenticAccess
+  url: agentic-access/orangelogic-agentic-access.yml
+- type: Spectral
+  url: rules/orangelogic-rules.yml
+- type: Compliance
+  url: https://www.orangelogic.com/security
+- type: ErrorCatalog
+  url: errors/orangelogic-problem-types.yml
+- type: Conformance
+  url: conformance/orangelogic-conformance.yml
+- type: LLMsTxt
+  url: llms/orangelogic-llms.txt
+- type: Hosts
+  url: hosts/orangelogic-hosts.yml
+- type: IntegrationEdges
+  url: integrations/orangelogic-integration-edges.yml
+- type: Vendors
+  url: vendors/orangelogic-vendors.yml
+- type: TermsOfService
+  url: https://www.orangelogic.com/terms-and-conditions
+- type: Security
+  url: https://www.orangelogic.com/features/security
+- type: PrivacyPolicy
+  url: https://www.orangelogic.com/privacy-policy
+- type: Newsroom
+  url: https://www.orangelogic.com/news
+- type: OAuthScopes
+  url: scopes/orangelogic-scopes.yml
+- type: Authentication
+  url: authentication/orangelogic-authentication.yml
 - url: https://www.orangelogic.com/dam-blog
   type: Blog
 - url: https://www.orangelogic.com/dam-blog/rss.xml
@@ -217,6 +124,334 @@ common:
   url: rate-limits/orangelogic-rate-limits.yml
 - type: FinOps
   url: finops/orangelogic-finops.yml
-maintainers:
-- FN: Kin Lane
-  email: kin@apievangelist.com
+
+apis:
+- aid: orangelogic:orangelogic-authentication-api
+  name: Orange Logic Authentication API
+  tags:
+  - Authentication
+  - Security
+  tags_raw:
+  - Authentication
+  - OAuth
+  - Security
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  properties:
+  - url: https://developer.orangelogic.com/reference/authentication
+    type: Documentation
+  - url: https://developer.orangelogic.com/reference/authentication-endpoints
+    type: APIReference
+  - url: https://developer.orangelogic.com/reference/oauth-2-token
+    type: APIReference
+  description: >-
+    Authenticate against an Orange Logic instance and obtain tokens for subsequent calls. Supports OAuth
+    2.0 (client ID and secret), non-expiring bearer tokens, and basic username/password login. The OAuth
+    token endpoint returns an access token valid for 24 hours and a refresh token valid for 30 days. Confirmed
+    endpoint paths include POST /webapi/security/oauth2/token_48I_v1 and /webapi/security/clientcredentialsauthentication/authenticate_46H_v1.
+- aid: orangelogic:orangelogic-search-api
+  name: Orange Logic Search API
+  tags:
+  - Search
+  - Discovery
+  - Assets
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/search-api
+  baseURL: https://{OrangeLogicURL}/API
+  properties:
+  - url: https://developer.orangelogic.com/reference/search-api
+    type: APIReference
+  - url: https://developer.orangelogic.com/reference/about
+    type: Documentation
+  description: >-
+    Find assets across the DAM with query criteria, field selection, pagination, sorting, and AI-powered
+    semantic search. The confirmed endpoint is GET or POST /API/search/v4.0/search, accepting query, fields,
+    format (JSON or XML), countperpage, pagenumber, sort, and semanticquery parameters.
+- aid: orangelogic:orangelogic-assets-media-api
+  name: Orange Logic Assets and Media API
+  tags:
+  - Assets
+  - Media
+  - Upload
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/about
+  baseURL: https://{OrangeLogicURL}/webapi
+  properties:
+  - url: https://developer.orangelogic.com/reference/about
+    type: Documentation
+  - url: https://www.orangelogic.com/rest-api-in-digital-asset-management
+    type: Documentation
+  description: >-
+    Upload, import, retrieve, and manage digital assets and their representations - single-file uploads,
+    batch uploads, cloud-storage imports, and large-file (>1.5GB) handling, plus content delivery via
+    public links, CDN, and presigned URLs. Upload endpoints are versioned (UploadNewMedia v1.0-v3.0 legacy;
+    the newer /webapi upload family is recommended). Exact per-instance endpoint paths are modeled from
+    the public reference; the precise identifiers vary by instance and version.
+- aid: orangelogic:orangelogic-datatable-api
+  name: Orange Logic DataTable API
+  tags:
+  - DataTable
+  - CRUD
+  - Objects
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/datatable-apis
+  baseURL: https://{OrangeLogicURL}/API
+  properties:
+  - url: https://developer.orangelogic.com/reference/datatable-apis
+    type: APIReference
+  - url: https://developer.orangelogic.com/reference/datatable-assets
+    type: Documentation
+  description: >-
+    Work directly with database objects - assets (images, video, audio), folders, groups, users, tags,
+    keywords, and relationships - through generic CREATE, READ, UPDATE, and DELETE calls. Paths follow
+    the pattern /API/DataTable/V2.2/Documents.{asset-type}.{asset-subtype}:Read and similar verbs. Object-type
+    and subtype segments vary per instance.
+- aid: orangelogic:orangelogic-metadata-api
+  name: Orange Logic Metadata API
+  tags:
+  - Metadata
+  - Fields
+  - Tags
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/about
+  baseURL: https://{OrangeLogicURL}/webapi
+  properties:
+  - url: https://developer.orangelogic.com/reference/about
+    type: Documentation
+  description: >-
+    List and modify asset metadata - retrieve all metadata fields, update tags and linked fields, and
+    manage language-specific field values. Includes batch edit and batch upsert operations. Endpoint identifiers
+    are per-instance and are modeled here from the public documentation rather than reproduced verbatim.
+- aid: orangelogic:orangelogic-users-contacts-api
+  name: Orange Logic Users and Contacts API
+  tags:
+  - User
+  - Contacts
+  - Permissions
+  tags_raw:
+  - Users
+  - Contacts
+  - Permissions
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/datatable-apis
+  baseURL: https://{OrangeLogicURL}/API
+  properties:
+  - url: https://developer.orangelogic.com/reference/datatable-apis
+    type: Documentation
+  description: >-
+    Manage user and contact accounts, group assignments, permissions, and organizational hierarchies.
+    Handled through the DataTable object model (Users, Groups, Contacts). Exact endpoint identifiers vary
+    by instance and are modeled from the public reference.
+- aid: orangelogic:orangelogic-webhooks-api
+  name: Orange Logic Webhooks API
+  tags:
+  - Webhook
+  - Event
+  - Integration
+  tags_raw:
+  - Webhooks
+  - Events
+  - Integration
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://developer.orangelogic.com/reference/about
+  baseURL: https://{OrangeLogicURL}/webapi
+  properties:
+  - url: https://developer.orangelogic.com/reference/about
+    type: Documentation
+  description: >-
+    Subscribe to asset lifecycle events and send webhooks to a third-party service when assets are created,
+    edited, or deleted. This is a server-to-endpoint HTTP callback surface, not a persistent socket connection.
+    Webhook management endpoint identifiers are per-instance and modeled from the public documentation.
+- aid: orangelogic:orangelogic-authentication
+  name: Orange Logic Authentication Openapi.Yml API
+  description: >-
+    The Authentication Openapi.Yml API from Orange Logic — 1 operation(s) for authentication openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Authentication Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-authentication-openapi.yml
+- aid: orangelogic:orangelogic-create-crop-link
+  name: Orange Logic Create Crop Link Openapi.Yml API
+  description: >-
+    The Create Crop Link Openapi.Yml API from Orange Logic — 1 operation(s) for create crop link openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Create Crop Link Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-create-crop-link-openapi.yml
+- aid: orangelogic:orangelogic-get-link
+  name: Orange Logic Get Link Openapi.Yml API
+  description: >-
+    The Get Link Openapi.Yml API from Orange Logic — 6 operation(s) for get link openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Get Link Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-get-link-openapi.yml
+- aid: orangelogic:orangelogic-get-links
+  name: Orange Logic Get Links Openapi.Yml API
+  description: >-
+    The Get Links Openapi.Yml API from Orange Logic — 1 operation(s) for get links openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Get Links Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-get-links-openapi.yml
+- aid: orangelogic:orangelogic-get-presigned-link
+  name: Orange Logic Get Presigned Link Openapi.Yml API
+  description: >-
+    The Get Presigned Link Openapi.Yml API from Orange Logic — 2 operation(s) for get presigned link openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Get Presigned Link Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-get-presigned-link-openapi.yml
+- aid: orangelogic:orangelogic-list-all-database-objects
+  name: Orange Logic List All Database Objects Openapi.Yml API
+  description: >-
+    The List All Database Objects Openapi.Yml API from Orange Logic — 3 operation(s) for list all database
+    objects openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - List All Database Objects Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-list-all-database-objects-openapi.yml
+- aid: orangelogic:orangelogic-media
+  name: Orange Logic Media Openapi.Yml API
+  description: The Media Openapi.Yml API from Orange Logic — 1 operation(s) for media openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Media Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-media-openapi.yml
+- aid: orangelogic:orangelogic-mediafile-storage
+  name: Orange Logic Mediafile Storage Openapi.Yml API
+  description: >-
+    The Mediafile Storage Openapi.Yml API from Orange Logic — 1 operation(s) for mediafile storage openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Mediafile Storage Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-mediafile-storage-openapi.yml
+- aid: orangelogic:orangelogic-multi-part-upload-api
+  name: Orange Logic Multi Part Upload API
+  description: The Multi Part Upload API from Orange Logic — 4 operation(s) for multi part upload.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Multi Part Upload
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-multi-part-upload-api-openapi.yml
+- aid: orangelogic:orangelogic-object-management-batch-edit
+  name: Orange Logic Object Management Batch Edit Openapi.Yml API
+  description: >-
+    The Object Management Batch Edit Openapi.Yml API from Orange Logic — 1 operation(s) for object management
+    batch edit openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Object Management Batch Edit Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-object-management-batch-edit-openapi.yml
+- aid: orangelogic:orangelogic-object-management-batch-upsert
+  name: Orange Logic Object Management Batch Upsert Openapi.Yml API
+  description: >-
+    The Object Management Batch Upsert Openapi.Yml API from Orange Logic — 3 operation(s) for object management
+    batch upsert openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Object Management Batch Upsert Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-object-management-batch-upsert-openapi.yml
+- aid: orangelogic:orangelogic-report
+  name: Orange Logic Report Openapi.Yml API
+  description: The Report Openapi.Yml API from Orange Logic — 3 operation(s) for report openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Report Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-report-openapi.yml
+- aid: orangelogic:orangelogic-search
+  name: Orange Logic Search Openapi.Yml API
+  description: The Search Openapi.Yml API from Orange Logic — 3 operation(s) for search openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Search Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-search-openapi.yml
+- aid: orangelogic:orangelogic-security
+  name: Orange Logic Security Openapi.Yml API
+  description: >-
+    The Security Openapi.Yml API from Orange Logic — 6 operation(s) for security openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Security Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-security-openapi.yml
+- aid: orangelogic:orangelogic-upload-media
+  name: Orange Logic Upload Media Openapi.Yml API
+  description: >-
+    The Upload Media Openapi.Yml API from Orange Logic — 2 operation(s) for upload media openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Upload Media Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-upload-media-openapi.yml
+- aid: orangelogic:orangelogic-upload-media-web
+  name: Orange Logic Upload Media Web Openapi.Yml API
+  description: >-
+    The Upload Media Web Openapi.Yml API from Orange Logic — 4 operation(s) for upload media web openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Upload Media Web Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-upload-media-web-openapi.yml
+- aid: orangelogic:orangelogic-webhooks
+  name: Orange Logic Webhooks Openapi.Yml API
+  description: >-
+    The Webhooks Openapi.Yml API from Orange Logic — 2 operation(s) for webhooks openapi.yml.
+  humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
+  baseURL: https://{OrangeLogicURL}/webapi
+  tags:
+  - Webhooks Openapi.Yml
+  properties:
+  - type: OpenAPI
+    url: openapi/orangelogic-webhooks-openapi.yml
+
+x-readme-harvest:
+  date: '2026-10-14'
+  ops: 44
+  tool: harvest-readme-openapi.py
+  portal: https://developer.orangelogic.com

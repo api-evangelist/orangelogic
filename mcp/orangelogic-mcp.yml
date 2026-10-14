@@ -1,0 +1,229 @@
+generated: '2026-10-14'
+method: derived
+generator: derive-mcp-candidate.py
+source:
+- openapi/orangelogic-authentication-openapi.yml
+- openapi/orangelogic-create-crop-link-openapi.yml
+- openapi/orangelogic-get-link-openapi.yml
+- openapi/orangelogic-get-links-openapi.yml
+- openapi/orangelogic-get-presigned-link-openapi.yml
+- openapi/orangelogic-list-all-database-objects-openapi.yml
+- openapi/orangelogic-media-openapi.yml
+- openapi/orangelogic-mediafile-storage-openapi.yml
+- openapi/orangelogic-multi-part-upload-api-openapi.yml
+- openapi/orangelogic-object-management-batch-edit-openapi.yml
+- openapi/orangelogic-object-management-batch-upsert-openapi.yml
+- openapi/orangelogic-report-openapi.yml
+- openapi/orangelogic-search-openapi.yml
+- openapi/orangelogic-security-openapi.yml
+- openapi/orangelogic-upload-media-openapi.yml
+- openapi/orangelogic-upload-media-web-openapi.yml
+- openapi/orangelogic-webhooks-openapi.yml
+status: candidate
+deployment:
+  mode: none
+  auth: unknown
+  verified: derived
+note: No MCP server was found. No probe result in the dossier. Candidate tools below are derived from the 44 operation(s) in the provider's own
+  OpenAPI (40 listed); they describe what a server WOULD expose, not one that exists.
+tools:
+- name: user_login
+  operationId: user-login
+  method: POST
+  path: /v2.0/Login
+  description: User login
+- name: create_crop_link
+  operationId: create-crop-link
+  method: GET
+  path: /v1.0/CreateCropLink
+  description: Create crop link
+- name: batch_create_or_update_public_embed_links
+  operationId: batch-create-or-update-public-embed-links
+  method: GET
+  path: /batchupsertassetlinkswithcustomroute_41FD_v2
+  description: Batch create or update public embed links
+- name: get_links
+  operationId: get-links
+  method: POST
+  path: /getlinks_45W_v1
+  description: Get public links
+- name: get_presigned_link
+  operationId: get-presigned-link
+  method: GET
+  path: /getpresignedlink_4ar_v1
+  description: Get presigned link
+- name: list_all_database_objects
+  operationId: list-all-database-objects
+  method: POST
+  path: /
+  description: List all database objects
+- name: regenerate_proxies
+  operationId: regenerate-proxies
+  method: GET
+  path: /v1.0/RegenerateProxiesForAsset
+  description: Generate or regenerate proxies
+- name: cloudfront_cdn_cache_invalidation
+  operationId: cloudfront-cdn-cache-invalidation
+  method: DELETE
+  path: /InvalidateCloudfrontCache_2cl_v1
+  description: Cloudfront CDN cache invalidation
+- name: complete_the_asset_upload
+  operationId: complete-the-asset-upload
+  method: POST
+  path: /complete_27_v1
+  description: 'Step 5: Complete the upload session'
+- name: batch_edit_api
+  operationId: batch-edit-api
+  method: POST
+  path: /batcheditfields_4FQ_v1
+  description: Batch edit
+- name: batch_upsert_a_json_array
+  operationId: batch-upsert-a-json-array
+  method: POST
+  path: /batchupsert_4FY_v1
+  description: Batch upsert a JSON array
+- name: get_filter_information
+  operationId: get-filter-information
+  method: GET
+  path: /getfilterinfo_4104_v1
+  description: Get filter information
+- name: list_criteria
+  operationId: list-criteria
+  method: POST
+  path: /v3.0/ListCriteria
+  description: List Criteria
+- name: get_bearer_token
+  operationId: get-bearer-token
+  method: GET
+  path: /bearerauthentication/getbearertoken_42P_v1
+  description: Get bearer token
+- name: upload_version
+  operationId: upload-version
+  method: POST
+  path: /v2.0/UploadNewVersion
+  description: Upload new version
+- name: upload_from_cloud
+  operationId: upload-from-cloud
+  method: POST
+  path: /uploadFileFromCloudStorage_4OY_v1
+  description: Upload a file from Google Cloud Storage
+- name: create_a_webhook_subscription
+  operationId: create-a-webhook-subscription
+  method: POST
+  path: /create_22E_v1
+  description: Create a webhook subscription
+- name: generate_a_public_share_link
+  operationId: generate-a-public-share-link
+  method: POST
+  path: /createsharelink_41M9_V1
+  description: Generate a public Share link
+- name: get_presigned_links_in_batch
+  operationId: get-presigned-links-in-batch
+  method: POST
+  path: /getpresignedlinks_in_batch_4G8_v1
+  description: Get presigned links in batch
+- name: list_all_metadata_fields
+  operationId: list-all-metadata-fields
+  method: POST
+  path: /Documents.All:ListFields
+  description: List all metadata fields
+- name: upload_chunks_to_orange_logic
+  operationId: upload-chunks-to-orange-logic
+  method: POST
+  path: /item/26_v1/{uploadItemId}
+  description: 'Step 4: Upload each asset chunk'
+- name: batch_upsert_a_csv_file
+  operationId: batch-upsert-a-csv-file
+  method: POST
+  path: /batchupsert_csv_4G3_v1
+  description: Batch upsert a CSV file
+- name: get_reports
+  operationId: get-reports
+  method: GET
+  path: /getreport_4103_v1
+  description: Get report
+- name: list_fields
+  operationId: list-fields
+  method: POST
+  path: /v3.0/ListFields
+  description: List Fields
+- name: set_activation
+  operationId: set-activation
+  method: GET
+  path: /bearerauthentication/setactivation_42Q_v1
+  description: Set activation
+- name: upload_new_media
+  operationId: upload-new-media
+  method: POST
+  path: /v3.0/UploadNewMedia
+  description: Upload new media
+- name: upload_and_get_link
+  operationId: upload-and-get-link
+  method: POST
+  path: /uploadimageandgetlargestdownloadlink_4CM_v1
+  description: Upload image and get largest download link
+- name: add_or_update_a_webhook_signature
+  operationId: add-or-update-a-webhook-signature
+  method: POST
+  path: /rotatesecret_22P_v1
+  description: Generate a secret key for a webhook signature
+- name: get_link
+  operationId: get-link
+  method: GET
+  path: /getlink_4HZ_v1
+  description: Get public link
+- name: create_or_add_an_asset_to_a_stack
+  operationId: create-or-add-an-asset-to-a-stack
+  method: POST
+  path: /Documents.{Asset-type}.{Asset-subtype}:AssignLeadDocument?
+  description: Create a new Stack or add assets to an existing Stack
+- name: register_upload_assets
+  operationId: register-upload-assets
+  method: POST
+  path: /register_25_v1
+  description: 'Step 2: Register upload assets'
+- name: query_asynchronous_batch_upsert_calls
+  operationId: query-asynchronous-batch-upsert-calls
+  method: GET
+  path: /query_batchupsert_4G2_v1
+  description: Query asynchronous batch upsert calls
+- name: get_report_information
+  operationId: get-report-information
+  method: GET
+  path: /getreportinfo_4102_v1
+  description: Get report information
+- name: search_api
+  operationId: search-api
+  method: POST
+  path: /v4.0/search
+  description: Search API
+- name: authenticate
+  operationId: authenticate
+  method: POST
+  path: /clientcredentialsauthentication/authenticate_46H_v1
+  description: Authenticate
+- name: upload_media_endpoint
+  operationId: upload-media-endpoint
+  method: POST
+  path: /uploadmedia_4az_v1
+  description: Upload media
+- name: retrieve_a_public_share_link
+  operationId: retrieve-a-public-share-link
+  method: GET
+  path: /getsharelinkstatus_41MA_V1
+  description: Retrieve a public Share link
+- name: create_upload_transaction
+  operationId: create-upload-transaction
+  method: POST
+  path: /transaction/24_v1
+  description: 'Step 1: Create an upload transaction'
+- name: oauth_2_client_registration
+  operationId: oauth-2-client-registration
+  method: POST
+  path: /oauth2/registerclient_23X_v1
+  description: OAuth 2.0 client registration
+- name: upload_media_with_url
+  operationId: upload-media-with-url
+  method: POST
+  path: /uploadmediawithurl_45L_v1
+  description: Upload media with URL

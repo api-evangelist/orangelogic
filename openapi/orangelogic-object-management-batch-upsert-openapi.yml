@@ -1,0 +1,392 @@
+openapi: 3.1.0
+info:
+  title: object-management-batch-upsert
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/multiobjectstools/datatable
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /batchupsert_4FY_v1:
+    post:
+      summary: Batch upsert a JSON array
+      description: Perform batch upserts of JSON arrays
+      operationId: batch-upsert-a-json-array
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - dataOptions
+              - records
+              properties:
+                dataOptions:
+                  type: object
+                  description: The information that determines the behavior of the batch upsert operations.
+                  required:
+                  - table
+                  - fieldToMatch
+                  properties:
+                    table:
+                      type: string
+                      description: The type of records to alter. Can be either <code>Documents</code> or <code>Contacts</code>.
+                    subtypeForNewRecords:
+                      type: string
+                      description: The contact or asset subtype of any newly-created records. This is required when your call creates new records.  <br/> This parameter uses the DataTable API syntax for <a href="https://developer.orangelogic.com/reference/base-calls-for-managing-assets">assets</a> and <a href="https://developer.orangelogic.com/reference/base-calls-for-managing-contacts">Contacts</a> in the format <code>{Documents-or-Contacts}.{Asset_type}.{Asset_subtype}</code>. For example, for a standard video you would use <code>Documents.Video.Default</code>. <br/> For more information on asset types and subtypes, go to the <a href="https://developer.orangelogic.com/reference/assets#asset-type-and-subtype">Assets</a> article.
+                    fieldToMatch:
+                      type: string
+                      description: The field used to identify records to update in Orange Logic. This field <strong>must</strong> match the field used to identify records to update or create in the <code>records</code> object.<ul><li>The <code>MediaEncryptedIdentifier</code> is the Record ID.</li><li>The <code>CoreField.Identifier</code> is the Unique ID.</li><li>The <code>CoreField.Id_client</code> is the Legacy ID.</li><li>The <code>CoreField.OriginalFileName</code> is the Original File Name.</li></ul>
+                      enum:
+                      - MediaEncryptedIdentifier
+                      - CoreField.Identifier
+                      - CoreField.Id_client
+                      - CoreField.OriginalFileName
+                    ignoreExistingRecords:
+                      type: boolean
+                      description: Whether to <strong>update</strong> records that already exist in the Orange Logic database.  <ul> <li>When <code>true</code>, the call returns the code <code>IGNORED_EXISTING_RECORD</code> if a provided record is found in the Orange Logic database.</li> <li>When <code>false</code>, the call updates the provided record.</li> </ul>
+                      default: false
+                    ignoreMissingRecords:
+                      type: boolean
+                      description: Whether to <strong>create</strong> new records if a provided record does not match any records in the Orange Logic database.  <ul> <li>When <code>true</code>, the call returns the code <code>IGNORED_MISSING_RECORD</code> if a provided record is not found.</li> <li>When <code>false</code>, the call creates a new database entry with the provided record if that record is not found in the Orange Logic database.</li> </ul>
+                      default: false
+                    multiValueSeparator:
+                      type: string
+                      description: The separator used to pass values to a multi-valued field, including an authority list, with a single string.  For example, let’s say you want a multi-valued field to include the values <code>red</code>, <code>blue</code>, and <code>yellow</code>. If you leave the default <code>multiValueSeparator</code> pipe (<code>|</code>), your field entry would be <code>"red|blue|yellow"</code>. </br> However, we recommend instead using an array of strings with the syntax <code>["red", "blue", "yellow"]</code> because it allows more flexibility in your field entries.
+                      default: '|'
+                    augmentAuthorityListsOnTheFly:
+                      type: boolean
+                      description: Whether to create new tags if the provided tags do not exist in a multi-valued field’s authority list.  <ul> <li>When <code>true</code>, if one of the values assigned to a multi-valued field doesn’t exist in that field’s authority list, Orange Logic creates a new tag for that value, includes it in the authority list, and assigns it to the multi-value field.</li> <li>When <code>false</code>, if a value assigned to a multi-valued field doesn’t exist in that field’s authority list, Orange Logic does not create a new tag or assign the value to that field.</li> </ul>
+                      default: false
+                    maxRecordsAffected:
+                      type: integer
+                      description: The maximum number of Orange Logic database records that the call alters for each record submitted in the call. If Orange Logic finds more records than the maximum specified, it returns an error and doesn’t make any updates.  </br> For example, let’s say you want to update the record with the Original File Name “London sunset.” If you set this parameter to one and more than one Orange Logic record has “London sunset” as the Original File Name, Orange Logic will not change any records.
+                      default: 1
+                      format: int32
+                    indexInBackground:
+                      type: boolean
+                      description: Set to `true` to delay indexing and speed up the API call processing time. </br> This parameter is available beginning in [Orange Logic Ottawa](https://developer.orangelogic.com/reference/about#orange-logic-api-versioning).
+                      default: false
+                    indexingPriority:
+                      type: string
+                      description: Forces the records to be indexed in a lower-priority queue to avoid impacting the primary indexing queue. For example, if you are calling large batches of records, the calls might fire faster than the database can index them. You can append IndexingPriority=Low to avoid overloading the queue. Leave this parameter blank to keep the call in a high priority indexing queue. </br> This parameter is available beginning in [Orange Logic Ottawa](https://developer.orangelogic.com/reference/about#orange-logic-api-versioning).
+                      enum:
+                      - Medium
+                      - Low
+                      - VeryLow
+                executionOptions:
+                  type: object
+                  description: Determines how Orange Logic completes the call.
+                  properties:
+                    executeSynchronously:
+                      type: boolean
+                      description: Whether the batch job is executed synchronously (foreground) or asynchronously via the agent job (background). <ul> <li>When <code>true</code>, the API call is executed synchronously and you must wait until the server returns the response, including all the results of the batch operation.</li> <li>When <code>false</code>, the API call is executed asynchronously. The batch job is passed to the agent and the API responds immediately with the <a href="https://developer.orangelogic.com/reference/batch-upsert#call-responses">jobRecordID</a> of the asynchronous processing task. You can use this processing task recordID to query the status and the result of the batch job via the <a href="https://developer.orangelogic.com/reference/query-asynchronous-batch-upsert-calls">Query asynchronous batch upsert calls API</a> or in the Orange Logic interface in <strong>Administration</strong> > <strong>Maintenance</strong> > <strong>Show Processing Tasks</strong>.</li> </ul>
+                      default: true
+                    successWebHookEndpoint:
+                      type: string
+                      description: The <a href="https://developer.orangelogic.com/reference/webhooks">webhook</a> that receives success notifications for each upsert operation in an asynchronous batch.
+                    failureWebHookEndpoint:
+                      type: string
+                      description: The <a href="https://developer.orangelogic.com/reference/webhooks">webhook</a> that receives failure notifications for each upsert operation in an asynchronous batch.
+                    webHookCustomHttpHeaders:
+                      type: object
+                      description: 'The custom header is included in the <span style="color:#0171C2">**POST**</span> request to the webhook endpoints. You can use this to add extra context to the webhook notifications with the format <code>"description": "string"</code>.'
+                      properties:
+                        jobID:
+                          type: string
+                          description: Example custom webhook header.
+                records:
+                  type: array
+                  description: An array that includes one object for each record you want to update or create. Each object must include the field you used in the <code>fieldsToMatch</code> parameter. This field is used to find the record in the Orange Logic platform. You can update multiple fields for each record.
+                  items:
+                    properties:
+                      CoreField.Identifier:
+                        type: string
+                        description: The record's <a href="https://developer.orangelogic.com/reference/assets#unique-identifiers">Unique ID</a>. Enter only if you selected this in the <code>fieldToMatch</code> parameter.
+                      CoreField.MediaEncryptedIdentifier:
+                        type: string
+                        description: The record's Media Encrypted Identifier, or <a href="https://developer.orangelogic.com/reference/assets#record_id">Record ID</a>. Enter only if you selected this in the <code>fieldToMatch</code> parameter.
+                      CoreField.Id_client:
+                        type: string
+                        description: The record’s Legacy Identifier. Enter only if you selected this in the <code>fieldToMatch</code> parameter.
+                      Corefield.OriginalFileName:
+                        type: string
+                        description: The record's Original File Name. Enter only if you selected this in the <code>fieldToMatch</code> parameter.
+                      CoreField.Title:
+                        type: string
+                        description: The title of the updated or newly created record. (The title is not required; this is just an example of metadata you might want to add to the asset.)
+                      CoreField.Keywords:
+                        type: array
+                        description: The keywords to add to the title as an array, in the format <code>["Tower of London", "sightseeing"]</code>. (Keywords are not required; this is just an example of metadata you might want to add to the asset.)
+                        default: []
+                        items:
+                          type: string
+                      '[Custom_Metadata]':
+                        type: string
+                        description: 'You can add other metadata fields with this syntax <code>"FieldAPIname": "value"</code>.'
+                    type: object
+            examples:
+              'Example 1: Synchronous execution':
+                value:
+                  dataOptions:
+                    table: Documents
+                    subtypeForNewRecords: Documents.Image.Default
+                    fieldToMatch: CoreField.Identifier
+                    ignoreExistingRecords: false
+                    ignoreMissingRecords: false
+                    multiValueSeparator: '|'
+                    augmentAuthorityListsOnTheFly: true
+                    maxRecordsAffected: 1
+                  executionOptions:
+                    executeSynchronously: true
+                    successWebHookEndpoint: https://webhook.site/e87774b5-3598-49d4-91a5-8bf2a9a29184
+                    failureWebHookEndpoint: https://webhook.site/e87774b5-3598-49d4-91a5-8bf2a9a29184
+                    webHookCustomHttpHeaders:
+                      jobID: demo
+                  records:
+                  - CoreField.Identifier: ZZ13UJ5
+                    CoreField.Title: Tower bridge reflection at dusk
+                    CoreField.Keywords:
+                    - Tower of London
+                    - sightseeing
+                  - CoreField.Identifier: ''
+                    CoreField.Title: New image
+                    CoreField.Keywords: Tower of London|sightseeing|UK
+              'Example 2: Asynchronous execution':
+                value:
+                  dataOptions:
+                    table: Documents
+                    subtypeForNewRecords: Documents.Image.Default
+                    fieldToMatch: CoreField.Identifier
+                    ignoreExistingRecords: false
+                    ignoreMissingRecords: false
+                    multiValueSeparator: '|'
+                    augmentAuthorityListsOnTheFly: true
+                    maxRecordsAffected: 1
+                  executionOptions:
+                    executeSynchronously: false
+                    successWebHookEndpoint: https://webhook.site/e87774b5-3598-49d4-91a5-8bf2a9a29184
+                    failureWebHookEndpoint: https://webhook.site/e87774b5-3598-49d4-91a5-8bf2a9a29184
+                    webHookCustomHttpHeaders:
+                      jobID: demo
+                  records:
+                  - CoreField.Identifier: ZZ13UJ5
+                    CoreField.Title: Tower bridge reflection at dusk
+                    CoreField.Keywords:
+                    - Tower of London
+                    - sightseeing
+                  - CoreField.Identifier: ''
+                    CoreField.Title: New image
+                    CoreField.Keywords: Tower of London|sightseeing|UK
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                'Example 1: Synchronous execution':
+                  value: "{\n   \"transactionID\": \"ZZ1VT000000001413\",\n   \"results\": [\n       {\n           \"recordID\": \"2QDTWAWJ378\",\n           \"matchedFieldValue\": \"\",\n           \"code\": \"SUCCESS\",\n           \"error\": null\n       },\n       {\n           \"recordID\": \"2QDTWAWJ9A4\",\n           \"matchedFieldValue\": \"ZZ13UJ2\",\n           \"code\": \"SUCCESS\",\n           \"error\": null\n       }\n   ],\n   \"executeInBackground\": false,\n   \"jobRecordID\": null\n}"
+                'Example 2: Asynchronous execution':
+                  value: "{\n  \"transactionID\": null,\n  \"results\": null,\n  \"executeInBackground\": true,\n  \"jobRecordID\": \"ZZ1AP000000010181\"\n}"
+              schema:
+                oneOf:
+                - title: 'Example 1: Synchronous execution'
+                  type: object
+                  properties:
+                    transactionID:
+                      type: string
+                      example: ZZ1VT000000001413
+                    results:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          recordID:
+                            type: string
+                            example: 2QDTWAWJ378
+                          matchedFieldValue:
+                            type: string
+                            example: ''
+                          code:
+                            type: string
+                            example: SUCCESS
+                          error: {}
+                    executeInBackground:
+                      type: boolean
+                      example: false
+                      default: true
+                    jobRecordID: {}
+                - title: 'Example 2: Asynchronous execution'
+                  type: object
+                  properties:
+                    transactionID: {}
+                    results: {}
+                    executeInBackground:
+                      type: boolean
+                      example: true
+                      default: true
+                    jobRecordID:
+                      type: string
+                      example: ZZ1AP000000010181
+      deprecated: false
+  /batchupsert_csv_4G3_v1:
+    post:
+      summary: Batch upsert a CSV file
+      description: Perform batch upserts of CSV files
+      operationId: batch-upsert-a-csv-file
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - dataOptions
+              - file
+              properties:
+                dataOptions:
+                  type: object
+                  description: The information that determines the behavior of the batch upsert operations.
+                  required:
+                  - table
+                  - fieldToMatch
+                  properties:
+                    table:
+                      type: string
+                      description: The type of records to alter. Can be either <code>Documents</code> or <code>Contacts</code>.
+                    subtypeForNewRecords:
+                      type: string
+                      description: The contact or asset subtype of any newly-created records. This is required when your call creates new records.  <br/> This parameter uses the DataTable API syntax for <a href="https://developer.orangelogic.com/reference/base-calls-for-managing-assets">assets</a> and <a href="https://developer.orangelogic.com/reference/base-calls-for-managing-contacts">Contacts</a> in the format <code>{Documents-or-Contacts}.{Asset_type}.{Asset_subtype}</code>. For example, for a standard video you would use <code>Documents.Video.Default</code>. <br/> For more information on asset types and subtypes, go to the <a href="https://developer.orangelogic.com/reference/assets#asset-type-and-subtype">Assets</a> article.
+                    fieldToMatch:
+                      type: string
+                      description: The field used to identify records to update in Orange Logic. This field <strong>must</strong> match the field used to identify records to update or create in the uploaded CSV. <ul><li>The <code>MediaEncryptedIdentifier</code> is the Record ID.</li><li>The <code>CoreField.Identifier</code> is the Unique ID.</li><li>The <code>CoreField.Id_client</code> is the Legacy ID.</li><li>The <code>CoreField.OriginalFileName</code> is the Original File Name.</li></ul>
+                      enum:
+                      - MediaEncryptedIdentifier
+                      - CoreField.Identifier
+                      - CoreField.Id_client
+                      - CoreField.OriginalFileName
+                    ignoreExistingRecords:
+                      type: boolean
+                      description: Whether to <strong>update</strong> records that already exist in the Orange Logic database.  <ul> <li>When <code>true</code>, the call returns the code <code>IGNORED_EXISTING_RECORD</code> if a provided record is found in the Orange Logic database.</li> <li>When <code>false</code>, the call updates the provided record.</li> </ul>
+                      default: false
+                    ignoreMissingRecords:
+                      type: boolean
+                      description: Whether to <strong>create</strong> new records if a provided record does not match any records in the Orange Logic database.  <ul> <li>When <code>true</code>, the call returns the code <code>IGNORED_MISSING_RECORD</code> if a provided record is not found.</li> <li>When <code>false</code>, the call creates a new database entry with the provided record if that record is not found in the Orange Logic database.</li> </ul>
+                      default: false
+                    multiValueSeparator:
+                      type: string
+                      description: The separator used to pass values to a multi-valued field, including an authority list, with a single string. For example, let’s say you want a multi-valued field to include the values <code>red</code>, <code>blue</code>, and <code>yellow</code>. If you leave the default <code>multiValueSeparator</code> pipe (<code>|</code>), your field entry would be <code>"red|blue|yellow"</code>. </br> However, we recommend instead using an array of strings with the syntax <code>["red", "blue", "yellow"]</code> because it allows more flexibility in your field entries.
+                    augmentAuthorityListsOnTheFly:
+                      type: string
+                      description: Whether to create new tags if the provided tags do not exist in a multi-valued field’s authority list.  <ul> <li>When <code>true</code>, if one of the values assigned to a multi-valued field doesn’t exist in that field’s authority list, Orange Logic creates a new tag for that value, includes it in the authority list, and assigns it to the multi-value field.</li> <li>When <code>false</code>, if a value assigned to a multi-valued field doesn’t exist in that field’s authority list, Orange Logic does not create a new tag or assign the value to that field.</li> </ul>
+                    maxRecordsAffected:
+                      type: number
+                      description: The maximum number of Orange Logic database records that the call alters for each record submitted in the call. If Orange Logic finds more records than the maximum specified, it returns an error and doesn’t make any updates.  </br> For example, let’s say you want to update the record with the Original File Name “London sunset.” If you set this parameter to one and more than one Orange Logic record has “London sunset” as the Original File Name, Orange Logic will not change any records.
+                      default: 1
+                      format: float
+                executionOptions:
+                  type: object
+                  description: Determines how Orange Logic completes the call.
+                  properties:
+                    executeSynchronously:
+                      type: boolean
+                      description: Whether the batch job is executed synchronously (foreground) or asynchronously via the agent job (background). <ul> <li>When <code>true</code>, the API call is executed synchronously and you must wait until the server returns the response, including all the results of the batch operation.</li> <li>When <code>false</code>, the API call is executed asynchronously. The batch job is passed to the agent and the API responds immediately with the <a href="https://developer.orangelogic.com/reference/batch-upsert#call-responses">jobRecordID</a> of the asynchronous processing task. You can use this processing task recordID to query the status and the result of the batch job via the <a href="https://developer.orangelogic.com/reference/query-asynchronous-batch-upsert-calls">Query asynchronous batch upsert calls API</a> or in the Orange Logic interface in <strong>Administration</strong> > <strong>Maintenance</strong> > <strong>Show Processing Tasks</strong>.</li> </ul>
+                      default: true
+                    successWebHookEndpoint:
+                      type: string
+                      description: The <a href="https://developer.orangelogic.com/reference/webhooks">webhook</a> that receives success notifications for each upsert operation in an asynchronous batch.
+                    failureWebHookEndpoint:
+                      type: string
+                      description: The <a href="https://developer.orangelogic.com/reference/webhooks">webhook</a> that receives failure notifications for each upsert operation in an asynchronous batch.
+                    webHookCustomHttpHeaders:
+                      type: object
+                      description: 'The custom header is included in the <span style="color:#0171C2">**POST**</span> request to the webhook endpoints. You can use this to add extra context to the webhook notifications with the format <code>"description": "string"</code>.'
+                      properties:
+                        jobID:
+                          type: string
+                          description: Example custom webhook header.
+                file:
+                  type: string
+                  description: 'A CSV file with:  <ul>  <li>One row for each record that will be created or updated.</li>  <li>One column for the identifying metadata field that matches the field you used in the <code>fieldsToMatch</code> parameter. This field must be filled to update a record. To create a new record, leave the field blank. </li>  <li>One column for each field that will be created or edited. You can update multiple fields for each record.</li>  </ul>'
+                  format: binary
+      deprecated: false
+  /query_batchupsert_4G2_v1:
+    get:
+      summary: Query asynchronous batch upsert calls
+      description: Query the status and result of an asynchronous batch upsert request
+      operationId: query-asynchronous-batch-upsert-calls
+      parameters:
+      - name: JobRecordID
+        in: query
+        description: The JobRecordID returned from an asynchronous batch upsert request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"status\": \"Succeeded\",\n   \"result\": {\n       \"transactionID\": \"ZZ1VT000000002365\",\n       \"results\": [\n           {\n               \"recordID\": \"2QDTWAO2211\",\n               \"matchedFieldValue\": \"\",\n               \"code\": \"SUCCESS\",\n               \"error\": null\n           },\n           {\n               \"recordID\": \"2QDTWAO7X1K\",\n               \"matchedFieldValue\": \"\",\n               \"code\": \"SUCCESS\",\n               \"error\": null\n           }\n       ],\n       \"executeInBackground\": true,\n       \"jobRecordID\": \"ZZ1AP000000010181\"\n   }\n}\n"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Succeeded
+                  result:
+                    type: object
+                    properties:
+                      transactionID:
+                        type: string
+                        example: ZZ1VT000000002365
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            recordID:
+                              type: string
+                              example: 2QDTWAO2211
+                            matchedFieldValue:
+                              type: string
+                              example: ''
+                            code:
+                              type: string
+                              example: SUCCESS
+                            error: {}
+                      executeInBackground:
+                        type: boolean
+                        example: true
+                        default: true
+                      jobRecordID:
+                        type: string
+                        example: ZZ1AP000000010181
+      deprecated: false
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-upsert-a-csv-file.md
+  - https://developer.orangelogic.com/reference/batch-upsert-a-json-array.md
+  - https://developer.orangelogic.com/reference/query-asynchronous-batch-upsert-calls.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0
