@@ -1,0 +1,124 @@
+openapi: 3.2.0
+info:
+  title: upload-media-web UploadFileFromCloudStorage 4OY V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: UploadFileFromCloudStorage 4OY V1
+paths:
+  /uploadFileFromCloudStorage_4OY_v1:
+    post:
+      summary: Upload a file from Google Cloud Storage
+      description: Upload a single file from Google Cloud Storage to Orange Logic by providing a source bucket and object key
+      operationId: upload-from-cloud
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - sourceBucket
+              - objectKey
+              properties:
+                recordID:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets">record ID, unique identifier, or encrypted record ID</a> of an existing asset. The file you provide will be uploaded as a new version of this asset.<br>This parameter <b>or</b> the folderRecordID parameter is <span style="color:#dd1e2e">required</span>.
+                folderRecordID:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets">record ID, unique identifier, or encrypted record ID</a> of a folder to upload the asset to. The file you provide will be uploaded as a new asset.<br>This parameter <b>or</b> the recordID parameter is <span style="color:#dd1e2e">required</span>.
+                sourceBucket:
+                  type: string
+                  description: The name of the bucket where the file to upload is stored
+                objectKey:
+                  type: string
+                  description: The path of the file within the source bucket to upload
+                FileName:
+                  type: string
+                  description: 'A name for the file being uploaded, including the file extension. Example: London Eye.jpg'
+                logInfo:
+                  type: boolean
+                  description: Include logs in response. Set to true only for debugging.
+                  default: false
+                metadata:
+                  type: object
+                  description: <a href="https://developer.orangelogic.com/reference/metadata-field-identifiers">Metadata</a> applied to the uploaded asset.
+                  properties:
+                    '[custom_Metadata]':
+                      type: string
+                      description: 'Enter a comma-separated list of field name and value pairs, enclosed in curly brackets: <code>{}</code><br>Example: <code>{"CoreField.Title":"New asset title", "MyNameSpace.MyField":"Custom field value"}</code>'
+                indexInBackground:
+                  type: boolean
+                  description: Set to `true` to delay indexing and speed up the API call processing time. </br> </br> This parameter is available beginning in [Orange Logic Ottawa](https://developer.orangelogic.com/reference/about#orange-logic-api-versioning).
+                  default: true
+                indexingPriority:
+                  type: string
+                  description: Forces the records to be indexed in a lower-priority queue to avoid impacting the primary indexing queue. For example, if you are calling large batches of records, the calls might fire faster than the database can index them. You can append &IndexingPriority=Low to avoid overloading the queue. Leave this parameter blank to keep the call in a high priority indexing queue. </br> </b> This parameter is available beginning in [Orange Logic Ottawa](https://developer.orangelogic.com/reference/about#orange-logic-api-versioning).
+                  enum:
+                  - Medium
+                  - Low
+                  - VeryLow
+            examples:
+              Request Example:
+                value:
+                  folderRecordID: 2Z0ZIFG1P7I5
+                  sourceBucket: input-source-for-dam
+                  objectKey: /File extension/Image/E-45 _col.jpg
+                  fileName: London.jpg
+                  logInfo: false
+                  metadata:
+                    CoreField.CaptionLong: London skyline with view of the Big Ben clocktower and the Houses of Parliament building
+                    CoreField.Purpose: Internal Use Only
+                    CoreField.CT_RecordidSource: Anna Morado
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"Identifier\": \"Q0LXRLS9S\",\n  \"RecordID\": \"2Z0ZIFLXK8W41\",\n  \"IsDuplicated\": false\n}"
+              schema:
+                type: object
+                properties:
+                  Identifier:
+                    type: string
+                    example: Q0LXRLS9S
+                  RecordID:
+                    type: string
+                    example: 2Z0ZIFLXK8W41
+                  IsDuplicated:
+                    type: boolean
+                    example: false
+                    default: true
+      tags:
+      - UploadFileFromCloudStorage 4OY V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/upload-and-get-link.md
+  - https://developer.orangelogic.com/reference/upload-from-cloud.md
+  - https://developer.orangelogic.com/reference/upload-media-endpoint.md
+  - https://developer.orangelogic.com/reference/upload-media-with-url.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

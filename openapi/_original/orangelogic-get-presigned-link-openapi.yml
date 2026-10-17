@@ -1,0 +1,173 @@
+# x-archived-from: orangelogic-get-presigned-link-openapi.yml
+# x-archived-on: 2026-10-17
+openapi: 3.1.0
+info:
+  title: get-presigned-link
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/storage/signedurl
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /getpresignedlink_4ar_v1:
+    get:
+      summary: Get presigned link
+      description: Get an asset's cloud storage link
+      operationId: get-presigned-link
+      parameters:
+      - name: RecordID
+        in: query
+        description: The asset's <a href="https://orangedam.readme.io/docs/assets#record-id">RecordID or unique identifier</a>.
+        schema:
+          type: string
+      - name: Format
+        in: query
+        description: The code of the <a href="https://developer.orangelogic.com/reference/assets#formats">asset format</a> that you want to generate a link for (TRX, TR1, etc.).
+        schema:
+          type: string
+      - name: GenerateIfNeeded
+        in: query
+        description: 'If Orange Logic does not generate this asset by default, indicate whether the asset should be generated. </br> </br> 🎓 <b> Insight: Optional Formats </b> </br> When you determine which proxies must be created when assets are uploaded to Orange Logic, you can specify optional formats that are not created by default. (This is usually done to save on storage costs.) If you are generating a link for an optional format, use this parameter to determine whether Orange Logic generates that proxy along with the link. </br> </br>  <b> Note</b>: If you opt to generate the format with the link, the asset generation process occurs in the background. If you receive a 404 error, wait a few moments. Then, try running the call again.'
+        schema:
+          type: boolean
+      - name: SkipCheckExistence
+        in: query
+        description: Whether the API checks whether the asset exists. If you know the asset exists, you can skip the check to save time.
+        schema:
+          type: boolean
+      - name: ValidityDuration
+        in: query
+        description: 'An expiration for the link. The default is ten minutes. </br></br> Format: <b>[x]d[y]h[z]m</b> </br><b>x</b>: Number of days<br><b>y</b>: Number of hours<br><b>z</b>: Number of minutes </br></br> Example: <b>1d2h3m</b> means 1 day, 2 hours, and 3 minutes.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"link\": \"https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC9LAylJACaXh4icM40CeNDd9CGwf2cG0iLlgD1PqpQD8E4lJe4Sb5Key6NN1EUwSMoqOak80GPtlsHwzFZGxccf@gvcRrsV1xTEMpiXJjm6w/SRJsobyYjEYhzwlq/Ane9n1lq2x257Chx/ZZ11BK.jpg\"\n}"
+              schema:
+                type: object
+                properties:
+                  link:
+                    type: string
+                    example: https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC9LAylJACaXh4icM40CeNDd9CGwf2cG0iLlgD1PqpQD8E4lJe4Sb5Key6NN1EUwSMoqOak80GPtlsHwzFZGxccf@gvcRrsV1xTEMpiXJjm6w/SRJsobyYjEYhzwlq/Ane9n1lq2x257Chx/ZZ11BK.jpg
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: https://mangovations.com/webapi/cortexdrive/getpresignedlink_23W_v1?RecordID=ZZ11BK&Format=TR1&GenerateIfNeeded=false&SkipCheckExistence=false&ValidityDuration=1d
+        samples-languages:
+        - text
+  /getpresignedlinks_in_batch_4G8_v1:
+    post:
+      summary: Get presigned links in batch
+      description: Get multiple assets’ cloud storage links
+      operationId: get-presigned-links-in-batch
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                RecordID:
+                  type: string
+                  description: The asset's <a href="https://orangedam.readme.io/docs/assets#record-id">RecordID or unique identifier</a>.
+                Format:
+                  type: string
+                  description: The code of the <a href="https://developer.orangelogic.com/reference/assets#formats">asset format</a> that you want to generate a link for (TRX, TR1, etc.).
+                GenerateIfNeeded:
+                  type: boolean
+                  description: 'If Orange Logic does not generate this asset by default, indicate whether the asset should be generated. </br> </br> 🎓 <b> Insight: Optional Formats </b> </br> When you determine which proxies must be created when assets are uploaded to Orange Logic, you can specify optional formats that are not created by default. (This is usually done to save on storage costs.) If you are generating a link for an optional format, use this parameter to determine whether Orange Logic generates that proxy along with the link. </br> </br>  <b> Note</b>: If you opt to generate the format with the link, the asset generation process occurs in the background. If you receive a 404 error, wait a few moments. Then, try running the call again.'
+                SkipCheckExistence:
+                  type: boolean
+                  description: Whether the API checks whether the asset exists. If you know the asset exists, you can skip the check to save time.
+                ValidityDuration:
+                  type: string
+                  description: 'An expiration for the link. The default is ten minutes. </br></br> Format: <b>[x]d[y]h[z]m</b> </br><b>x</b>: Number of days<br><b>y</b>: Number of hours<br><b>z</b>: Number of minutes </br></br> Example: <b>1d2h3m</b> means 1 day, 2 hours, and 3 minutes.'
+            examples:
+              Request Example:
+                value:
+                  records:
+                  - recordID: ZZ11BC
+                    format: TR1
+                  - recordID: ZZ11B5
+                    format: TR1
+                  - recordID: ZZ11BA
+                    format: TR1
+                  generateIfNeeded: false
+                  validityDuration: 1h
+                  skipCheckExistence: false
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"ZZ11BC\":{\n      \"TR1\":{\n         \"link\":\"https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC9M2_YiwtvAm5L4Iio5IEFxgWM1zO962uKPHAZZGUl4CgXizN5PodppA4wEyoHNDMP2U3ws9@VNwDe__T73a6lYHbNdKgQoihYkAaUHK3qCg/y6C7zvnXzd5fA4sd/Gqm_ZbmWl36D81dV/ZZ11BC.jpg\",\n         \"error\":null,\n         \"errorCode\":null\n      }\n   },\n   \"ZZ11B5\":{\n      \"TR1\":{\n         \"link\":\"https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC46YHMv_lwzQoRZra17tVQ8CO9agq23xCXTz6g@Y9XS3n0Co3lT6cdNua7ecRHhaB1XakeGyFtB@CbJhJk1g8XWp@wHmiUOJdedznzP2L3rP/0bkX2pNxplG8raVP/gKF42FYKgHxwkOMu/ZZ11B5.jpg\",\n         \"error\":null,\n         \"errorCode\":null\n      }\n   },\n   \"ZZ11BA\":{\n      \"TR1\":{\n         \"link\":\"mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeCyxa0cqsmTqOKiaxMLimTz868gaSasqchf0KB@pbM5PDLZIQx36f6i2yTRu9PACcNY9uFIT0W7jo39F78oNsj0p0ZyeeAlgneeWX8QIBLdk2/sZljXDx5hL79Sdz9/frgu_h3PsyRSoz3m/ZZ11BA.jpg\",\n         \"error\":null,\n         \"\
+                    errorCode\":null\n      }\n   }\n}"
+              schema:
+                type: object
+                properties:
+                  ZZ11BC:
+                    type: object
+                    properties:
+                      TR1:
+                        type: object
+                        properties:
+                          link:
+                            type: string
+                            example: https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC9M2_YiwtvAm5L4Iio5IEFxgWM1zO962uKPHAZZGUl4CgXizN5PodppA4wEyoHNDMP2U3ws9@VNwDe__T73a6lYHbNdKgQoihYkAaUHK3qCg/y6C7zvnXzd5fA4sd/Gqm_ZbmWl36D81dV/ZZ11BC.jpg
+                          error: {}
+                          errorCode: {}
+                  ZZ11B5:
+                    type: object
+                    properties:
+                      TR1:
+                        type: object
+                        properties:
+                          link:
+                            type: string
+                            example: https://mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeC46YHMv_lwzQoRZra17tVQ8CO9agq23xCXTz6g@Y9XS3n0Co3lT6cdNua7ecRHhaB1XakeGyFtB@CbJhJk1g8XWp@wHmiUOJdedznzP2L3rP/0bkX2pNxplG8raVP/gKF42FYKgHxwkOMu/ZZ11B5.jpg
+                          error: {}
+                          errorCode: {}
+                  ZZ11BA:
+                    type: object
+                    properties:
+                      TR1:
+                        type: object
+                        properties:
+                          link:
+                            type: string
+                            example: mangovations.com/Assets/V2/k09m@tB7notE65jMA8JeCyxa0cqsmTqOKiaxMLimTz868gaSasqchf0KB@pbM5PDLZIQx36f6i2yTRu9PACcNY9uFIT0W7jo39F78oNsj0p0ZyeeAlgneeWX8QIBLdk2/sZljXDx5hL79Sdz9/frgu_h3PsyRSoz3m/ZZ11BA.jpg
+                          error: {}
+                          errorCode: {}
+      deprecated: false
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/get-presigned-link.md
+  - https://developer.orangelogic.com/reference/get-presigned-links-in-batch.md
+  merge:
+    pages: 2
+    deduped: 1
+    conflicts_kept_first: 0

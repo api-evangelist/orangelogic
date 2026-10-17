@@ -1,0 +1,75 @@
+openapi: 3.2.0
+info:
+  title: get-link Querybatchupsertassetlinkswithcustomroutejobstatus…
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/share
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Querybatchupsertassetlinkswithcustomroutejobstatus 41FE V1
+paths:
+  /querybatchupsertassetlinkswithcustomroutejobstatus_41FE_v1:
+    get:
+      summary: Custom route job status
+      description: Query the job status for custom route creation or obtain custom route links
+      operationId: custom-route-job-status
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                jobRecordID:
+                  type: string
+                  description: The <code>jobRecordID</code> of the custom route job you want to check the status of.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{}{\n  \"jobStatus\": \"Succeeded\",\n  \"result\": {\n    \"isRunning\": false,\n    \"jobRecordID\": \"2Z9XPH3T3T3\",\n    \"results\": [\n      {\n        \"assetID\": \"2Z9XC5NG0N6\",\n        \"format\": \"TR1\",\n        \"expirationDate\": \"2026-07-25T12:55:05.943Z\",\n        \"link\": \"https://mango-cdn.orangelogic.com/public/Promenade-des-Anglais-Nice-TR1.auto\n\"\n      },\n      {\n        \"assetID\": \"2Z9XC5NNOOC\",\n        \"format\": \"TR1\",\n        \"expirationDate\": \"2026-07-25T12:55:05.943Z\",\n        \"link\": \"https://mango-cdn.orangelogic.com/public/historic-village-in-provence-tr1.auto\"\n      }\n    ]\n    \"errors\": []\n  }\n}\n"
+        '400':
+          description: '400'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: '{}'
+              schema:
+                type: object
+                properties: {}
+      deprecated: false
+      tags:
+      - Querybatchupsertassetlinkswithcustomroutejobstatus 41FE V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-create-or-update-public-embed-links.md
+  - https://developer.orangelogic.com/reference/custom-route-job-status.md
+  - https://developer.orangelogic.com/reference/generate-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/get-link.md
+  - https://developer.orangelogic.com/reference/retrieve-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link.md
+  merge:
+    pages: 6
+    deduped: 5
+    conflicts_kept_first: 0

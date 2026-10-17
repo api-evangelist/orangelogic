@@ -1,0 +1,94 @@
+openapi: 3.2.0
+info:
+  title: multi-part-upload-api Complete 27 V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload/
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Complete 27 V1
+paths:
+  /complete_27_v1:
+    post:
+      summary: 'Step 5: Complete the upload session'
+      description: Notify Orange Logic that all of an asset’s chunks have been successfully uploaded
+      operationId: complete-the-asset-upload
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - uploadItemId
+              - fileDigitizedDate
+              properties:
+                uploadItemId:
+                  type: string
+                  description: <code>uploadItemId</code> or <code>UIRecordID</code> of the upload item created in the <a href= "https://developer.orangelogic.com/reference/register-upload-assets">Register upload assets</a> section.
+                fileDigitizedDate:
+                  type: string
+                  description: The current date in the format mm/dd/yyThh:mm:ss.
+                  format: date
+                fileDateCreated:
+                  type: string
+                  description: The date the asset was created locally in the format mm/dd/yyThh:mm:ss.
+                  format: date
+                fileDateModified:
+                  type: string
+                  description: The date the asset was last modified locally in the format mm/dd/yyThh:mm:ss.
+                  format: date
+                S3PartList:
+                  type: array
+                  description: ETags received from S3 multipart upload requests. For more information about ETags, refer to the <a href="https://docs.aws.amazon.com/AmazonS3/latest/API/API_Object.html#:~:text=Aws%20S3%20Etag" target="_blank">AWS S3 documentation</a>.
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n \"assetVersion\": 0,\n  \"duplicatedRecordID\": null,\n  \"uploadStatus\": \"Success\"\n}\n"
+              schema:
+                type: object
+                properties:
+                  assetVersion:
+                    type: integer
+                    example: 0
+                    default: 0
+                  duplicatedRecordID: {}
+                  uploadStatus:
+                    type: string
+                    example: Success
+      deprecated: false
+      tags:
+      - Complete 27 V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/complete-the-asset-upload.md
+  - https://developer.orangelogic.com/reference/create-upload-transaction.md
+  - https://developer.orangelogic.com/reference/register-upload-assets.md
+  - https://developer.orangelogic.com/reference/upload-chunks-to-orange-logic.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

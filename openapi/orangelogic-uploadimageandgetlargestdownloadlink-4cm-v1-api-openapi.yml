@@ -1,0 +1,104 @@
+openapi: 3.2.0
+info:
+  title: upload-media-web Uploadimageandgetlargestdownloadlink 4CM…
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Uploadimageandgetlargestdownloadlink 4CM V1
+paths:
+  /uploadimageandgetlargestdownloadlink_4CM_v1:
+    post:
+      summary: Upload image and get largest download link
+      description: Upload an image from your computer to Orange Logic and receive a download link to the largest available asset format.
+      operationId: upload-and-get-link
+      parameters:
+      - name: Content-Type
+        in: header
+        description: The <code>multipart/form-data</code> header parameter is required for this call.
+        required: true
+        schema:
+          type: string
+          default: multipart-formdata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderRecordID
+              - files
+              - clientFileName
+              properties:
+                folderRecordID:
+                  type: string
+                  description: <a href="https://developer.orangelogic.com/reference/assets#record-id">RecordID</a> or <a href="https://developer.orangelogic.com/reference/assets#unique-identifiers">Unique ID</a> of the folder to upload the asset to
+                files:
+                  type: string
+                  description: The file to upload.
+                clientFileName:
+                  type: string
+                  description: 'The filename, including the file extension. For example: London Eye.jpg'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"downloadLink\": \"https://university1.orangelogic.com/AssetLink/k7a04i007p163o85jhqte2no1lmlejal.png\",\n    \"message\": null\n}"
+              schema:
+                type: object
+                properties:
+                  downloadLink:
+                    type: string
+                    example: https://university1.orangelogic.com/AssetLink/k7a04i007p163o85jhqte2no1lmlejal.png
+                  message: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: 'curl --location ''https://university1.orangelogic.com/webapi/mediafile/import/upload/uploadimageandgetlargestdownloadlink_4CM_v1'' \
+
+            --header ''Authorization: ••••••'' \
+
+            --header ''Cookie: AWSALB=PW5zV98TCoE9YBiXU8DtnQLW4zQ++KzMQrX0ACl91RjZImwTvdvafqRIo9SHDZiHerE5IqkxrTb/UtdQ9lEWGM2XVrVisp8GZdVAmTarx/QwO58TXHeYeIaDHRCY; AWSALBCORS=PW5zV98TCoE9YBiXU8DtnQLW4zQ++KzMQrX0ACl91RjZImwTvdvafqRIo9SHDZiHerE5IqkxrTb/UtdQ9lEWGM2XVrVisp8GZdVAmTarx/QwO58TXHeYeIaDHRCY; AWSALBTG=8abB8FC+xj7J8nLxFumeV7+diyvU2VbsOmNDXJKIM2BkfjU/Hku6/17/85AI6nc/F2nJ0uqIprdlh+k7+18tAay4R1FWnUZu2Bw8C8kAphNsi37wij39dd+sgidCEjxyFH8pnf+4ToJHX/ilRwsRyqzZskIG7lhhuM7/8EaVI1Mn; AWSALBTGCORS=8abB8FC+xj7J8nLxFumeV7+diyvU2VbsOmNDXJKIM2BkfjU/Hku6/17/85AI6nc/F2nJ0uqIprdlh+k7+18tAay4R1FWnUZu2Bw8C8kAphNsi37wij39dd+sgidCEjxyFH8pnf+4ToJHX/ilRwsRyqzZskIG7lhhuM7/8EaVI1Mn; CortexCID_ZZ1=P8I7Dn4N7lrYI7j4; ZZ1-Session__1505=CfDJ8CM%2BgwYDmcRIlTKBrsau2HwxLnhqRBw%2B%2BSBDgjP95SuDF4OYHYyyzSLMSBxfjwvB%2B5ZPrCt4vrpcK1yTNgCxdfyPnyXr9zMvRfjIxeKYHKEWlh0zsT%2BeulInd7RXTKmlcdwlUcRhBy%2B5t81wuOcAINYmkS1C3yXfTMd8mHExxZCu; ZZ1-Session__1505-Alt=CfDJ8CM%2BgwYDmcRIlTKBrsau2HwxLnhqRBw%2B%2BSBDgjP95SuDF4OYHYyyzSLMSBxfjwvB%2B5ZPrCt4vrpcK1yTNgCxdfyPnyXr9zMvRfjIxeKYHKEWlh0zsT%2BeulInd7RXTKmlcdwlUcRhBy%2B5t81wuOcAINYmkS1C3yXfTMd8mHExxZCu'' \
+
+            --form ''folderRecordID="ZZ1282Z"'' \
+
+            --form ''files=@"STvFNS4U4/Zoe head of product.jpeg"'' \
+
+            --form ''clientFileName="Zoe head of product.jpeg"'''
+        samples-languages:
+        - text
+      tags:
+      - Uploadimageandgetlargestdownloadlink 4CM V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/upload-and-get-link.md
+  - https://developer.orangelogic.com/reference/upload-from-cloud.md
+  - https://developer.orangelogic.com/reference/upload-media-endpoint.md
+  - https://developer.orangelogic.com/reference/upload-media-with-url.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

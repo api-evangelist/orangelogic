@@ -1,0 +1,107 @@
+openapi: 3.2.0
+info:
+  title: Getreportinfo 4102 V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/report/export
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Getreportinfo 4102 V1
+paths:
+  /getreportinfo_4102_v1:
+    get:
+      summary: Get report information
+      description: Retrieve the columns and filters of a specified report
+      operationId: get-report-information
+      parameters:
+      - name: ID
+        in: query
+        description: The <a href="https://developer.orangelogic.com/reference/reports#find-a-report-id">report ID</a>.
+        required: true
+        schema:
+          type: string
+      - name: ListAllColumns
+        in: query
+        description: '<ul><li><code>false</code>: Return only the columns currently selected for the report in the Orange Logic interface.</li><li><code>true</code>: Return all the columns available for the specified report.</li></ul>'
+        schema:
+          type: string
+          default: 'false'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": \"ActiveContact\",\n    \"columns\": [\n        {\n            \"id\": \"Groups\",\n            \"label\": \"Groups for this contact\"\n        },\n        {\n            \"id\": \"Contact_type\",\n            \"label\": \"Account type\"\n        },\n        {\n            \"id\": \"UserReportCategory\",\n            \"label\": \"User Category\"\n        },\n        {\n            \"id\": \"First_Name\",\n            \"label\": \"First name\"\n        },\n        {\n            \"id\": \"Last_Name\",\n            \"label\": \"Last name\"\n        },\n        {\n            \"id\": \"Identifier\",\n            \"label\": \"Unique identifier\"\n        },\n        {\n            \"id\": \"LoginID\",\n            \"label\": \"Login ID\"\n        },\n        {\n            \"id\": \"LastLoginDate\",\n            \"label\": \"Last login date\"\n        },\n        {\n            \"id\": \"Email1\",\n            \"label\": \"Email address\"\n        },\n        {\n            \"id\": \"OrganisationName\",\n            \"label\": \"Company name\"\n        },\n        {\n            \"id\": \"CompanyType\",\n            \"label\": \"Company type\"\n        },\n        {\n            \"id\": \"IndustryType\",\n            \"label\": \"Industry\"\n        },\n        {\n            \"id\": \"City\",\n            \"label\": \"Town / City\"\n        },\n        {\n            \"id\": \"Country\",\n            \"label\": \"Country\"\n        },\n        {\n            \"id\": \"State\",\n            \"label\": \"State\"\n        },\n        {\n            \"id\": \"Region\",\n            \"label\": \"Continent\"\n        },\n        {\n            \"id\": \"Phone1\",\n            \"label\": \"Office phone\"\n        },\n        {\n            \"id\": \"Phone2\",\n            \"label\": \"Office fax\"\n        },\n        {\n            \"id\": \"ExternalNumber\",\n            \"label\": \"Accounting number\"\n        },\n        {\n            \"id\": \"ContactUrl\",\n            \"label\": \"Contact url\"\n        },\n        {\n            \"id\": \"RoyaltyRate\",\n            \"label\": \"Royalty rate (%)\"\n        },\n        {\n            \"id\": \"SalesContact\",\n            \"label\": \"Sales contact\"\n        },\n        {\n            \"id\": \"CT_Master\",\n            \"label\": \"Company\"\n        },\n        {\n            \"id\": \"CT_Administrator\",\n            \"label\": \"Administrator\"\n        },\n        {\n            \"id\": \"CommissionPaymentType\",\n            \"label\": \"Royalty distribution type\"\n        },\n        {\n            \"id\": \"CommissionPaymentPeriod\",\n            \"label\": \"Royalty distribution period\"\n        },\n        {\n            \"id\": \"Status\",\n            \"label\": \"Status\"\n        }\n    ],\n    \"filters\": [\n        {\n            \"id\": \"UserReportCategory\",\n            \"label\": \"User Category\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"AC_ContactGroup\",\n            \"label\": \"Group\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"AC_ContactsGroupHierarchy\",\n            \"label\": \"Group (includes children contact groups)\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"Address1\",\n            \"label\": \"Address:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"BlockTransactions\",\n            \"label\": \"Login blocked\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"CanPayByACH\",\n            \"label\": \"Can pay by ACH (by account)\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"CanPayByCheck\",\n            \"label\": \"Can pay by check (by account)\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"CanPayByCreditCard\",\n            \"label\": \"Can pay by credit card\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"CanPayByWireTransfer\",\n            \"label\": \"Can pay by Wire Transfer (by account)\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"City\",\n            \"label\": \"Town / City:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"CleareanceLevelDDL\",\n            \"label\": \"Clearance level\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"CommissionPaymentPeriod\",\n            \"label\": \"Royalty distribution period:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"CommissionPaymentType\",\n            \"label\": \"Royalty distribution type:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"CompanyType\",\n            \"label\": \"Company type:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"ConsentPA\",\n            \"label\": \"Consent privacy notice\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"ConsentTC\",\n            \"label\": \"Consent terms and conditions\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"ContactType\",\n            \"label\": \"Account type:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"CostCenter\",\n            \"label\": \"Cost center\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"Country\",\n            \"label\": \"Country:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"CreateDate_From\",\n            \"label\": \"Creation date: (From)\",\n            \"type\": \"Date\"\n        },\n        {\n            \"id\": \"CreateDate_To\",\n            \"label\": \"Creation date: (To)\",\n            \"type\": \"Date\"\n        },\n        {\n            \"id\": \"CreateDate_Period\",\n            \"label\": \"Creation date: (Period)\",\n            \"type\": \"DatePeriod\"\n        },\n        {\n            \"id\": \"CreditHold\",\n            \"label\": \"Manual credit hold\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"CT_Administrator\",\n            \"label\": \"Administrator:\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"CT_SalesContact\",\n            \"label\": \"Sales contact:\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"DirectMarketing\",\n            \"label\": \"Subscribe to newsletter\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"Disabled\",\n            \"label\": \"Records to view:\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"Email1\",\n            \"label\": \"Email address:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"EventType\",\n            \"label\": \"Event  type\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"ExternalNumber\",\n            \"label\": \"Accounting number:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"ExternalNumberWithMaster\",\n            \"label\": \"Accounting number (Look for at company level too):\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"First_Name\",\n            \"label\": \"First name:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"HasForFreelance\",\n            \"label\": \"Has for freelance\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"HasLoginBetween_From\",\n            \"label\": \"Has logged in (From)\",\n            \"type\": \"Date\"\n        },\n        {\n            \"id\": \"HasLoginBetween_To\",\n            \"label\": \"Has logged in (To)\",\n            \"type\": \"Date\"\n        },\n        {\n            \"id\": \"HasLoginBetween_Period\",\n            \"label\": \"Has logged in (Period)\",\n            \"type\": \"DatePeriod\"\n        },\n        {\n            \"id\": \"HasNotCreatedOrderSince\",\n            \"label\": \"Has not created order since:\",\n            \"type\": \"Date\"\n        },\n        {\n            \"id\": \"HasNotLoggedInSince\",\n            \"label\": \"Has not logged in since\",\n            \"type\": \"Date\"\n        },\n        {\n            \"id\": \"Identifier\",\n            \"label\": \"Unique identifier\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"Industry\",\n            \"label\": \"Industry:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"InternalOnly\",\n            \"label\": \"Internal only:\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"IsFreelanceOf\",\n            \"label\": \"Is a freelance of\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"Last_Name\",\n            \"label\": \"Last name:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"LoginID\",\n            \"label\": \"Login ID:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"Middle_Initial\",\n            \"label\": \"Middle initial\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"MustResetPassword\",\n            \"label\": \"Must reset password\",\n            \"type\": \"RadioButtonList\"\n        },\n        {\n            \"id\": \"NoCT_Sales\",\n            \"label\": \"No sales (check country level as well)\",\n            \"type\": \"CheckBox\"\n        },\n        {\n            \"id\": \"NoCT_SalesContact\",\n            \"label\": \"No sales contact\",\n            \"type\": \"CheckBox\"\n        },\n        {\n            \"id\": \"NoExternalNumber\",\n            \"label\": \"Contact with no  Accounting number (Look for empty  Accounting number at company level too):\",\n            \"type\": \"CheckBox\"\n        },\n        {\n            \"id\": \"NoExternalNumberDirect\",\n            \"label\": \"Contact with no Accounting number:\",\n            \"type\": \"CheckBox\"\n        },\n        {\n            \"id\": \"Note\",\n            \"label\": \"Notes:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"OldInfo\",\n            \"label\": \"Old Info:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"OrganisationName\",\n            \"label\": \"Company name:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"ParentContact\",\n            \"label\": \"Company account:\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"Postal_Code\",\n            \"label\": \"Postal code:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"Restriction\",\n            \"label\": \"Restriction:\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"RestrictionOverride\",\n            \"label\": \"Restriction override:\",\n            \"type\": \"AutoCompletion\"\n        },\n        {\n            \"id\": \"SSOID\",\n            \"label\": \"SSO ID\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"SSOStatus\",\n            \"label\": \"SSO Status:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"State\",\n            \"label\": \"State:\",\n            \"type\": \"TextBox\"\n        },\n        {\n            \"id\": \"Status\",\n            \"label\": \"Status:\",\n            \"type\": \"DropDownList\"\n        },\n        {\n            \"id\": \"Title\",\n            \"label\": \"Job title:\",\n            \"type\": \"DropDownList\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: ActiveContact
+                  columns:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: Groups
+                        label:
+                          type: string
+                          example: Groups for this contact
+                  filters:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                          example: UserReportCategory
+                        label:
+                          type: string
+                          example: User Category
+                        type:
+                          type: string
+                          example: DropDownList
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: 'curl --location ''https://mangovations.com/webapi/report/export/getreportinfo_4102_v1?ID=ActiveContact&ListAllColumns=false'' \
+
+            --header ''Authorization: Bearer b9PaUGhHYMOkJKjbeEgUdtQpEwAX1fJa3@njjgpCHSEWCu9kDg1P4Gb6jy.aNMclaqBfavEi29pnn3RYUzUGG2eLS1YYIN6noyvUBOeF9Q.4zCMznewm7EDrCZq@X8U7'' \
+
+            --header ''Cookie: CTL-Session__1505=CfDJ8FrqgvJ5XBlPkZUlnKu6VMPEsp0YeQP48vyzBNdeRSFoDIMd%2F2NiHag652sGbU5wVn19Fh1nupbMfkfOz9u7%2FNAPzrQ70m8K0XvKbRPPvzDw93%2FGjLESFI0iQ5nHSSmfsDgipIlE8LGrzoI4ox1RhNCgjHjUCGckr1QG%2Bwtn6ON%2B; CTL-Session__1505-Alt=CfDJ8FrqgvJ5XBlPkZUlnKu6VMPEsp0YeQP48vyzBNdeRSFoDIMd%2F2NiHag652sGbU5wVn19Fh1nupbMfkfOz9u7%2FNAPzrQ70m8K0XvKbRPPvzDw93%2FGjLESFI0iQ5nHSSmfsDgipIlE8LGrzoI4ox1RhNCgjHjUCGckr1QG%2Bwtn6ON%2B'''
+        samples-languages:
+        - curl
+      tags:
+      - Getreportinfo 4102 V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/get-filter-information.md
+  - https://developer.orangelogic.com/reference/get-report-information.md
+  - https://developer.orangelogic.com/reference/get-reports.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0

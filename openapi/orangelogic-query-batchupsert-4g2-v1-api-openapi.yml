@@ -1,0 +1,94 @@
+openapi: 3.2.0
+info:
+  title: object-management-batch-upsert Query Batchupsert 4G2 V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/multiobjectstools/datatable
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Query Batchupsert 4G2 V1
+paths:
+  /query_batchupsert_4G2_v1:
+    get:
+      summary: Query asynchronous batch upsert calls
+      description: Query the status and result of an asynchronous batch upsert request
+      operationId: query-asynchronous-batch-upsert-calls
+      parameters:
+      - name: JobRecordID
+        in: query
+        description: The JobRecordID returned from an asynchronous batch upsert request.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"status\": \"Succeeded\",\n   \"result\": {\n       \"transactionID\": \"ZZ1VT000000002365\",\n       \"results\": [\n           {\n               \"recordID\": \"2QDTWAO2211\",\n               \"matchedFieldValue\": \"\",\n               \"code\": \"SUCCESS\",\n               \"error\": null\n           },\n           {\n               \"recordID\": \"2QDTWAO7X1K\",\n               \"matchedFieldValue\": \"\",\n               \"code\": \"SUCCESS\",\n               \"error\": null\n           }\n       ],\n       \"executeInBackground\": true,\n       \"jobRecordID\": \"ZZ1AP000000010181\"\n   }\n}\n"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Succeeded
+                  result:
+                    type: object
+                    properties:
+                      transactionID:
+                        type: string
+                        example: ZZ1VT000000002365
+                      results:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            recordID:
+                              type: string
+                              example: 2QDTWAO2211
+                            matchedFieldValue:
+                              type: string
+                              example: ''
+                            code:
+                              type: string
+                              example: SUCCESS
+                            error: {}
+                      executeInBackground:
+                        type: boolean
+                        example: true
+                        default: true
+                      jobRecordID:
+                        type: string
+                        example: ZZ1AP000000010181
+      deprecated: false
+      tags:
+      - Query Batchupsert 4G2 V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-upsert-a-csv-file.md
+  - https://developer.orangelogic.com/reference/batch-upsert-a-json-array.md
+  - https://developer.orangelogic.com/reference/query-asynchronous-batch-upsert-calls.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0

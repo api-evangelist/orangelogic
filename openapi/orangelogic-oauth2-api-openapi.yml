@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: security
+  title: security Oauth2 API
   version: '1.0'
 servers:
 - url: https://{OrangeLogicURL}/webapi/security
@@ -9,132 +9,9 @@ servers:
       default: OrangeLogicURL
 security:
 - sec0: []
-x-readme-fauxas: true
+tags:
+- name: OAuth2
 paths:
-  /bearerauthentication/getbearertoken_42P_v1:
-    get:
-      summary: Get bearer token
-      description: Retrieve the non-expiring bearer token of an Orange Logic user
-      operationId: get-bearer-token
-      parameters:
-      - name: UserEmail
-        in: query
-        description: The email address of an Orange Logic user.
-        required: true
-        schema:
-          type: string
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{\n  \"bearerToken\": \"Bearer dvpKCR0cOsg3m.4BJgS0z74yBBnyJYp79JPFQCIrcx6SmGTU0gc3wD1UBt5uALSDX97XocdZ0Gg6OvHlDggrzoBEN8opbyykf1Y0Poalh1I*\",\n  \"errorMessage\": null\n}"
-              schema:
-                type: object
-                properties:
-                  bearerToken:
-                    type: string
-                    example: Bearer dvpKCR0cOsg3m.4BJgS0z74yBBnyJYp79JPFQCIrcx6SmGTU0gc3wD1UBt5uALSDX97XocdZ0Gg6OvHlDggrzoBEN8opbyykf1Y0Poalh1I*
-                  errorMessage: {}
-      deprecated: false
-      x-readme:
-        code-samples:
-        - language: text
-          code: "  'https://mangovations.com/webapi/security/bearerauthentication/getbearertoken_42P_v1?UserEmail=kristen.harrison%40mangovations.com' \\\n  -H 'accept: text/plain'"
-        samples-languages:
-        - text
-  /bearerauthentication/setactivation_42Q_v1:
-    get:
-      summary: Set activation
-      description: Turn on or off an account’s authentication token
-      operationId: set-activation
-      parameters:
-      - name: UserEmail
-        in: query
-        description: The email address of an Orange Logic user.
-        required: true
-        schema:
-          type: string
-      - name: Activation
-        in: query
-        description: 'Enter a Boolean value to represent the activation state of the user’s bearer token.<br><strong>Example</strong>: Enter <code>on</code>, <code>true</code>, <code>yes</code>, <code>y</code>, or <code>1</code> to activate a token. Enter <code>off</code>, <code>false</code>, <code>no</code>, <code>n</code>, or <code>0</code> to deactivate a token.'
-        required: true
-        schema:
-          type: boolean
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{\n  \"success\": true,\n  \"errorMessage\": \"\"\n}"
-              schema:
-                type: object
-                properties:
-                  success:
-                    type: boolean
-                    example: true
-                    default: true
-                  errorMessage:
-                    type: string
-                    example: ''
-      deprecated: false
-      x-readme:
-        code-samples:
-        - language: text
-          code: "  'https://mangovations.com/webapi/security/bearerauthentication/setactivation_42Q_v1?UserEmail=kristen.harrison%40mangovations.com&Activation=on' \\\n  -H 'accept: text/plain'"
-        samples-languages:
-        - text
-  /clientcredentialsauthentication/authenticate_46H_v1:
-    post:
-      summary: Authenticate
-      description: Authenticate a user by providing client credentials
-      operationId: authenticate
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              required:
-              - client_id
-              - client_secret
-              properties:
-                client_id:
-                  type: string
-                  description: The client ID of an Orange Logic user or application account.
-                client_secret:
-                  type: string
-                  description: The client secret of an Orange Logic user or application account.
-            examples:
-              Request Example:
-                value:
-                  client_id: RVdaT0RSblYyRnJtWS5TMFJpT2ZiaDBGdWdjblExQ1BvT1YxaGwzQXlOa3pYcU03QUIyR2ZhTnJQUnFRWG1RQWU3cGhwNjJEeXVANkBIcTZMNG40dlEqKg
-                  client_secret: OEdPSTVMb3RuSjNteHBLVFN5QVFXTVVldkFacmR5UlBiNklHM2RMaVFPa1R5UVhvWFcuNTUxZ29rU25LcEZ6WQ
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{\n  \"access_token\": \"hExf7tX@w1tUOkvDrgRaSuDvp9IXMiwhM8kEhBitw5NWtrYLxYIcj2eg76gdpOgzafz17hsqGLaz2if.I7QvXKXI96foyAs@dTEa2eVydmR8Q.Zf5tVkRes9mLGDkFtl2\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 7200\n}"
-              schema:
-                type: object
-                properties:
-                  access_token:
-                    type: string
-                    example: hExf7tX@w1tUOkvDrgRaSuDvp9IXMiwhM8kEhBitw5NWtrYLxYIcj2eg76gdpOgzafz17hsqGLaz2if.I7QvXKXI96foyAs@dTEa2eVydmR8Q.Zf5tVkRes9mLGDkFtl2
-                  token_type:
-                    type: string
-                    example: Bearer
-                  expires_in:
-                    type: integer
-                    example: 7200
-                    default: 0
-      deprecated: false
   /oauth2/registerclient_23X_v1:
     post:
       summary: OAuth 2.0 client registration
@@ -222,6 +99,8 @@ paths:
                         type: string
                         example: DjZoRf8FnNmDYP8hX2nOErOs9iOGF70oMlQ_yYF91pQ
       deprecated: false
+      tags:
+      - OAuth2
   /oauth2/token_48I_v1:
     post:
       summary: OAuth 2.0 token
@@ -269,6 +148,8 @@ paths:
                 Result:
                   value: "{\n  \"access_token\": \"S1V5UjhAOUhTNjl4cWJsT0pXQ1hCMnI3TTVGNUNaQ2Rta3RqZUtNQllSZlRXSjFPOXFPYW5yUm13cmpzUzdLWmxYMHMueEdFeGNVcTBXSXJIQ3YueTBVb3ppSMJFdk9UTXFaTHV6Lld6Qjg5LkpLOXhGRlB0eklCczkzckNMQ28:,\n  \"refresh_token\": \"179132_8_4931aa01ddc74a58b5e40a6eaaea375d\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 86400\n}"
       deprecated: false
+      tags:
+      - OAuth2
   /oauth2/userinfo_490_v1:
     get:
       summary: OAuth 2.0 user info
@@ -301,6 +182,8 @@ paths:
           code: '  ''https://mangovations.com/webapi/security/oauth2/userinfo_490_v1'''
         samples-languages:
         - text
+      tags:
+      - OAuth2
 components:
   securitySchemes:
     sec0:
@@ -309,6 +192,7 @@ components:
         clientCredentials:
           tokenUrl: https://example.com/oauth2/token
           scopes: {}
+x-readme-fauxas: true
 x-provenance:
   method: searched
   source: https://developer.orangelogic.com/reference

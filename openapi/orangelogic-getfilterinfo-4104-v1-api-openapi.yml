@@ -1,0 +1,81 @@
+openapi: 3.2.0
+info:
+  title: report Getfilterinfo 4104 V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/report/export
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Getfilterinfo 4104 V1
+paths:
+  /getfilterinfo_4104_v1:
+    get:
+      summary: Get filter information
+      description: Retrieve the options for a specified filter in a report
+      operationId: get-filter-information
+      parameters:
+      - name: ReportID
+        in: query
+        description: The <a href="https://developer.orangelogic.com/reference/reports#find-a-report-id">report ID</a>.
+        required: true
+        schema:
+          type: string
+      - name: FilterID
+        in: query
+        description: The filter ID. <ul><li>Use the <a href="https://developer.orangelogic.com/reference/get-report-information">Get report information</a> call to retrieve the available filters.</li> <li>The filter you specify here must be available in the report you specify in the <strong>ReportID</strong> parameter.
+        required: true
+        schema:
+          type: string
+      - name: Search
+        in: query
+        description: 'Enter text to narrow the filter options returned when retrieving information for filters. This option only applies to filters with the type <strong>AutoCompletion</strong> and <strong>Options</strong>.<p>Use the <a href="https://developer.orangelogic.com/reference/get-report-information">Get report information</a> call to retrieve the available filters along with each filter''s filter type.<p><strong>Example</strong>: The <strong>Groups</strong> filter has a filter type of <strong>AutoCompletion</strong>. When you use this call to return available values for this filter, you might use the search text “admin” to return only the groups that include “admin” in their name.'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"id\": \"AC_ContactGroup\",\n    \"type\": \"AutoCompletion\",\n    \"filterOptions\": [\n        {\n            \"id\": \"U3JsZnFAWEZ1UmQ0dVFDS0lPSExBdEVOZll0U1pocUN0Z3d6Sm1TYVJFcyo\",\n            \"label\": \"*SuperAdmin\"\n        },\n        {\n            \"id\": \"ODZ0VHM1V2tvY1E3NGZJTlhMOXA4Vm5xak9WQWx6clFzRkJOUHpsTDNzQSo\",\n            \"label\": \"Admin - Advanced\"\n        },\n        {\n            \"id\": \"M0trZDhXclh4eVB3NWdoWlVnSFcuNWl2M21OSTRTTW9vYURVTHdhSVNvNCo\",\n            \"label\": \"Admin - General\"\n        },\n        {\n            \"id\": \"bmFpaEVSMVR2dnQubllHMnp1U0lGaXdXTHJ1dVAyZDJHYmNUR1JoSmhCUSo\",\n            \"label\": \"Client Admin\"\n        },\n        {\n            \"id\": \"cnJuVHM3dUVZWS5Tb0BsellmYmlaRndYZTBtcnIyS2FBMVJXaFZaQ3ZHZXpHNTdsQ2JZS3p5QkhpWERJa3FZWQ\",\n            \"label\": \"Marketing Administrators\"\n        },\n        {\n            \"id\": \"U0BLUEVkakswak01ZjVVSDA0U1ljVnl4b21CeUBScUBUY1hwcmhoSnhMWVZHa3lZN0h5WFBUSnNvWUNZMndkcg\",\n            \"label\": \"Product marketing administrators\"\n        },\n    ]\n}"
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: 'curl --location ''https://mangovations.com/webapi/report/export/getfilterinfo_4104_v1?ReportID=ActiveContact&FilterID=AC_ContactGroup&Search=admin'' \
+
+            --header ''Authorization: Bearer b9PaUGhHYMOkJKjbeEgUdtQpEwAX1fJa3@njjgpCHSEWCu9kDg1P4Gb6jy.aNMclaqBfavEi29pnn3RYUzUGG2eLS1YYIN6noyvUBOeF9Q.4zCMznewm7EDrCZq@X8U7'' \
+
+            --header ''Cookie: CTL-Session__1505=CfDJ8FrqgvJ5XBlPkZUlnKu6VMOnKxM1ZAfZ9JhbSSb5eSfH1YB7nOI9s1NwJwEi8Mp51NrlS6sWYbhNDTz3%2FA9KmuYBKIUG3zQN3l5JYLSu06NxepQ1wGLUxBRIijwSKUCbpS1uolspBpHxS7iwdf95Q0l1%2FAjgwR9y7fHy0%2FJ0fjUd; CTL-Session__1505-Alt=CfDJ8FrqgvJ5XBlPkZUlnKu6VMOnKxM1ZAfZ9JhbSSb5eSfH1YB7nOI9s1NwJwEi8Mp51NrlS6sWYbhNDTz3%2FA9KmuYBKIUG3zQN3l5JYLSu06NxepQ1wGLUxBRIijwSKUCbpS1uolspBpHxS7iwdf95Q0l1%2FAjgwR9y7fHy0%2FJ0fjUd'''
+        samples-languages:
+        - curl
+      tags:
+      - Getfilterinfo 4104 V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/get-filter-information.md
+  - https://developer.orangelogic.com/reference/get-report-information.md
+  - https://developer.orangelogic.com/reference/get-reports.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0

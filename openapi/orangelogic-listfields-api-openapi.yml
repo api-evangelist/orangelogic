@@ -1,0 +1,71 @@
+openapi: 3.2.0
+info:
+  title: search List Fields API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/API/search
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: ListFields
+paths:
+  /v3.0/ListFields:
+    post:
+      summary: List Fields
+      description: List all metadata fields
+      operationId: list-fields
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                format:
+                  type: string
+                  description: The response format.
+                  default: XML
+                  enum:
+                  - XML
+                  - JSON
+                dateformat:
+                  type: string
+                  description: The date format used in the query and response.
+                  default: yyyy-MM-ddTHH:mm:ss
+                  format: date
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n   \"APIRequestInfo\": {\n       \"ProviderVersion\": \"LONDON.R2.21.216729\",\n       \"ProviderIdentity\": \"OLU-T-USW2-APP\",\n       \"ProviderID\": \"44ddde3acd4007d4\",\n       \"Module\": \"search\",\n       \"APIVersion\": \"v3.0\",\n       \"Resource\": \"ListFields\",\n       \"IsLoggedIn\": true,\n       \"Status\": \"LoggedIn\",\n       \"UserLogin\": \"ZZ1C217\",\n       \"Session\": \"No session (production configuration)\",\n       \"TimeoutPeriodMinutes\": 20\n   },\n   \"APIResponse\": {\n       \"Metadata\": {\n           \"MediaEncryptedIdentifier\": \"Asset encrypted identifier\",\n           \"SystemIdentifier\": \"Asset unique identifier\",\n           \"MediaNumber\": \"Asset Legacy Identifier\",\n           \"Title\": \"Asset title\",\n           \"CaptionShort\": \"Asset headline\",\n           \"Caption\": \"Asset description\",\n           \"MediaDate\": \"Asset asset date\",\n           \"CreateDate\": \"Asset create date\",\n           \"CreatedBy\": \"Asset create user\",\n           \"GlobalEditDate\": \"Asset global edit date (Look into modifications at the asset level and all related entities such as Keywords, Restrictions, ...)\",\n           ...\n           \"Document.SubTypeAPIName\": \"Subtype API name\",\n           \"Document.SubTypeName\": \"The display name of subtype\",\n           \"Document.ToggleStatusName\": \"The simple text name of the toggle status\",\n           \"Document.TriggerSummary\": \"Automation Summary\",\n           \"Document.WorkflowProgress\": \"Percentage of completion based on the current status.\",\n           \"Document.WorkflowStatusHtml\": \"The Workflow status icon and its name (Read only)\",\n           \"Document.WorkflowStatusNameWithColor\": \"The simple text name of an workflow status with its color\",\n           \"Document.WorkflowStepsSummary\": \"FlowSteps Summary\"\n       }\n   }\n}"
+      deprecated: false
+      tags:
+      - ListFields
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/list-criteria.md
+  - https://developer.orangelogic.com/reference/list-fields.md
+  - https://developer.orangelogic.com/reference/search-api.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0

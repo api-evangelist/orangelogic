@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: webhooks
+  title: webhooks Create 22E V1 API
   version: '1.0'
 servers:
 - url: https://{orangelogicURL}/webapi/extensibility/webhook/subscription/
@@ -9,7 +9,8 @@ servers:
       default: orangelogicURL
 security:
 - sec0: []
-x-readme-fauxas: true
+tags:
+- name: Create 22E V1
 paths:
   /create_22E_v1:
     post:
@@ -180,45 +181,8 @@ paths:
                           exclusivePredicates: {}
       deprecated: false
       security: []
-  /rotatesecret_22P_v1:
-    post:
-      summary: Generate a secret key for a webhook signature
-      description: Generate or update the secret key for a webhook signature
-      operationId: add-or-update-a-webhook-signature
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                newSecret:
-                  type: string
-                  description: An alphanumeric string to be the <code>newSecret</code>. If you leave this parameter empty, Orange Logic generates a random secret and adds it to the response body.
-                  default: '""'
-                subscriptionID:
-                  type: string
-                  description: The subscriptionID of the webhook you are creating a secret for.
-            examples:
-              Request Example:
-                value:
-                  newSecret: ''
-                  subscriptionId: Mango1
-      responses:
-        '200':
-          description: '200'
-          content:
-            application/json:
-              examples:
-                Result:
-                  value: "{\n \"newSecret\": \"GNSlz1PkDXih\"\n}"
-              schema:
-                type: object
-                properties:
-                  newSecret:
-                    type: string
-                    example: GNSlz1PkDXih
-      deprecated: false
-      security: []
+      tags:
+      - Create 22E V1
 components:
   securitySchemes:
     sec0:
@@ -227,6 +191,7 @@ components:
         clientCredentials:
           tokenUrl: https://example.com/oauth2/token
           scopes: {}
+x-readme-fauxas: true
 x-provenance:
   method: searched
   source: https://developer.orangelogic.com/reference

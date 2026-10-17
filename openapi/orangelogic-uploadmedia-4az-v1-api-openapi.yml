@@ -1,0 +1,119 @@
+openapi: 3.2.0
+info:
+  title: upload-media-web Uploadmedia 4az V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Uploadmedia 4az V1
+paths:
+  /uploadmedia_4az_v1:
+    post:
+      summary: Upload media
+      description: Simultaneously upload multiple files from your computer to Orange Logic
+      operationId: upload-media-endpoint
+      parameters:
+      - name: Content-Type
+        in: header
+        description: The <code>multipart/form-data</code> header parameter is required for this call.
+        required: true
+        schema:
+          type: string
+          default: multipart-formdata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderRecordID
+              - files
+              properties:
+                folderRecordID:
+                  type: string
+                  description: <a href="https://orangedam.readme.io/docs/assets#record-id">RecordID</a> of the folder to upload the asset to
+                processAssetInBackground:
+                  type: boolean
+                  description: '<ul><li><code>True</code>: The API call is completed when the asset record has been created and can receive updates with subsequent API calls. The metadata import and proxy file generation occur in the background. This option takes a shorter amount of time.</li><li><code>False</code>: The API call is completed when the asset is fully ingested, meaning all proxy formats have been generated. This option takes a longer amount of time.</li><ul>'
+                files:
+                  type: string
+                  description: The files to upload.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"uploadResults\": [\n        {\n            \"fileName\": \"orange chair.jpeg\",\n            \"isSuccess\": true,\n            \"fileIdentifier\": \"ZZ22I3H\",\n            \"warningMessage\": \"\"\n        }\n    ]\n}"
+              schema:
+                type: object
+                properties:
+                  uploadResults:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        fileName:
+                          type: string
+                          example: orange chair.jpeg
+                        isSuccess:
+                          type: boolean
+                          example: true
+                          default: true
+                        fileIdentifier:
+                          type: string
+                          example: ZZ22I3H
+                        warningMessage:
+                          type: string
+                          example: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: 'curl --location ''https://mangovations.com/webapi/mediafile/import/upload/uploadmedia_4az_v1'' \
+
+            --header ''Authorization: ••••••'' \
+
+            --header ''Cookie: AWSALB=kOGJlQakvelCOyin++7yG1lQ4ewSEpvH90S11n16CZlEjp4k87zqwReIgeXhW76KJjzOnT1fqUq7z/Xqk3/eguiqUnzCWr+NbZ8iP6XGCROe/uARKNYKfWduKCew; AWSALBCORS=kOGJlQakvelCOyin++7yG1lQ4ewSEpvH90S11n16CZlEjp4k87zqwReIgeXhW76KJjzOnT1fqUq7z/Xqk3/eguiqUnzCWr+NbZ8iP6XGCROe/uARKNYKfWduKCew; AWSALBTG=UAmLV2p/Ok6eJ8xbebeTx0CF7dwXuvYYA28QDpuEcjpqE5y6NLFUGvuvwgqhNh49maaz42KeqKtQ5u5AHUf20X4ZfHqsipHxfrDgujoX5K/zl07JhKFYQSbLLsaNBALsSsCK2QTXulLLGEsSyukTPJJFuRFcuQ5Sae3bgOeyqDwy; AWSALBTGCORS=UAmLV2p/Ok6eJ8xbebeTx0CF7dwXuvYYA28QDpuEcjpqE5y6NLFUGvuvwgqhNh49maaz42KeqKtQ5u5AHUf20X4ZfHqsipHxfrDgujoX5K/zl07JhKFYQSbLLsaNBALsSsCK2QTXulLLGEsSyukTPJJFuRFcuQ5Sae3bgOeyqDwy; CortexCID_ZZ2=DM4H2eOHGo3GiL30; ZZ2-Session__1505=CfDJ8IqEPZUVNYxPrat%2Bf0uWCOZ2F6kZlE8QKCJTwUCTxKenCyvYhj7%2B2hbwCPjr0sDGAGVDtOZO94fcfdBuBoE7o3mcLxcTmJtiFBUlVYzswNWBG6BCoHtHSOWpo6UJFoiXdvh%2FI39X9Tqj0kGKBL5zFAIx8Ian%2FzjCzcjaXc3K3GkW; ZZ2-Session__1505-Alt=CfDJ8IqEPZUVNYxPrat%2Bf0uWCOZ2F6kZlE8QKCJTwUCTxKenCyvYhj7%2B2hbwCPjr0sDGAGVDtOZO94fcfdBuBoE7o3mcLxcTmJtiFBUlVYzswNWBG6BCoHtHSOWpo6UJFoiXdvh%2FI39X9Tqj0kGKBL5zFAIx8Ian%2FzjCzcjaXc3K3GkW'' \
+
+            --form ''folderRecordID="2QDZIFL0NEF"'' \
+
+            --form ''processAssetInBackground="False"'' \
+
+            --form ''files=@"r3j-XKeWh/orange chair.jpeg"
+
+            '
+        samples-languages:
+        - text
+      tags:
+      - Uploadmedia 4az V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/upload-and-get-link.md
+  - https://developer.orangelogic.com/reference/upload-from-cloud.md
+  - https://developer.orangelogic.com/reference/upload-media-endpoint.md
+  - https://developer.orangelogic.com/reference/upload-media-with-url.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

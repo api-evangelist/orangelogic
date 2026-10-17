@@ -1,0 +1,123 @@
+openapi: 3.2.0
+info:
+  title: multi-part-upload-api Transaction API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload/
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Transaction
+paths:
+  /transaction/24_v1:
+    post:
+      summary: 'Step 1: Create an upload transaction'
+      description: Create an upload transaction ID and begin an upload session
+      operationId: create-upload-transaction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                targetFolderID:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#record-id">Record ID</a> of the folder you want to upload to.
+                keepFolderStructure:
+                  type: boolean
+                  description: Whether to retain your folder structure. When <code>true</code>, the assets are uploaded with their original local folder structure.
+                  default: true
+                mappingTemplateId:
+                  type: string
+                  description: 'The Orange Logic Import Mapping Template API ID. <br> <strong>Note</strong>:  <ul> <li>To find the API ID of an import mapping template, go to <strong>Admin</strong> > <strong>Archives</strong> > <strong>Manage Import Mapping Templates</strong> and open the template. The <strong>API ID</strong> is in the <strong>Edit import mapping template</strong> window. </li> </ul>'
+                noMappingTemplate:
+                  type: boolean
+                  description: When <code>true</code>, you are using a mapping template. </br> When <code>false</code>, you are not using a mapping template.
+                  default: true
+                metadata:
+                  type: object
+                  description: Metadata to apply to all assets included in the upload transaction.
+                  properties:
+                    RecordID:
+                      type: string
+                      description: 'Include an asset’s <a href="https://developer.orangelogic.com/reference/assets#record-id">Record ID</a> to upload a new version of an existing Orange Logic asset.  </br> <strong>Notes</strong>:  <ul> <li>This field is optional; if it is not included, Orange Logic will upload the asset as a new file.</li> <li>This field applies to all assets you upload in this transaction. Therefore, if you include a RecordID, limit your upload to a single asset.</li> </ul>'
+                    '[CustomMetadata]':
+                      type: string
+                      description: 'You can add other metadata fields with the syntax <code>"FieldAPIname": "value"</code>. (Other fields are not required; use this as a placeholder for other metadata you might want to add to the asset.) </br> Go to the <a href="https://developer.orangelogic.com/reference/metadata-field-identifiers#api-name">API name</a> section of the Metadata field identifiers page to learn more.'
+                uploadMethod:
+                  type: string
+                  description: 'Used to categorize the upload requests and pass them to the client uploader app you want to use. The options are: CortexTools, Web, Agent, DropBox, Ftp, and Getty. However, your organization may not have all of these upload options.'
+                  default: CortexTools
+                  enum:
+                  - CortexTools
+                  - Web
+                  - Agent
+                  - DropBox
+                  - Ftp
+                  - Getty
+                useCache:
+                  type: boolean
+                  description: If available, use a cached transaction.
+                  default: true
+                clearanceLevel:
+                  type: integer
+                  description: The security clearance that will be added to the created asset’s Security Clearance field. Security clearances are an optional layer of asset protection in addition to permissions. Orange Logic users with a Link account can go to the <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHNZQ04H" target="_blank">security clearance</a> article to learn more.
+                  format: int32
+            examples:
+              Request Example:
+                value:
+                  targetFolderId: 2RBKT7U0WKYH
+                  keepFolderStructure: true
+                  mappingTemplateId: 'null'
+                  noMappingTemplate: true
+                  clearanceLevel: 0
+                  metadata:
+                    CoreField.Caption: Spring collection
+                    CoreField.Purpose: Pending Process
+                  updateDBEntriesIfExist: true
+                  uploadMethod: CortexTools
+                  useCache: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"transactionId\": \"2RBKMYFLD3UY\"\n}"
+              schema:
+                type: object
+                properties:
+                  transactionId:
+                    type: string
+                    example: 2RBKMYFLD3UY
+      deprecated: false
+      tags:
+      - Transaction
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/complete-the-asset-upload.md
+  - https://developer.orangelogic.com/reference/create-upload-transaction.md
+  - https://developer.orangelogic.com/reference/register-upload-assets.md
+  - https://developer.orangelogic.com/reference/upload-chunks-to-orange-logic.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

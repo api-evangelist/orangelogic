@@ -1,0 +1,147 @@
+openapi: 3.2.0
+info:
+  title: get-link Batchupsertassetlinkswithcustomroute 41FD V2 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/share
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Batchupsertassetlinkswithcustomroute 41FD V2
+paths:
+  /batchupsertassetlinkswithcustomroute_41FD_v2:
+    get:
+      summary: Batch create or update public embed links
+      description: Create or update up to 10,000 custom public embed links at once
+      operationId: batch-create-or-update-public-embed-links
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                records:
+                  type: array
+                  description: Include one object for each custom embed link URL you want to create. The maximum number you can create simultaneously is 10,000.
+                  items:
+                    properties:
+                      title:
+                        type: string
+                        description: The name of the link in the “Embed links” extension. If empty, the link will not appear in the extension.
+                      customRoute:
+                        type: string
+                        description: '<strong>To create a new link</strong>: Include the relative path of the URL you want to create.  </br> <strong>To update a link’s path</strong>: Include the existing relative path. This path will be updated based on the parameters included in your request.  </br> <strong>Notes</strong>:  <ul> <li>If the URL contains a query string, the query string will be ignored.</li> <li>The link to each asset format must be unique.</li> </ul>'
+                      assetID:
+                        type: string
+                        description: The asset this link goes to. This can be the asset’s unique ID, unencrypted record ID, or encrypted record ID.
+                      format:
+                        type: string
+                        description: The ID of the format you are creating the link to. For example, this could be a standard proxy such as TR1 or TR4. Alternatively, it could be a custom format your organization uses, such as “Instagram.”
+                      fileExtension:
+                        type: string
+                        description: The filename extension.
+                      transformations:
+                        type: array
+                        description: The transformations applied to the format, using transformation URL syntax with a comma separator between each transformation.
+                        default: []
+                        items:
+                          type: string
+                      stickToCurrentVersion:
+                        type: boolean
+                        description: '<strong>True</strong>: This link always goes to the current version of the asset. </br><strong>False</strong>: This link always goes to the latest version of the asset.'
+                      trackingParameters:
+                        type: object
+                        description: Optional UTM tracking parameters that provide metrics about the link, but do not change its behavior.
+                        properties:
+                          name:
+                            type: string
+                            description: The UTM name, such as utm_source or utm_campaign.
+                          value:
+                            type: string
+                            description: The UTM value, such as Instagram.
+                      expirationDate:
+                        type: string
+                        description: The <a href="https://developer.orangelogic.com/reference/date-and-time" target="_blank">date and time</a>. If no date is specified, the link is permanent.
+                        format: date
+                      ? ''
+                      : type: string
+                    type: object
+                executionOptions:
+                  type: object
+                  description: The manner in which the links are created.
+                  properties:
+                    executeAsynchronously:
+                      type: boolean
+                      description: '<strong>True</strong>: This job is queued and the response returns the jobRecordID. Use the jobRecordID with the Custom Route Job Status API to check the job status or obtain the custom routes.  </br> <strong>False</strong>: This job is executed immediately and the custom URLs are included in the response.  </br> When you’re updating many links simultaneously, we recommend asynchronous execution.'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Asynchronous (200):
+                  value: "{}{\n  \"isRunning\": true,\n  \"jobRecordID\": \"2Z9XPH3T3T3\",\n  \"results\": null,\n  \"errors\": null\n}\n"
+                Synchronous:
+                  value: "{\n  \"isRunning\": false,\n  \"jobRecordID\": null,\n  \"results\": [\n    {\n      \"assetID\": \"2Z9XC5NGEFS\",\n      \"format\": \"TR1\",\n      \"expirationDate\": \"2026-07-25T12:55:05.943Z\",\n      \"link\": \"https://mango-cdn.orangelogic.com/public/nice-coastline-tr1.auto\"\n    }\n  ],\n  \"errors\": []\n}\n"
+              schema:
+                type: object
+                properties:
+                  isRunning:
+                    type: boolean
+                    example: false
+                    default: true
+                  jobRecordID: {}
+                  results:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        assetID:
+                          type: string
+                          example: 2Z9XC5NGEFS
+                        format:
+                          type: string
+                          example: TR1
+                        expirationDate:
+                          type: string
+                          example: '2026-07-25T12:55:05.943Z'
+                        link:
+                          type: string
+                          example: https://mango-cdn.orangelogic.com/public/nice-coastline-tr1.auto
+                  errors:
+                    type: array
+                    items:
+                      type: object
+                      properties: {}
+      deprecated: false
+      tags:
+      - Batchupsertassetlinkswithcustomroute 41FD V2
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-create-or-update-public-embed-links.md
+  - https://developer.orangelogic.com/reference/custom-route-job-status.md
+  - https://developer.orangelogic.com/reference/generate-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/get-link.md
+  - https://developer.orangelogic.com/reference/retrieve-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link.md
+  merge:
+    pages: 6
+    deduped: 5
+    conflicts_kept_first: 0

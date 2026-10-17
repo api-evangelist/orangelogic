@@ -1,0 +1,111 @@
+openapi: 3.2.0
+info:
+  title: upload-media-web Uploadmediawithurl 45L V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Uploadmediawithurl 45L V1
+paths:
+  /uploadmediawithurl_45L_v1:
+    post:
+      summary: Upload media with URL
+      description: Upload a single file from an online storage system to Orange Logic by providing a file URL
+      operationId: upload-media-with-url
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - folderRecordID
+              - fileURL
+              properties:
+                folderRecordID:
+                  type: string
+                  description: <a href="https://developer.orangelogic.com/reference/assets#record-id">RecordID</a> of the folder to upload the asset to
+                fileURL:
+                  type: string
+                  description: The URL of the file being uploaded
+                fileName:
+                  type: string
+                  description: 'A name for the file being uploaded, including the file extension. For example: London Eye.jpg<br></br>If you don’t specify a filename, Orange Logic creates one from the response''s Content-Disposition header or from the file URL.'
+                importMode:
+                  type: string
+                  description: Determines how the upload is processed in the background. Go to <a href="https://developer.orangelogic.com/reference/upload#upload-processing-options">Upload processing options</a> for more information.
+                  default: ProcessInLine
+                  enum:
+                  - processInLine
+                  - ProcessProxiesInBackground
+                  - ProcessFullyInBackground
+                  - ProcessFullyInBackgroundLite
+                metadata:
+                  type: object
+                  description: Use this to set field values on a new asset in the same call as the upload. Send a JSON object where each key is a field's API name and each value is a string. Use API names, not the labels shown in the interface (CoreField.Title, shown below, is only an example). You can use any field's API name as a key, and you can include as many fields as you need. When you first add a field, upload one test file and check that the asset shows the value you expect.
+                  properties:
+                    name:
+                      type: string
+                      description: CoreField.Title
+            examples:
+              Request body:
+                value:
+                  folderRecordID: 2QDZIFL0NEF
+                  fileURL: https://images.pexels.com/photos/...
+                  fileName: coffee mug.jpeg
+                  importMode: ProcessInLine
+                  metadata:
+                    CoreField.Title: Coffee mug on a desk
+                    MyNamespace.MyField: Custom field value
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"isSuccess\": true,\n    \"fileIdentifier\": \"ZZ22I3M\",\n    \"fileRecordID\": \"2QDZIFL0I7S\",\n    \"warningMessage\": null\n}"
+              schema:
+                type: object
+                properties:
+                  isSuccess:
+                    type: boolean
+                    example: true
+                    default: true
+                  fileIdentifier:
+                    type: string
+                    example: ZZ22I3M
+                  fileRecordID:
+                    type: string
+                    example: 2QDZIFL0I7S
+                  warningMessage: {}
+      tags:
+      - Uploadmediawithurl 45L V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/upload-and-get-link.md
+  - https://developer.orangelogic.com/reference/upload-from-cloud.md
+  - https://developer.orangelogic.com/reference/upload-media-endpoint.md
+  - https://developer.orangelogic.com/reference/upload-media-with-url.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

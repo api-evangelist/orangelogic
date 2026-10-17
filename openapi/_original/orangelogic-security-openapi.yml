@@ -1,0 +1,330 @@
+# x-archived-from: orangelogic-security-openapi.yml
+# x-archived-on: 2026-10-17
+openapi: 3.1.0
+info:
+  title: security
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/security
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /bearerauthentication/getbearertoken_42P_v1:
+    get:
+      summary: Get bearer token
+      description: Retrieve the non-expiring bearer token of an Orange Logic user
+      operationId: get-bearer-token
+      parameters:
+      - name: UserEmail
+        in: query
+        description: The email address of an Orange Logic user.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"bearerToken\": \"Bearer dvpKCR0cOsg3m.4BJgS0z74yBBnyJYp79JPFQCIrcx6SmGTU0gc3wD1UBt5uALSDX97XocdZ0Gg6OvHlDggrzoBEN8opbyykf1Y0Poalh1I*\",\n  \"errorMessage\": null\n}"
+              schema:
+                type: object
+                properties:
+                  bearerToken:
+                    type: string
+                    example: Bearer dvpKCR0cOsg3m.4BJgS0z74yBBnyJYp79JPFQCIrcx6SmGTU0gc3wD1UBt5uALSDX97XocdZ0Gg6OvHlDggrzoBEN8opbyykf1Y0Poalh1I*
+                  errorMessage: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: "  'https://mangovations.com/webapi/security/bearerauthentication/getbearertoken_42P_v1?UserEmail=kristen.harrison%40mangovations.com' \\\n  -H 'accept: text/plain'"
+        samples-languages:
+        - text
+  /bearerauthentication/setactivation_42Q_v1:
+    get:
+      summary: Set activation
+      description: Turn on or off an account’s authentication token
+      operationId: set-activation
+      parameters:
+      - name: UserEmail
+        in: query
+        description: The email address of an Orange Logic user.
+        required: true
+        schema:
+          type: string
+      - name: Activation
+        in: query
+        description: 'Enter a Boolean value to represent the activation state of the user’s bearer token.<br><strong>Example</strong>: Enter <code>on</code>, <code>true</code>, <code>yes</code>, <code>y</code>, or <code>1</code> to activate a token. Enter <code>off</code>, <code>false</code>, <code>no</code>, <code>n</code>, or <code>0</code> to deactivate a token.'
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"success\": true,\n  \"errorMessage\": \"\"\n}"
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: true
+                    default: true
+                  errorMessage:
+                    type: string
+                    example: ''
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: "  'https://mangovations.com/webapi/security/bearerauthentication/setactivation_42Q_v1?UserEmail=kristen.harrison%40mangovations.com&Activation=on' \\\n  -H 'accept: text/plain'"
+        samples-languages:
+        - text
+  /clientcredentialsauthentication/authenticate_46H_v1:
+    post:
+      summary: Authenticate
+      description: Authenticate a user by providing client credentials
+      operationId: authenticate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - client_id
+              - client_secret
+              properties:
+                client_id:
+                  type: string
+                  description: The client ID of an Orange Logic user or application account.
+                client_secret:
+                  type: string
+                  description: The client secret of an Orange Logic user or application account.
+            examples:
+              Request Example:
+                value:
+                  client_id: RVdaT0RSblYyRnJtWS5TMFJpT2ZiaDBGdWdjblExQ1BvT1YxaGwzQXlOa3pYcU03QUIyR2ZhTnJQUnFRWG1RQWU3cGhwNjJEeXVANkBIcTZMNG40dlEqKg
+                  client_secret: OEdPSTVMb3RuSjNteHBLVFN5QVFXTVVldkFacmR5UlBiNklHM2RMaVFPa1R5UVhvWFcuNTUxZ29rU25LcEZ6WQ
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"access_token\": \"hExf7tX@w1tUOkvDrgRaSuDvp9IXMiwhM8kEhBitw5NWtrYLxYIcj2eg76gdpOgzafz17hsqGLaz2if.I7QvXKXI96foyAs@dTEa2eVydmR8Q.Zf5tVkRes9mLGDkFtl2\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 7200\n}"
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: hExf7tX@w1tUOkvDrgRaSuDvp9IXMiwhM8kEhBitw5NWtrYLxYIcj2eg76gdpOgzafz17hsqGLaz2if.I7QvXKXI96foyAs@dTEa2eVydmR8Q.Zf5tVkRes9mLGDkFtl2
+                  token_type:
+                    type: string
+                    example: Bearer
+                  expires_in:
+                    type: integer
+                    example: 7200
+                    default: 0
+      deprecated: false
+  /oauth2/registerclient_23X_v1:
+    post:
+      summary: OAuth 2.0 client registration
+      description: Create an account for a third-party application
+      operationId: oauth-2-client-registration
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              - redirectURIs
+              properties:
+                name:
+                  type: string
+                  description: The name of the application account.
+                description:
+                  type: string
+                  description: A description of the application account.
+                iconID:
+                  type: string
+                  description: The <a href="https://orangedam.readme.io/docs/assets#record-id">record ID</a> of an asset in Orange Logic.<br></br>Choose an image file, such as a logo, to identify the account. An account icon image is not required, but we recommend using one because users see this image when they authorize the third-party application.
+                redirectURIs:
+                  type: string
+                  description: The URL the user is redirected to after authorizing the application.<br></br>A redirect URI is often the home page or login page of the third-party application. Check the API documentation of the third-party application to find a recommended URI redirect address.
+                seed:
+                  type: string
+                  description: A unique value that allows any new accounts created with the same name and seed to generate the same OAuth credentials.<br></br>Seeds are optional. However, we strongly recommend using them to simplify your configuration by creating consistent credentials across environments or sites. You can enter any string, but we recommend including the account name. Keep seeds confidential and document their purpose clearly to simplify future account management.
+                groups:
+                  type: string
+                  description: A list of the <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHDZQUNL" target="_blank">groups</a> the application account is assigned to.
+            examples:
+              Request Example:
+                value:
+                  clientInfo:
+                    name: Canva
+                    description: Oauth credential account for Canva integration
+                    iconID: 2QDTWAWHUT7
+                    redirectURIs:
+                    - https://www.canva.com/login/
+                    seed: canva
+                  groups:
+                  - '*Everyone'
+                  - '*RegisteredUsers'
+                  - '*SuperAdmin'
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"info\": {\n    \"id\": \"hoVe5vyeD2TtImZy.canva.orangelogic.com\",\n    \"name\": \"Canva\",\n    \"description\": \"Oauth credential account for Canva integration\",\n    \"iconID\": \"2QDTWAWHUT7\",\n    \"redirectURIs\": [\n      \"https://www.canva.com/login/\"\n    ]\n  },\n  \"credentials\": {\n    \"id\": \"hoVe5vyeD2TtImZy.canva.mangovations.com\",\n    \"secret\": \"DjZoRf8FnNmDYP8hX2nOErOs9iOGF70oMlQ_yYF91pQ\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  info:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: hoVe5vyeD2TtImZy.canva.orangelogic.com
+                      name:
+                        type: string
+                        example: Canva
+                      description:
+                        type: string
+                        example: Oauth credential account for Canva integration
+                      iconID:
+                        type: string
+                        example: 2QDTWAWHUT7
+                      redirectURIs:
+                        type: array
+                        items:
+                          type: string
+                          example: https://www.canva.com/login/
+                  credentials:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        example: hoVe5vyeD2TtImZy.canva.mangovations.com
+                      secret:
+                        type: string
+                        example: DjZoRf8FnNmDYP8hX2nOErOs9iOGF70oMlQ_yYF91pQ
+      deprecated: false
+  /oauth2/token_48I_v1:
+    post:
+      summary: OAuth 2.0 token
+      description: Create a token to allow a third-party application to authenticate API calls to Orange Logic
+      operationId: oauth-2-token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - client_id
+              - client_secret
+              - grant_type
+              - code
+              properties:
+                client_id:
+                  type: string
+                  description: The client ID from the third-party application’s account in Orange Logic.
+                client_secret:
+                  type: string
+                  description: The client secret from the third-party application’s account in Orange Logic.
+                grant_type:
+                  type: string
+                  description: 'The type of authorization code you’re providing to generate the token. Enter one of two values: <code>authorization_code</code> or <code>refresh_token</code>.'
+                  default: authorization_code
+                code:
+                  type: string
+                  description: The authorization code provided by the third-party application when you run the <a href="https://developer.orangelogic.com/docs/authorize-third-party-apps#run-the-authorization-call">authorization call</a>.<br><b>Or</b>, the refresh token that you generated with a previous call.
+            examples:
+              Request Example:
+                value:
+                  client_id: W3nQ1XTu3QkcAmkgJuz6HGF68kMsCptAHmI-Z9eKF5w
+                  client_secret: Ibehv1i4tdJyOo8imbntLMioMZXwMIttIcmDE4c1dqY
+                  grant_type: authorization_code
+                  code: 179132_5_f56fd06f465f489993b02f3ff04e00ca
+                  refresh_token: string
+                  code_verifier: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"access_token\": \"S1V5UjhAOUhTNjl4cWJsT0pXQ1hCMnI3TTVGNUNaQ2Rta3RqZUtNQllSZlRXSjFPOXFPYW5yUm13cmpzUzdLWmxYMHMueEdFeGNVcTBXSXJIQ3YueTBVb3ppSMJFdk9UTXFaTHV6Lld6Qjg5LkpLOXhGRlB0eklCczkzckNMQ28:,\n  \"refresh_token\": \"179132_8_4931aa01ddc74a58b5e40a6eaaea375d\",\n  \"token_type\": \"Bearer\",\n  \"expires_in\": 86400\n}"
+      deprecated: false
+  /oauth2/userinfo_490_v1:
+    get:
+      summary: OAuth 2.0 user info
+      description: Retrieve information about the user who granted access to a third-party application
+      operationId: oauth-2-user-info
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"email\": \"kristen.harrison@mangovations.com\",\n  \"loginID\": \"kristen.harrison@mangovations.com\",\n  \"fullName\": \"Kristen Harrison\"\n}"
+              schema:
+                type: object
+                properties:
+                  email:
+                    type: string
+                    example: kristen.harrison@mangovations.com
+                  loginID:
+                    type: string
+                    example: kristen.harrison@mangovations.com
+                  fullName:
+                    type: string
+                    example: Kristen Harrison
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: '  ''https://mangovations.com/webapi/security/oauth2/userinfo_490_v1'''
+        samples-languages:
+        - text
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/authenticate.md
+  - https://developer.orangelogic.com/reference/get-bearer-token.md
+  - https://developer.orangelogic.com/reference/oauth-2-client-registration.md
+  - https://developer.orangelogic.com/reference/oauth-2-token.md
+  - https://developer.orangelogic.com/reference/oauth-2-user-info.md
+  - https://developer.orangelogic.com/reference/set-activation.md
+  merge:
+    pages: 6
+    deduped: 5
+    conflicts_kept_first: 0

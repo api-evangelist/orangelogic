@@ -1,0 +1,148 @@
+openapi: 3.2.0
+info:
+  title: multi-part-upload-api Register 25 V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/mediafile/import/upload/
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Register 25 V1
+paths:
+  /register_25_v1:
+    post:
+      summary: 'Step 2: Register upload assets'
+      description: Register each asset you’ll upload as part of the transaction created in the previous step
+      operationId: register-upload-assets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - transactionId
+              - files
+              properties:
+                transactionId:
+                  type: string
+                  description: The transaction ID created with the <a href="https://developer.orangelogic.com/reference/create-upload-transaction">Create Upload Transaction API</a> in Step 1.
+                folderRecordID:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#record-id">Record ID</a> of the folder you’ll upload the asset to.
+                files:
+                  type: array
+                  description: A JSON-serialized array of objects representing the assets to upload.
+                  items:
+                    properties:
+                      fileName:
+                        type: string
+                        description: 'Name of the local file with the extension. </br> Example: <strong>Architecture.zip, Living-Image.png</strong>.'
+                      relativePath:
+                        type: string
+                        description: 'The relative folder path of the target folder in Orange Logic that you want to upload to. If you define a path that does not currently exist, Orange Logic will create those folders automatically.   <ul>         <li><strong>Example</strong>: You want to upload the image <strong>Autumn-Sky.jpeg</strong> to the <strong>Images for Review</strong> folder. The <strong>Images for Review</strong> folder is located in the <strong>Season 01</strong> folder in the <strong>Dream Vacation Destinations</strong> folder. If you want the image to be a direct child of the <strong>Images for Review</strong> folder, the relative path is: </br>  <code>"relativePath": "Dream Vacation Destinations/Season 01/Images for Review"</code></li>         <li>You must include the <strong>relativePath</strong> in the API call. If you do not want to define the <strong>relativePath</strong>, you can include an empty value. Using an empty value will upload the assets to the parent folder specified in the <a href="https://developer.orangelogic.com/reference/create-upload-transaction">Create Upload Transaction API</a>.</li>             <ul>                 <li><strong>Example</strong>: <code>"relativePath":""</code>. </li>             </ul>     </ul>'
+                      length:
+                        type: integer
+                        description: Expected size of the local file in bytes. For example, the length of a 1 KB asset is 1024 B.
+                        format: int32
+                    required:
+                    - fileName
+                    - relativePath
+                    - length
+                    type: object
+                uploaderName:
+                  type: string
+                  description: Name of the upload method you’re using.
+                  default: Cortex Uploader
+                skipValidity:
+                  type: boolean
+                  description: When <code>false</code>, OrangeDAM runs a validity check on files to prevent user errors and ensure they are safe to process. When <code>true</code>, OrangeDAM skips this check.
+                  default: false
+                updateIncompleteUI:
+                  type: boolean
+                  description: This parameter is currently unused.
+                  default: false
+                clientID:
+                  type: string
+                  description: The user RecordID for web upload. <br/> This parameter is set by the client uploader application. You do not need to enter anything in this parameter.
+                cloudCompatible:
+                  type: boolean
+                  description: 'When <code>false</code>, upload files are sent to the local buffer (the server that hosts the web application) and cannot use a cloud bucket as a buffer. </br> When <code>true</code>, upload files can use a cloud bucket as a buffer. To use a cloud buffer, there are some constraints depending on the cloud service provider. For example, for Amazon S3 the chunk size must be: <ul> <li>Constant for all the chunks (except the last chunk).</li>  <li>Between 5MB and 5GB (no min size for the last chunk).</li>  <li>The asset can contain no more than 10,000 chunks.</li> </ul>'
+                  default: false
+            examples:
+              Request Example:
+                value:
+                  transactionId: 2RBKMYFLD3UY
+                  uploaderName: CortexTools
+                  skipValidity: false
+                  updateIncompleteUI: true
+                  clientId: string
+                  files:
+                  - fileName: Season 1 trailer.mp4
+                    relativePath: Dream Vacation Destinations/Season 01
+                    length: 85997454
+                  cloudCompatible: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"files\": [\n    {\n      \"status\": \"ToUpload\",\n      \"startPosition\": 0,\n      \"uploadItemId\": \"2RBKM47GUS5M\",\n      \"identifier\": null,\n      \"dO_RecordID\": null,\n      \"requestedFileName\": \"Season 1 trailer.mp4\",\n      \"requestedFileSize\": 85997454\n    }\n  ]\n}\n"
+              schema:
+                type: object
+                properties:
+                  files:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        status:
+                          type: string
+                          example: ToUpload
+                        startPosition:
+                          type: integer
+                          example: 0
+                          default: 0
+                        uploadItemId:
+                          type: string
+                          example: 2RBKM47GUS5M
+                        identifier: {}
+                        dO_RecordID: {}
+                        requestedFileName:
+                          type: string
+                          example: Season 1 trailer.mp4
+                        requestedFileSize:
+                          type: integer
+                          example: 85997454
+                          default: 0
+      deprecated: false
+      tags:
+      - Register 25 V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/complete-the-asset-upload.md
+  - https://developer.orangelogic.com/reference/create-upload-transaction.md
+  - https://developer.orangelogic.com/reference/register-upload-assets.md
+  - https://developer.orangelogic.com/reference/upload-chunks-to-orange-logic.md
+  merge:
+    pages: 4
+    deduped: 3
+    conflicts_kept_first: 0

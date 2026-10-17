@@ -1,0 +1,195 @@
+# x-archived-from: orangelogic-authentication-openapi.yml
+# x-archived-on: 2026-10-17
+openapi: 3.1.0
+info:
+  title: authentication
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/api/Authentication
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+x-readme-fauxas: true
+paths:
+  /v2.0/Login:
+    post:
+      summary: User login
+      description: Obtain a login token
+      operationId: user-login
+      parameters:
+      - name: Token
+        in: header
+        description: An authentication token. If empty, the token included in the current cookie is used.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - Login
+              - Password
+              - format
+              properties:
+                Login:
+                  type: string
+                  description: The user’s email or Login ID
+                Password:
+                  type: string
+                  description: The user’s password
+                format:
+                  type: string
+                  description: The response format (XML or JSON)
+                  default: XML
+                IncludeUserEmail:
+                  type: boolean
+                  description: Whether the response includes the user’s email
+                  default: false
+                dateformat:
+                  type: string
+                  description: The output <a href="https://developer.orangelogic.com/reference/date-and-time">date format</a>
+                  default: yyyy-MM-ddTHH:mm:ss
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"APIRequestInfo\": {\n        \"ProviderVersion\": \"LONDON.R2.2131E.216729\",\n        \"ProviderIdentity\": \"CUY-T-USW2-APP\",\n        \"ProviderID\": \"73777eae05c8592d0a349f5fa680ecb3\",\n        \"Module\": \"Authentication\",\n        \"APIVersion\": \"v2.0\",\n        \"Resource\": \"Login\",\n        \"IsLoggedIn\": true,\n        \"Status\": \"LoggedIn\",\n        \"UserLogin\": \"KristenHarrison\",\n        \"Session\": \"No session (production configuration)\",\n        \"TimeoutPeriodMinutes\": 20\n    },\n    \"APIResponse\": {\n        \"RequestInterpretation\": {\n            \"ParametersInformation\": {\n                \"Login\": {\n                    \"Value\": \"KristenHarrison\",\n                    \"IsOptional\": false,\n                    \"ValueCount\": 1\n                },\n                \"Password\": {\n                    \"Value\": \"***hidden***\",\n                    \"IsOptional\": false,\n                    \"ValueCount\"\
+                    : 1\n                },\n                \"IncludeUserEmail\": {\n                    \"Value\": \"false\",\n                    \"IsOptional\": true,\n                    \"ValueCount\": 1\n                }\n            }\n        },\n        \"Response\": {\n            \"Code\": \"SUCCESS\",\n            \"Token\": \"CortexKQBIFTIQDMF8rTjO6XDkvHL.eiV7j3qcLZLazpakbNoKXxgLWTDDNuzlfTzy2U38\"\n        },\n        \"ExecutionStatus\": \"Executed\",\n        \"HTTPCode\": 202,\n        \"Code\": \"SUCCESS\"\n    }\n}"
+              schema:
+                type: object
+                properties:
+                  APIRequestInfo:
+                    type: object
+                    properties:
+                      ProviderVersion:
+                        type: string
+                        example: LONDON.R2.2131E.216729
+                      ProviderIdentity:
+                        type: string
+                        example: CUY-T-USW2-APP
+                      ProviderID:
+                        type: string
+                        example: 73777eae05c8592d0a349f5fa680ecb3
+                      Module:
+                        type: string
+                        example: Authentication
+                      APIVersion:
+                        type: string
+                        example: v2.0
+                      Resource:
+                        type: string
+                        example: Login
+                      IsLoggedIn:
+                        type: boolean
+                        example: true
+                        default: true
+                      Status:
+                        type: string
+                        example: LoggedIn
+                      UserLogin:
+                        type: string
+                        example: KristenHarrison
+                      Session:
+                        type: string
+                        example: No session (production configuration)
+                      TimeoutPeriodMinutes:
+                        type: integer
+                        example: 20
+                        default: 0
+                  APIResponse:
+                    type: object
+                    properties:
+                      RequestInterpretation:
+                        type: object
+                        properties:
+                          ParametersInformation:
+                            type: object
+                            properties:
+                              Login:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: KristenHarrison
+                                  IsOptional:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 1
+                                    default: 0
+                              Password:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: '***hidden***'
+                                  IsOptional:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 1
+                                    default: 0
+                              IncludeUserEmail:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: 'false'
+                                  IsOptional:
+                                    type: boolean
+                                    example: true
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 1
+                                    default: 0
+                      Response:
+                        type: object
+                        properties:
+                          Code:
+                            type: string
+                            example: SUCCESS
+                          Token:
+                            type: string
+                            example: CortexKQBIFTIQDMF8rTjO6XDkvHL.eiV7j3qcLZLazpakbNoKXxgLWTDDNuzlfTzy2U38
+                      ExecutionStatus:
+                        type: string
+                        example: Executed
+                      HTTPCode:
+                        type: integer
+                        example: 202
+                        default: 0
+                      Code:
+                        type: string
+                        example: SUCCESS
+      deprecated: false
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/user-login.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

@@ -1,0 +1,141 @@
+openapi: 3.2.0
+info:
+  title: get-link Createsharelink 41M9 V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/share
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Createsharelink 41M9 V1
+paths:
+  /createsharelink_41M9_V1:
+    post:
+      summary: Generate a public Share link
+      description: Generate a link to share one or more assets
+      operationId: generate-a-public-share-link
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - assetIDs
+              - expirationDate
+              properties:
+                title:
+                  type: string
+                  description: The name of the share. For example, “Spring collection photoshoot.”
+                description:
+                  type: string
+                  description: A description of the share. For example, “Photos and video for review.”
+                assetIDs:
+                  type: array
+                  description: The unique <a href="https://developer.orangelogic.com/reference/assets#record-id">IDs</a> of the assets included in the share.
+                  items:
+                    type: string
+                expirationDate:
+                  type: string
+                  description: The expiration date of the share, entered as a <a href="https://developer.orangelogic.com/reference/date-and-time">yyyy-mm-ddThh:mm:ss string</a>.
+                imageFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#formats">format</a> used for all image assets included in the share. You can specify only one image format for a share.
+                audioFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#formats">format</a> used for all audio assets included in the share. You can specify only one audio format for a share.
+                videoFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/assets#formats">format</a> used for all video assets included in the share. You can specify only one video format for a share.
+                containerFormat:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/generate-public-share-links">view permissions</a> granted to the link recipient for all containers included in the share. Recipients must have at least View Small permission to see assets. When you choose a format other than small, recipients can access all proxy formats at the level you select and smaller.
+                  enum:
+                  - Small
+                  - Medium
+                  - Large
+                  - Original
+                watermarkPreset:
+                  type: string
+                  description: The <a href="https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link">watermark</a> applied to all assets included in the share. When this parameter is blank, no watermark is applied.
+                includeNonWatermarkableAssets:
+                  type: boolean
+                  description: When <code>true</code>, assets that cannot be watermarked (such as folders) are included in the share.
+                  default: true
+                allowDownload:
+                  type: boolean
+                  description: When <code>true</code>, recipients can download the shared assets.  This permission is granted even if the recipient wouldn’t otherwise be able to download the asset.
+                  default: true
+                allowFind:
+                  type: boolean
+                  description: When <code>true</code>, recipients with Orange Logic accounts can see the shared assets in the search results. This permission is granted even if the recipient wouldn’t otherwise be able to find the asset.
+                  default: true
+                allowEdit:
+                  type: boolean
+                  description: When <code>true</code>, recipients can edit the shared assets’ metadata.  This permission is granted even if the recipient wouldn’t otherwise be able to edit the asset.
+                  default: true
+                disableMetadataLink:
+                  type: boolean
+                  description: <ul><li>When <code>true</code>, no links are included in asset metadata.</li><li>When <code>false</code>, asset metadata that is configured to be displayed as clickable links is included with active links. For example, if asset tags are shown as links, users with Orange Logic accounts can click a tag to see all the assets that share that tag.</li></ul>
+                  default: true
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"status\": \"Processing\",\n  \"shareLink\": null,\n  \"accessKey\": \"8u0bh6i670eict5wu8iw6jt60nlyfj7a\",\n  \"message\": \"Link is being generated. Please check back later.\\nUnsupported options: AllowFind,AllowEdit. Please contact administrator to enable.\",\n  \"errors\": null\n}"
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: Processing
+                  shareLink: {}
+                  accessKey:
+                    type: string
+                    example: 8u0bh6i670eict5wu8iw6jt60nlyfj7a
+                  message:
+                    type: string
+                    example: 'Link is being generated. Please check back later.
+
+                      Unsupported options: AllowFind,AllowEdit. Please contact administrator to enable.'
+                  errors: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: curl
+          code: "curl -X 'POST' \\\n  'https://mangovationsorangelogic.com/webapi/objectmanagement/share/createsharelink_41M9_V1' \\\n  -H 'accept: text/plain' \\\n  -H 'Content-Type: application/json-patch+json' \\\n  -d '{\n  \"title\": \"Spring collection photoshoot\",\n  \"description\": \"Photos and video for review\",\n  \"assetIDs\": [\n    \"Q0L96420\",\"Q0LXROLF5\",\"Q0LXHZWXE\"\n  ],\n  \"expirationDate\": \"2025-10-08\",\n  \"imageFormat\": \"TR1\",\n  \"audioFormat\": \"string\",\n  \"videoFormat\": \"WebLow\",\n  \"containerFormat\": \"Medium\",\n  \"watermarkPreset\": \"ShareOption_WM_Compact\",\n  \"includeNonWatermarkableAssets\": true,\n  \"allowDownload\": false,\n  \"allowFind\": false,\n  \"allowEdit\": false,\n  \"disableMetadataLink\": true\n}'"
+        samples-languages:
+        - curl
+      tags:
+      - Createsharelink 41M9 V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-create-or-update-public-embed-links.md
+  - https://developer.orangelogic.com/reference/custom-route-job-status.md
+  - https://developer.orangelogic.com/reference/generate-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/get-link.md
+  - https://developer.orangelogic.com/reference/retrieve-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link.md
+  merge:
+    pages: 6
+    deduped: 5
+    conflicts_kept_first: 0

@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: mediafile-storage
+  title: mediafile-storage InvalidateCloudfrontCache 2cl V1 API
   version: '1.0'
 servers:
 - url: https://{OrangeLogicURL}/webapi/mediafile/storage/
@@ -9,7 +9,8 @@ servers:
       default: OrangeLogicURL
 security:
 - sec0: []
-x-readme-fauxas: true
+tags:
+- name: InvalidateCloudfrontCache 2cl V1
 paths:
   /InvalidateCloudfrontCache_2cl_v1:
     delete:
@@ -77,6 +78,8 @@ paths:
                 type: object
                 properties: {}
       deprecated: false
+      tags:
+      - InvalidateCloudfrontCache 2cl V1
 components:
   securitySchemes:
     sec0:
@@ -85,6 +88,7 @@ components:
         clientCredentials:
           tokenUrl: https://example.com/oauth2/token
           scopes: {}
+x-readme-fauxas: true
 x-provenance:
   method: searched
   source: https://developer.orangelogic.com/reference

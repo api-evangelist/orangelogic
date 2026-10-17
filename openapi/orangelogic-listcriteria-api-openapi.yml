@@ -1,0 +1,74 @@
+openapi: 3.2.0
+info:
+  title: search List Criteria API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/API/search
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: ListCriteria
+paths:
+  /v3.0/ListCriteria:
+    post:
+      summary: List Criteria
+      description: Get a list of the searchable criteria available in your DAM
+      operationId: list-criteria
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                format:
+                  type: string
+                  description: The response format.
+                  default: XML
+                  enum:
+                  - JSON
+                  - XML
+                dateformat:
+                  type: string
+                  description: The date format used in the query and response.
+                  default: yyyy-MM-ddTHH:mm:ss
+                  format: date
+                Token:
+                  type: string
+                  description: An authentication token. If empty, the token included in the current cookie is used.
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n    \"APIRequestInfo\": {\n        \"ProviderVersion\": \"LONDON.R2.21E.216729\",\n        \"ProviderIdentity\": \"OLU-T-US-AP\",\n        \"ProviderID\": \"44ddde3ac27a335f249d4007d4\",\n        \"Module\": \"search\",\n        \"APIVersion\": \"v3.0\",\n        \"Resource\": \"ListCriteria\",\n        \"IsLoggedIn\": true,\n        \"Status\": \"LoggedIn\",\n        \"UserLogin\": \"ZZ1C217\",\n        \"Session\": \"No session (production configuration)\",\n        \"TimeoutPeriodMinutes\": 20\n    },\n    \"APIResponse\": [\n        {\n            \"Name\": \"Doctype\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Mediatype\",\n            \"Description\": \"Media type such as Image, Audio, Video, Album, Story...\",\n            \"Examples\": \"query=MediaType:Image\\nquery=MediaType:Image OR Video\"\n        },\n        {\n            \"Name\": \"Docsubtype\",\n            \"Description\": \"Asset sub type such as Upload folder, Standard image, Video segment, etc.\",\n            \"Examples\": \"query=DocSubType:Standard Image\"\n        },\n        {\n            \"Name\": \"Mediasubtype\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Filename\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Purpose\",\n            \"Description\": \"Asset visibility class label.\"\n        },\n        {\n            \"Name\": \"Purposename\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Purposeidentifier\",\n            \"Description\": \"Asset visibility class unique identifier.\"\n        },\n        {\n            \"Name\": \"Text\",\n            \"Description\": \"Freetext search.\",\n            \"Examples\": \"query=Text:Sport\\nquery=Text:Red flower\\nquery=Text:\\\"Red carpet\\\" AND Cannes\\nquery=Text:(\\\"Red carpet\\\" AND Cannes) OR Celebrity\"\n        },\n        {\n            \"Name\": \"Keyword\",\n            \"Description\": \"Searches images by a specific keyword.\\n\\nIt is also possible to specify keyword type (e.g. searching on Orange as a color (Common keyword) not Orange as a county (Geographical keyword).\\n\\nNote: When a keyword type is not specified, the API will search on the keyword in all keyword types. For example Keyword:orange will retrieve results when Keyword(Common) orange or Keyword(Geography) orange is assigned.\",\n            \"Examples\": \"query=Keyword:beach\\nquery=Keyword:beach AND sport \\nquery=Keyword:beach AND sport AND NOT Keyword:France \\nquery=Keyword:beach AND NOT blue\\nquery=Keyword:beach OR sea\\nquery=Keyword(Common):orange AND NOT Keyword(Geography):orange\"\n        },\n        {\n            \"Name\": \"Nativekeyword\",\n            \"Description\": \"These are keywords directly assigned to assets (as opposed to inherited by the thesaurus structure). \\n\\nThis functionality is not to be used for general searches but only for third party working on the keywording of the images. If we want to look at the images that have the keyword France specifically added to the image then you would use \\nquery=NativeKeyword:France\\n\\nEven if Paris is a narrow term of France, images with Paris as a keyword would not appear in the NativeKeyword search for France. They would appear in a normal Keyword search for France.\"\n        },\n         ...\n        },\n        {\n            \"Name\": \"Person.First-name\"\n        },\n        {\n            \"Name\": \"Person.FirstName\"\n        },\n        {\n            \"Name\": \"Person.Last-name\"\n        },\n        {\n            \"Name\": \"Person.LastName\"\n        },\n        {\n            \"Name\": \"PremierePro.Sequence-GUID\",\n            \"Description\": \"System ID of the sequence in its Adobe Premiere project\"\n        },\n        {\n            \"Name\": \"RelatedValue.TriggerSummary\"\n        },\n        {\n            \"Name\": \"Suggestion.Number-of-people\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Trigger.On-Types\"\n        },\n        {\n            \"Name\": \"Widget.Compatible-With\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Widget.Family\",\n            \"Description\": \"\"\n        },\n        {\n            \"Name\": \"Widget.Tags\",\n            \"Description\": \"\"\n        }\n    ]\n}\n"
+      deprecated: false
+      tags:
+      - ListCriteria
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/list-criteria.md
+  - https://developer.orangelogic.com/reference/list-fields.md
+  - https://developer.orangelogic.com/reference/search-api.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0

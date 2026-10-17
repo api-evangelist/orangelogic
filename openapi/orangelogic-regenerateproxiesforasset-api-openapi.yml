@@ -1,0 +1,138 @@
+openapi: 3.2.0
+info:
+  title: media Regenerate Proxies For Asset API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/api/Media_DbBO
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: RegenerateProxiesForAsset
+paths:
+  /v1.0/RegenerateProxiesForAsset:
+    get:
+      summary: Generate or regenerate proxies
+      description: Generate or regenerate specific asset proxies
+      operationId: regenerate-proxies
+      parameters:
+      - name: AssetIdentifier
+        in: query
+        description: 'The <a href="https://developer.orangelogic.com/reference/assets">Unique Identifier</a> of an asset.<ul><li>Enter <code>*</code> to generate proxies for all assets.<br><b>❗ Warning: </b>Generating or regenerating a large number of proxies can take a significant amount of system resources. Review <a href="https://developer.orangelogic.com/reference/generate-or-regenerate-proxies#proxyWarning">our recommendations</a> and submit a support request if you’d like to consult with the Orange Logic support team before you generate or regenerate a large number of proxies.<br></li><li>Enter a comma-separated list of IDs to generate proxies for multiple assets.</li><li>Enter <code>temptable</code> to generate proxies for the assets identified in a table. Enter the table name in the <code>IdentifiersTableName</code> parameter.</li><ul>'
+        required: true
+        schema:
+          type: string
+      - name: FileFormat
+        in: query
+        description: 'The code of the proxy format to generate. When you specify a proxy format, you must also specify an asset type in the <code>DocType</code> parameter.<ul><li>Enter a pipe-delimited list to generate multiple proxy formats. <br><b>Example</b>: CMS1|TR10|WebHigh</li><li>If you don’t specify formats, all formats are generated.</li></ul>ℹ️ <b>Note</b><p>This parameter is not required. However, we **_highly recommend_** specifying one or more formats. In most cases, generating all formats is unnecessary and takes time, processing bandwidth, and storage space that could be better used for other tasks.'
+        schema:
+          type: string
+      - name: DocType
+        in: query
+        description: The asset <a href=”https://developer.orangelogic.com/reference/assets#asset-type-and-subtype>type or subtype</a>. <b>Required when the <code>FileFormat</code> parameter is used.</b>
+        schema:
+          type: string
+      - name: Priority
+        in: query
+        description: The priority of the proxy generation task in the <<glossary:application queue>>. By default, the task is scheduled in the very low priority queue.
+        schema:
+          type: integer
+          format: int32
+          default: -999999
+      - name: GenerateOnlyIf
+        in: query
+        description: 'Whether the Orange Logic platform generates a proxy when the relevant format already exists.<ul><li><code>TheFormatExists</code>: When the relevant proxy format already exists for an asset, the proxy is regenerated. If the proxy format doesn’t exist, a new proxy is <b><i>not</b></i> generated.</li><li><code>TheFormatDoesntExist</code>: When the relevant proxy format doesn’t exist for an asset, the proxy is generated. If the proxy format already exists, the proxy is not regenerated.</li><li>If you don’t specify a value, the relevant proxy format is always generated or regenerated.</li></ul>ℹ️ <b>Note</b><p>This parameter is supported only for audio and video assets. It is not supported for images, so image proxies are always generated or regenerated.'
+        schema:
+          type: string
+      - name: ForceUpdateRepresentative
+        in: query
+        description: Set to <code>true</code> to regenerate any proxy used as the <<glossary:representative>> of the asset. This proxy regeneration will happen regardless of any other settings, such as the specified proxy format.
+        schema:
+          type: boolean
+          default: false
+      - name: UpdateMediaData
+        in: query
+        description: 'Set to <code>true</code> to update media data in the database before generating proxies. This option is useful when ingest errors resulted in incorrect media data in the database.</p><p>Media data is the following information:<br><ul><li>For images: width, height</li><li>For audio: width, height, duration, bit rate, frame rate, format</li><li>For video: duration, bit rate, format</li></ul></p>'
+        schema:
+          type: boolean
+          default: false
+      - name: AsyncTransactionRecordID
+        in: query
+        description: Enter a transaction record ID to add the proxy generation task to an existing asynchronous transaction.
+        schema:
+          type: string
+      - name: format
+        in: query
+        description: The response format (XML or JSON)
+        schema:
+          type: string
+          default: XML
+      - name: dateformat
+        in: query
+        description: The output <a href="https://developer.orangelogic.com/reference/date-and-time">date format</a>
+        schema:
+          type: string
+          default: yyyy-MM-ddTHH:mm:ss
+      - name: Token
+        in: query
+        description: An authentication token. If empty, the token included in the current cookie is used.
+        schema:
+          type: string
+      - name: IdentifiersTableName
+        in: query
+        description: The name of the table in which asset identifiers are stored. Use this parameter only when the <code>AssetIdentifier</code> parameter is set to <code>temptable</code>.<p>For example, you could run the <b>/api/Documents/v1.0/CheckIncorrectProfileImages</b> call to generate a list of images that are the wrong color due to a missing profile. The response to this call is the name of a table storing the <a href=”https://developer.orangelogic.com/reference/assets#record-id”>record IDs</a> of the affected assets. Enter the table name in this parameter to regenerate the proxies of those assets.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                'Example 1: Generate a proxy for one asset':
+                  value: "<Result>\n    <APIRequestInfo>\n        <ProviderVersion>MILAN.R4.2162P.218145</ProviderVersion>\n        <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n        <ProviderID>44ddde3ac2733c39435f2494007d4</ProviderID>\n        <Module>Media_DbBO</Module>\n        <APIVersion>v1.0</APIVersion>\n        <Resource>RegenerateProxiesForAsset</Resource>\n        <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n        <Parameters>\n            <AssetIdentifier>ZZ12P07</AssetIdentifier>\n            <FileFormat>CMS1</FileFormat>\n            <DocType>Image</DocType>\n        </Parameters>\n        <Status>LoggedIn</Status>\n        <UserLogin>ZZ1CT12218</UserLogin>\n        <Session>No session (production configuration)</Session>\n        <TimeoutPeriodMinutes type=\"Numeric\">30</TimeoutPeriodMinutes>\n    </APIRequestInfo>\n    <APIResponse>\n        <RequestInterpretation>\n            <ParametersInformation>\n                <AssetIdentifier>\n                    <Value>ZZ12P07</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </AssetIdentifier>\n                <FileFormat>\n                    <Value>CMS1</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </FileFormat>\n                <DocType>\n                    <Value>Image</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </DocType>\n                <Priority>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </Priority>\n                <GenerateOnlyIf>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </GenerateOnlyIf>\n                <ForceUpdateRepresentative>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </ForceUpdateRepresentative>\n                <Comments>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </Comments>\n                <AdditionalCondition>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </AdditionalCondition>\n                <IdentifiersTableName>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </IdentifiersTableName>\n                <UpdateMediaData>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </UpdateMediaData>\n                <AsyncTransactionRecordID>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </AsyncTransactionRecordID>\n            </ParametersInformation>\n        </RequestInterpretation>\n        <Response />\n        <ExecutionStatus>Executed</ExecutionStatus>\n        <HTTPCode type=\"Numeric\">200</HTTPCode>\n        <Code>SUCCESS</Code>\n    </APIResponse>\n</Result>"
+                'Example 2: Regenerate proxies for multiple assets':
+                  value: "<Result>\n    <APIRequestInfo>\n        <ProviderVersion>MILAN.R4.2162P.218145</ProviderVersion>\n        <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n        <ProviderID>44ddde3ac27a33c394335f249d4007d4</ProviderID>\n        <Module>Media_DbBO</Module>\n        <APIVersion>v1.0</APIVersion>\n        <Resource>RegenerateProxiesForAsset</Resource>\n        <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n        <Parameters>\n            <AssetIdentifier>ZZ12PAM,ZZ12PAW,ZZ12PAQ</AssetIdentifier>\n            <FileFormat>TR7</FileFormat>\n            <DocType>Image</DocType>\n            <Priority>-100</Priority>\n        </Parameters>\n        <Status>LoggedIn</Status>\n        <UserLogin>ZZ1CT12218</UserLogin>\n        <Session>No session (production configuration)</Session>\n        <TimeoutPeriodMinutes type=\"Numeric\">30</TimeoutPeriodMinutes>\n    </APIRequestInfo>\n    <APIResponse>\n        <RequestInterpretation>\n            <ParametersInformation>\n                <AssetIdentifier>\n                    <Value>ZZ12PAM,ZZ12PAW,ZZ12PAQ</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </AssetIdentifier>\n                <FileFormat>\n                    <Value>TR7</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </FileFormat>\n                <DocType>\n                    <Value>Image</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </DocType>\n                <Priority>\n                    <Value>-100</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Priority>\n                <GenerateOnlyIf>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </GenerateOnlyIf>\n                <ForceUpdateRepresentative>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </ForceUpdateRepresentative>\n                <AdditionalCondition>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </AdditionalCondition>\n                <IdentifiersTableName>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </IdentifiersTableName>\n                <UpdateMediaData>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </UpdateMediaData>\n                <AsyncTransactionRecordID>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </AsyncTransactionRecordID>\n            </ParametersInformation>\n        </RequestInterpretation>\n        <Response />\n        <ExecutionStatus>Executed</ExecutionStatus>\n        <HTTPCode type=\"Numeric\">200</HTTPCode>\n        <Code>SUCCESS</Code>\n    </APIResponse>\n</Result>"
+                'Example 3: Generate new proxies for a subtype':
+                  value: "<Result>\n    <APIRequestInfo>\n        <ProviderVersion>MILAN.R4.2162P.218145</ProviderVersion>\n        <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n        <ProviderID>44ddde3ac27a33c394335f249d4007d4</ProviderID>\n        <Module>Media_DbBO</Module>\n        <APIVersion>v1.0</APIVersion>\n        <Resource>RegenerateProxiesForAsset</Resource>\n        <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n        <Parameters>\n            <AssetIdentifier>*</AssetIdentifier>\n            <FileFormat>WebHigh</FileFormat>\n            <Priority>-100</Priority>\n            <GenerateOnlyIf>TheFormatDoesntExist</GenerateOnlyIf>\n            <DocType>Video</DocType>\n        </Parameters>\n        <Status>LoggedIn</Status>\n        <UserLogin>ZZ1CT12218</UserLogin>\n        <Session>No session (production configuration)</Session>\n        <TimeoutPeriodMinutes type=\"Numeric\">30</TimeoutPeriodMinutes>\n    </APIRequestInfo>\n    <APIResponse>\n        <RequestInterpretation>\n            <ParametersInformation>\n                <AssetIdentifier>\n                    <Value>*</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </AssetIdentifier>\n                <FileFormat>\n                    <Value>WebHigh</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </FileFormat>\n                <DocType>\n                    <Value>Video</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </DocType>\n                <Priority>\n                    <Value>-100</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Priority>\n                <GenerateOnlyIf>\n                    <Value>TheFormatDoesntExist</Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </GenerateOnlyIf>\n                <ForceUpdateRepresentative>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </ForceUpdateRepresentative>\n                <AdditionalCondition>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </AdditionalCondition>\n                <IdentifiersTableName>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </IdentifiersTableName>\n                <UpdateMediaData>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </UpdateMediaData>\n                <AsyncTransactionRecordID>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </AsyncTransactionRecordID>\n            </ParametersInformation>\n        </RequestInterpretation>\n        <Response />\n        <ExecutionStatus>Executed</ExecutionStatus>\n        <HTTPCode type=\"Numeric\">200</HTTPCode>\n        <Code>SUCCESS</Code>\n    </APIResponse>\n</Result>"
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: '''https://university1.orangelogic.com/api/Media_DbBO/v1.0/RegenerateProxiesForAsset?AssetIdentifier=ZZ12P07&FileFormat=CMS1&DocType=Image'''
+          name: Example 1
+        - language: text
+          code: '''https://university1.orangelogic.com/api/Media_DbBO/v1.0/RegenerateProxiesForAsset?AssetIdentifier=ZZ12PAM%2CZZ12PAW%2CZZ12PAQ&FileFormat=TR7&DocType=Image&Priority=-100'''
+          name: Example 2
+        - language: text
+          code: '''https://university1.orangelogic.com/api/Media_DbBO/v1.0/RegenerateProxiesForAsset?AssetIdentifier=*&FileFormat=WebHigh&Priority=-100&GenerateOnlyIf=TheFormatDoesntExist&DocType=Video''
+
+            '
+          name: Example 3
+        samples-languages:
+        - text
+      tags:
+      - RegenerateProxiesForAsset
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/regenerate-proxies.md
+  merge:
+    pages: 1
+    deduped: 0
+    conflicts_kept_first: 0

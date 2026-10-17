@@ -1,0 +1,197 @@
+openapi: 3.2.0
+info:
+  title: get-link Getlink 4HZ V1 API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/webapi/objectmanagement/share
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: Getlink 4HZ V1
+paths:
+  /getlink_4HZ_v1:
+    get:
+      summary: Get public link
+      description: Get an embed or download link to a single asset
+      operationId: get-link
+      parameters:
+      - name: RecordID
+        in: query
+        description: The record ID of an asset.<br>This parameter <b>or</b> the Identifier parameter is required.
+        schema:
+          type: string
+      - name: Identifier
+        in: query
+        description: The <a href="https://developer.orangelogic.com/reference/assets">Unique Identifier</a> of an asset.<br>This parameter <b>or</b> the RecordID parameter is required.
+        schema:
+          type: string
+      - name: Format
+        in: query
+        description: The code of the <a href="https://developer.orangelogic.com/reference/assets#formats">asset format</a> that you want to generate a link for (TRX, TR1, etc.).
+        schema:
+          type: string
+      - name: StickToCurrentVersion
+        in: query
+        description: '<code>True</code>: The link will point to the current version.</br><code>False</code>: The link will always point to the most recent version of the asset.'
+        schema:
+          type: boolean
+      - name: LogViews
+        in: query
+        description: Whether OrangeDAM logs each view or download. Administrators can view this information in the Full logs of views and downloads. Orange Logic users with a Link account can go to the <a href="https://link.orangelogic.com/CMS4/Permalinks/2P7YOHA7V1MI" target="_blank">Full logs of views and downloads</a> article to learn more.
+        schema:
+          type: boolean
+      - name: CreateDownloadLink
+        in: query
+        description: '<code>True</code>: The link downloads the assets.</br><code>False</code>: The link will be an embed link.'
+        schema:
+          type: boolean
+      - name: ExpirationDate
+        in: query
+        description: 'An expiration date in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> format: "YYYY-MM-DDTHH:MM:SS.SSSZ" The [<i>sss</i>] value is optional. It represents the <a href="https://en.wikipedia.org/wiki/UTC_offset" target="_blank">UTC offset</a>. Example: "2024-10-31T13:44:39.735Z"'
+        schema:
+          type: string
+      - name: MaxWidth
+        in: query
+        description: The maximum width of the asset.<br>If you are generating transformations, the transformation crop or resize takes precedence over MaxWidth.
+        schema:
+          type: integer
+          format: int32
+      - name: MaxHeight
+        in: query
+        description: The maximum height of the asset.<br>If you are generating transformations, the transformation crop or resize takes precedence over MaxHeight.
+        schema:
+          type: integer
+          format: int32
+      - name: FileExtension
+        in: query
+        description: The file extension of the asset (.jpeg, .png, etc.).
+        schema:
+          type: string
+      - name: ImageResizingMethod
+        in: query
+        description: Resizes the image's aspect ratio based on <code>Maxwidth</code> and <code>MaxHeight</code>.
+        schema:
+          type: string
+          enum:
+          - Fit
+          - Stretch
+          - NorthwestCrop
+          - NorthCrop
+          - NortheastCrop
+          - WestCrop
+          - CenterCrop
+          - EastCrop
+          - SouthwestCrop
+          - SouthCrop
+          - SoutheastCrop
+          - OpticalCrop
+          - AICrop
+      - name: Transformations
+        in: query
+        description: Enter a string for each transformation you want to apply to the asset. Transformations are applied in the order in which they appear in the string and take precedence over <code>Maxwidth</code> and <code>MaxHeight</code>. <br>See the <a href="https://developer.orangelogic.com/reference/transformation-example">transformation example</a> for more information.
+        schema:
+          type: array
+          items:
+            type: string
+      - name: Title
+        in: query
+        description: Title of the asset link
+        schema:
+          type: string
+      - name: TrackingParameters
+        in: query
+        description: '{   "name": "string",   "value": "string" }'
+        schema:
+          properties:
+            name:
+              type: string
+              description: The UTM name, such as utm_source or utm_campaign.
+            value:
+              type: string
+              description: The UTM value, such as Instagram.
+          type: object
+      - name: CustomAccessKey
+        in: query
+        description: Enter a <a href="https://developer.orangelogic.com/reference/assets">custom access key</a> to use for the generated link. If this is not specified, the link will have a random access key.
+        schema:
+          type: string
+      - name: IsVideo
+        in: query
+        description: Set to true if the asset is a video.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"recordID\": \"2RBKT7UG4BTS\",\n  \"identifier\": \"CTL531031\",\n  \"format\": \"TR1\",\n  \"link\": \"https://mangovations.com/AssetLink/pse8t3wh5q00rj33m441x5k561l817a7.png\",\n  \"maxWidth\": 1000,\n  \"maxHeight\": null,\n  \"expirationDate\": \"2028-12-31T11:59:59\",\n  \"fileExtension\": \".png\",\n  \"imageResizingMethod\": null\n}"
+              schema:
+                type: object
+                properties:
+                  recordID:
+                    type: string
+                    example: 2RBKT7UG4BTS
+                  identifier:
+                    type: string
+                    example: CTL531031
+                  format:
+                    type: string
+                    example: TR1
+                  link:
+                    type: string
+                    example: https://mangovations.com/AssetLink/pse8t3wh5q00rj33m441x5k561l817a7.png
+                  maxWidth:
+                    type: integer
+                    example: 1000
+                    default: 0
+                  maxHeight: {}
+                  expirationDate:
+                    type: string
+                    example: '2028-12-31T11:59:59'
+                  fileExtension:
+                    type: string
+                    example: .png
+                  imageResizingMethod: {}
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: '''https://mangovations.com/webapi/objectmanagement/share/getlink_4HZ_v1?Identifier=CTL531031&Format=TR1&StickToCurrentVersion=true&LogViews=true&CreateDownloadLink=true&ExpirationDate=2028-12-31T11%3A59%3A59&MaxWidth=1000&FileExtension=.png'' \
+
+            '
+        samples-languages:
+        - text
+      tags:
+      - Getlink 4HZ V1
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/batch-create-or-update-public-embed-links.md
+  - https://developer.orangelogic.com/reference/custom-route-job-status.md
+  - https://developer.orangelogic.com/reference/generate-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/get-link.md
+  - https://developer.orangelogic.com/reference/retrieve-a-public-share-link.md
+  - https://developer.orangelogic.com/reference/retrieve-watermark-presets-to-use-in-a-public-share-link.md
+  merge:
+    pages: 6
+    deduped: 5
+    conflicts_kept_first: 0

@@ -1,0 +1,53 @@
+openapi: 3.2.0
+info:
+  title: list-all-database-objects List All Database Objects API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/API/DataTable/v2.2
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: List All Database Objects
+paths:
+  /:
+    post:
+      summary: List all database objects
+      description: List all objects in your database, including contact types and asset subtypes
+      operationId: list-all-database-objects
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"APIRequestInfo\": {\n    \"ProviderVersion\": \"KOBE.R1.2065D.215691\",\n    \"ProviderIdentity\": \"OLU-T-USW2-APP\",\n    \"ProviderID\": \"44ddde3ac27a33c394335f249d4007d4\",\n    \"Module\": \"DataTable\",\n    \"APIVersion\": \"v2.2\",\n    \"Resource\": null,\n    \"IsLoggedIn\": true,\n    \"Status\": \"LoggedIn\",\n    \"UserLogin\": \"jennifer.fance@orangelogic.com\",\n    \"Session\": \"Jen Demo\",\n    \"TimeoutPeriodMinutes\": 20\n  },\n  \"Temporary\": \"This help tool is being developed\",\n  \"ResourceList\": [\n    {\n      \"ResourceName\": \"Asset-archive-collection.Archive.Default\",\n      \"ResourceDisplayName\": \"ArchiveCollection_Default\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Asset-archive-collection.Archive.Default:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts-groups\",\n      \"ResourceDisplayName\": \"Group\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Contacts-groups:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts-links\",\n      \"ResourceDisplayName\": \"Contacts links\",\n      \"SampleCall\": {\n        \"href\": \"https://university1.orangelogic.com/API/v2.2/DataTable/Contacts-links:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts.Agent.Default\",\n      \"ResourceDisplayName\": \"Agent_Default\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Contacts.Agent.Default:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n    {\n      \"ResourceName\": \"Contacts.All\",\n      \"ResourceDisplayName\": null,\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Contacts.All:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    },\n\n    ...\n\n    {\n      \"ResourceName\": \"Session\",\n      \"ResourceDisplayName\": \"Session\",\n      \"SampleCall\": {\n        \"href\": \"https://mangovations.com/API/v2.2/DataTable/Session:Read?RecordID=XYZ\",\n        \"rel\": \"child\"\n      }\n    }\n  ]\n}"
+      deprecated: false
+      tags:
+      - List All Database Objects
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/create-or-add-an-asset-to-a-stack.md
+  - https://developer.orangelogic.com/reference/list-all-database-objects.md
+  - https://developer.orangelogic.com/reference/list-all-metadata-fields.md
+  merge:
+    pages: 3
+    deduped: 2
+    conflicts_kept_first: 0

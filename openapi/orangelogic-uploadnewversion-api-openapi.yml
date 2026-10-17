@@ -1,0 +1,266 @@
+openapi: 3.2.0
+info:
+  title: upload-media Upload New Version API
+  version: '1.0'
+servers:
+- url: https://{OrangeLogicURL}/api/UploadMedia
+  variables:
+    OrangeLogicURL:
+      default: OrangeLogicURL
+security:
+- sec0: []
+tags:
+- name: UploadNewVersion
+paths:
+  /v2.0/UploadNewVersion:
+    post:
+      summary: Upload new version
+      description: Upload a single file from your computer to Orange Logic as a new version of an existing asset
+      operationId: upload-version
+      parameters:
+      - name: AssetRecordID
+        in: query
+        description: The asset's <a href="https://developer.orangelogic.com/reference/assets#record-id">RecordID or unique identifier</a>. The file you upload will be a new version of this asset.
+        required: true
+        schema:
+          type: string
+      - name: FileName
+        in: query
+        description: 'A name for the file being uploaded, including the file extension. For example: London Eye.jpg'
+        required: true
+        schema:
+          type: string
+      - name: Format
+        in: query
+        description: The response format.
+        required: true
+        schema:
+          type: string
+          enum:
+          - XML
+          - JSON
+          default: XML
+      - name: UploadMode
+        in: query
+        description: Determines whether the update is processed in the background. Go to <a href="https://developer.orangelogic.com/reference/upload#upload-processing-options">Upload processing options</a> for more information.
+        schema:
+          type: string
+          enum:
+          - processInLine
+          - ProcessProxiesInBackground
+          - ProcessFullyInBackgroundLite
+          - ProcessFullyInBackground
+          - ProcessProxiesAndParentAndIndexInBackground
+      - name: Metadata
+        in: query
+        description: <a href="https://developer.orangelogic.com/reference/metadata-field-identifiers">Metadata</a> applied to the uploaded asset.
+        schema:
+          properties:
+            '[Custom_Metadata]':
+              type: string
+              description: 'Enter a comma-separated list of field name and value pairs, enclosed in curly brackets <code>{}</code><br>Example: <code>{"CoreField.Title":"New asset title", "MyNameSpace.MyField":"Custom field value"}</code>'
+          type: object
+      - name: dateformat
+        in: query
+        description: The output <a href="https://developer.orangelogic.com/reference/date-and-time">date format</a>.
+        schema:
+          type: string
+          default: yyyy-MM-ddTHH:mm:ss
+      - name: Token
+        in: query
+        description: An authentication token. If empty, the token included in the current cookie is used.
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: The <code>multipart/form-data</code> header parameter is required for this call.
+        required: true
+        schema:
+          type: string
+          default: multipart/form-data
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - InputStream
+              properties:
+                InputStream:
+                  type: string
+                  description: 'The file to upload.<br><br><span style="color: #46B8DA">ℹ️ Note</span>  This file must be encoded as multipart/form-data. This call does not support base64-encoded strings.'
+                  format: binary
+      responses:
+        '200':
+          description: '200'
+          content:
+            application/json:
+              examples:
+                Result:
+                  value: "{\n  \"APIRequestInfo\": {\n    \"ProviderVersion\": \"MILAN.R4.2162P.218145\",\n    \"ProviderIdentity\": \"OLU-T-USW2-APP\",\n    \"ProviderID\": \"44ddde3ac27a33c394335f249d4007d4\",\n    \"Module\": \"UploadMedia\",\n    \"APIVersion\": \"v2.0\",\n    \"Resource\": \"UploadNewVersion\",\n    \"IsLoggedIn\": true,\n    \"Status\": \"LoggedIn\",\n    \"UserLogin\": \"jennifer.fance@orangelogic.com\",\n    \"Session\": \"Jen Demo\",\n    \"TimeoutPeriodMinutes\": 120\n  },\n  \"APIResponse\": {\n    \"RequestInterpretation\": {\n      \"ParametersInformation\": {\n        \"AssetRecordID\": {\n          \"Value\": \"ZZ14283\",\n          \"IsOptional\": false,\n          \"ValueCount\": 1\n        },\n        \"InputStream\": {\n          \"Value\": \"Binary data\",\n          \"IsOptional\": false,\n          \"ValueCount\": 0\n        },\n        \"FileName\": {\n          \"Value\": \"Parliament building in Ottawa.png\",\n          \"IsOptional\": false,\n          \"ValueCount\": 1\n        },\n        \"UploadMode\": {\n          \"Value\": null,\n          \"IsOptional\": true,\n          \"ValueCount\": 0\n        },\n        \"Metadata\": {\n          \"Value\": \"{&quot;CoreField.Title&quot;:&quot;Parliament building&quot;, &quot;CoreField.Description&quot;:&quot;Parliament building on a sunny day in Ottawa&quot;}\",\n          \"IsOptional\": true,\n          \"ValueCount\": 1\n        }\n      }\n    },\n    \"Response\": {\n      \"AssetVersion\": 2\n    },\n    \"ExecutionStatus\": \"Executed\",\n    \"HTTPCode\": 200,\n    \"Code\": \"SUCCESS\"\n  }\n}"
+              schema:
+                type: object
+                properties:
+                  APIRequestInfo:
+                    type: object
+                    properties:
+                      ProviderVersion:
+                        type: string
+                        example: MILAN.R4.2162P.218145
+                      ProviderIdentity:
+                        type: string
+                        example: OLU-T-USW2-APP
+                      ProviderID:
+                        type: string
+                        example: 44ddde3ac27a33c394335f249d4007d4
+                      Module:
+                        type: string
+                        example: UploadMedia
+                      APIVersion:
+                        type: string
+                        example: v2.0
+                      Resource:
+                        type: string
+                        example: UploadNewVersion
+                      IsLoggedIn:
+                        type: boolean
+                        example: true
+                        default: true
+                      Status:
+                        type: string
+                        example: LoggedIn
+                      UserLogin:
+                        type: string
+                        example: jennifer.fance@orangelogic.com
+                      Session:
+                        type: string
+                        example: Jen Demo
+                      TimeoutPeriodMinutes:
+                        type: integer
+                        example: 120
+                        default: 0
+                  APIResponse:
+                    type: object
+                    properties:
+                      RequestInterpretation:
+                        type: object
+                        properties:
+                          ParametersInformation:
+                            type: object
+                            properties:
+                              AssetRecordID:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: ZZ14283
+                                  IsOptional:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 1
+                                    default: 0
+                              InputStream:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: Binary data
+                                  IsOptional:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 0
+                                    default: 0
+                              FileName:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: Parliament building in Ottawa.png
+                                  IsOptional:
+                                    type: boolean
+                                    example: false
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 1
+                                    default: 0
+                              UploadMode:
+                                type: object
+                                properties:
+                                  Value: {}
+                                  IsOptional:
+                                    type: boolean
+                                    example: true
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 0
+                                    default: 0
+                              Metadata:
+                                type: object
+                                properties:
+                                  Value:
+                                    type: string
+                                    example: '{&quot;CoreField.Title&quot;:&quot;Parliament building&quot;, &quot;CoreField.Description&quot;:&quot;Parliament building on a sunny day in Ottawa&quot;}'
+                                  IsOptional:
+                                    type: boolean
+                                    example: true
+                                    default: true
+                                  ValueCount:
+                                    type: integer
+                                    example: 1
+                                    default: 0
+                      Response:
+                        type: object
+                        properties:
+                          AssetVersion:
+                            type: integer
+                            example: 2
+                            default: 0
+                      ExecutionStatus:
+                        type: string
+                        example: Executed
+                      HTTPCode:
+                        type: integer
+                        example: 200
+                        default: 0
+                      Code:
+                        type: string
+                        example: SUCCESS
+      deprecated: false
+      x-readme:
+        code-samples:
+        - language: text
+          code: "curl -X 'POST' \\\n  'https://university1.orangelogic.com/api/UploadMedia/v2.0/UploadNewVersion?AssetRecordID=ZZ14283&FileName=Parliament%20building%20in%20Ottawa.png&Metadata=%7B%22CoreField.Title%22%3A%22Parliament%20building%22%2C%20%22CoreField.Description%22%3A%22Parliament%20building%20on%20a%20sunny%20day%20in%20Ottawa%22%7D&format=JSON' \\\n  -H 'accept: application/json' \\\n  -H 'Content-Type: multipart/form-data' \\\n  -F 'InputStream=@Parliament building in Ottawa.png;type=image/png'"
+        samples-languages:
+        - text
+      tags:
+      - UploadNewVersion
+components:
+  securitySchemes:
+    sec0:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: https://example.com/oauth2/token
+          scopes: {}
+x-readme-fauxas: true
+x-provenance:
+  method: searched
+  source: https://developer.orangelogic.com/reference
+  harvested: '2026-10-14'
+  tool: harvest-readme-openapi.py
+  note: Assembled verbatim from the OpenAPI definition ReadMe embeds in each operation page of the provider's developer portal; paths and components merged by API title, nothing authored.
+  assembled_from:
+  - https://developer.orangelogic.com/reference/upload-new-media.md
+  - https://developer.orangelogic.com/reference/upload-version.md
+  merge:
+    pages: 2
+    deduped: 1
+    conflicts_kept_first: 0

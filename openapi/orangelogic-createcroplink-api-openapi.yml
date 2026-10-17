@@ -1,6 +1,6 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: create-crop-link
+  title: create-crop-link Create Crop Link API
   version: '1.0'
 servers:
 - url: https://{OrangeLogicURL}/api/AssetLink
@@ -9,7 +9,8 @@ servers:
       default: OrangeLogicURL
 security:
 - sec0: []
-x-readme-fauxas: true
+tags:
+- name: CreateCropLink
 paths:
   /v1.0/CreateCropLink:
     get:
@@ -104,11 +105,7 @@ paths:
             application/json:
               examples:
                 Result:
-                  value: "<Result>\n    <APIRequestInfo>\n        <ProviderVersion>LONDON.R2.2131E.216729</ProviderVersion>\n        <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n        <ProviderID>44ddde3ac27a33c394335f249d4007d4</ProviderID>\n        <Module>AssetLink</Module>\n        <APIVersion>v1.0</APIVersion>\n        <Resource>CreateCropLink</Resource>\n        <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n        <Parameters>\n            <Identifier>ZZ13OCT</Identifier>\n            <LogAccess>true</LogAccess>\n            <CreateDownloadLink>true</CreateDownloadLink>\n            <TopY>0.8</TopY>\n            <LeftX>0.8</LeftX>\n            <BottomY>0.8</BottomY>\n            <RightX>0.8</RightX>\n            <Height>600</Height>\n            <Width>800</Width>\n            <ApplyWatermark>false</ApplyWatermark>\n        </Parameters>\n        <Status>LoggedIn</Status>\n        <UserLogin></UserLogin>\n        <Session>No session (production configuration)</Session>\n\
-                    \        <TimeoutPeriodMinutes type=\"Numeric\">20</TimeoutPeriodMinutes>\n    </APIRequestInfo>\n    <APIResponse>\n        <RequestInterpretation>\n            <ParametersInformation>\n                <Identifier>\n                    <Value>ZZ13OCT</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Identifier>\n                <LogAccess>\n                    <Value>true</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </LogAccess>\n                <CreateDownloadLink>\n                    <Value>true</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </CreateDownloadLink>\n                <TopY>\n                    <Value>0.8</Value>\n     \
-                    \               <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </TopY>\n                <LeftX>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </LeftX>\n                <BottomY>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </BottomY>\n                <RightX>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </RightX>\n                <Height>\n                    <Value>600</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n          \
-                    \          <ValueCount type=\"Numeric\">1</ValueCount>\n                </Height>\n                <Width>\n                    <Value>800</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Width>\n                <ApplyWatermark>\n                    <Value>false</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </ApplyWatermark>\n                <ExpirationDate>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </ExpirationDate>\n            </ParametersInformation>\n        </RequestInterpretation>\n        <Response>\n            <Link>https://mangovations.com/AssetLink/ujmehwcy74phmd3g3mtg4k3574mvvr8x.jpg</Link>\n\
-                    \        </Response>\n        <ExecutionStatus>Executed</ExecutionStatus>\n        <HTTPCode type=\"Numeric\">201</HTTPCode>\n        <Code>SUCCESS</Code>\n    </APIResponse>\n</Result>"
+                  value: "<Result>\n    <APIRequestInfo>\n        <ProviderVersion>LONDON.R2.2131E.216729</ProviderVersion>\n        <ProviderIdentity>OLU-T-USW2-APP</ProviderIdentity>\n        <ProviderID>44ddde3ac27a33c394335f249d4007d4</ProviderID>\n        <Module>AssetLink</Module>\n        <APIVersion>v1.0</APIVersion>\n        <Resource>CreateCropLink</Resource>\n        <IsLoggedIn type=\"Boolean\">True</IsLoggedIn>\n        <Parameters>\n            <Identifier>ZZ13OCT</Identifier>\n            <LogAccess>true</LogAccess>\n            <CreateDownloadLink>true</CreateDownloadLink>\n            <TopY>0.8</TopY>\n            <LeftX>0.8</LeftX>\n            <BottomY>0.8</BottomY>\n            <RightX>0.8</RightX>\n            <Height>600</Height>\n            <Width>800</Width>\n            <ApplyWatermark>false</ApplyWatermark>\n        </Parameters>\n        <Status>LoggedIn</Status>\n        <UserLogin></UserLogin>\n        <Session>No session (production configuration)</Session>\n        <TimeoutPeriodMinutes type=\"Numeric\">20</TimeoutPeriodMinutes>\n    </APIRequestInfo>\n    <APIResponse>\n        <RequestInterpretation>\n            <ParametersInformation>\n                <Identifier>\n                    <Value>ZZ13OCT</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Identifier>\n                <LogAccess>\n                    <Value>true</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </LogAccess>\n                <CreateDownloadLink>\n                    <Value>true</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </CreateDownloadLink>\n                <TopY>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </TopY>\n                <LeftX>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </LeftX>\n                <BottomY>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </BottomY>\n                <RightX>\n                    <Value>0.8</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </RightX>\n                <Height>\n                    <Value>600</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Height>\n                <Width>\n                    <Value>800</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </Width>\n                <ApplyWatermark>\n                    <Value>false</Value>\n                    <IsOptional type=\"Boolean\">False</IsOptional>\n                    <ValueCount type=\"Numeric\">1</ValueCount>\n                </ApplyWatermark>\n                <ExpirationDate>\n                    <Value></Value>\n                    <IsOptional type=\"Boolean\">True</IsOptional>\n                    <ValueCount type=\"Numeric\">0</ValueCount>\n                </ExpirationDate>\n            </ParametersInformation>\n        </RequestInterpretation>\n        <Response>\n            <Link>https://mangovations.com/AssetLink/ujmehwcy74phmd3g3mtg4k3574mvvr8x.jpg</Link>\n        </Response>\n        <ExecutionStatus>Executed</ExecutionStatus>\n        <HTTPCode type=\"Numeric\">201</HTTPCode>\n        <Code>SUCCESS</Code>\n    </APIResponse>\n</Result>"
       deprecated: false
       x-readme:
         code-samples:
@@ -116,6 +113,8 @@ paths:
           code: '''https://mangovations.com/api/AssetLink/v1.0/CreateCropLink?Identifier=ZZ13OCT&LogAccess=true&CreateDownloadLink=true&TopY=0.8&LeftX=0.8&BottomY=0.8&RightX=0.8&Height=600&Width=800&ApplyWatermark=false&format=XML'' \'
         samples-languages:
         - text
+      tags:
+      - CreateCropLink
 components:
   securitySchemes:
     sec0:
@@ -124,6 +123,7 @@ components:
         clientCredentials:
           tokenUrl: https://example.com/oauth2/token
           scopes: {}
+x-readme-fauxas: true
 x-provenance:
   method: searched
   source: https://developer.orangelogic.com/reference
