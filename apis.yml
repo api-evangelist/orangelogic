@@ -314,6 +314,8 @@ apis:
   humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
   baseURL: https://{OrangeLogicURL}/webapi
   tags:
+  - Bearer Authentication
+  tags_raw:
   - Bearerauthentication
   properties:
   - type: OpenAPI
@@ -388,7 +390,8 @@ apis:
     for documents.{asset type}.{asset subtype}:assignleaddocument.
   humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
   baseURL: https://{OrangeLogicURL}/webapi
-  tags:
+  tags: []
+  tags_raw:
   - Documents.{Asset Type}.{Asset Subtype}:AssignLeadDocument
   properties:
   - type: OpenAPI
@@ -562,6 +565,8 @@ apis:
   humanURL: https://developer.orangelogic.com/reference/authentication-endpoints
   baseURL: https://{OrangeLogicURL}/webapi
   tags:
+  - Authentication
+  tags_raw:
   - Oauth2
   properties:
   - type: OpenAPI
