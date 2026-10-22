@@ -7,6 +7,7 @@ source:
 - https://composio.dev/toolkits/orangelogic
 - https://monid.ai/tools/orangelogic
 checked:
+- brightcove/integrations/brightcove-integration-edges.yml
 - contentful/integrations/contentful-integration-edges.yml
 - https://aws.amazon.com/marketplace/
 - https://cloudsecurityalliance.org/star/registry
